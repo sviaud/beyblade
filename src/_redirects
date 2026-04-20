@@ -6,10 +6,20 @@
 # Source: REDIRECTIONS.md
 # ==============================================================
 
-# Anciennes fiches /avis/{slug}/ — règles spécifiques d'abord
+# Anciennes fiches /avis/{slug}/ — règles spécifiques (sans + avec slash)
+# Note CF Pages : la wildcard `*` ne capture pas l'URL exacte sans suffixe.
+# Donc on duplique : exact + wildcard pour les sous-chemins éventuels.
+/avis/ray-unicorno         /ray-unicorno-d125cs/             301
+/avis/ray-unicorno/        /ray-unicorno-d125cs/             301
 /avis/ray-unicorno/*       /ray-unicorno-d125cs/             301
+/avis/rock-leone           /rock-leone-145wb/                301
+/avis/rock-leone/          /rock-leone-145wb/                301
 /avis/rock-leone/*         /rock-leone-145wb/                301
+/avis/meteo-l-drago        /meteo-l-drago-lw105lrf/          301
+/avis/meteo-l-drago/       /meteo-l-drago-lw105lrf/          301
 /avis/meteo-l-drago/*      /meteo-l-drago-lw105lrf/          301
+/avis/galaxy-pegasus       /galaxy-pegasus-w105r2f/          301
+/avis/galaxy-pegasus/      /galaxy-pegasus-w105r2f/          301
 /avis/galaxy-pegasus/*     /galaxy-pegasus-w105r2f/          301
 
 # Catégories de saisons → gamme Metal Fusion
