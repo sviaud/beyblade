@@ -1,0 +1,7 @@
+name = "toupiebeyblade"
+compatibility_date = "2026-04-20"
+
+# Site statique : pas de Worker script, juste des assets dans /dist
+[assets]
+directory = "./dist"
+not_found_handling = "404-page"
