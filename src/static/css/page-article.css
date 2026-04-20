@@ -177,7 +177,8 @@
     content: "";
     position: absolute;
     inset: 0;
-    background-image:
+    
+    pointer-events: none;background-image:
       repeating-linear-gradient(45deg, transparent 0, transparent 20px, rgba(0,153,255,0.02) 20px, rgba(0,153,255,0.02) 21px);
   }
   .carousel-thumbs {
@@ -639,8 +640,13 @@
     content: "";
     position: absolute;
     inset: 0;
+    pointer-events: none;
     background-image:
       repeating-linear-gradient(135deg, transparent 0, transparent 30px, rgba(0,153,255,0.02) 30px, rgba(0,153,255,0.02) 31px);
+  }
+  .final-cta .review-cta {
+    position: relative;
+    z-index: 1;
   }
   .final-cta h3 {
     font-family: var(--font-display);
