@@ -1,0 +1,30 @@
+# Cloudflare Pages headers — toupiebeyblade.fr
+# Format: <path> then <header: value> (indented)
+
+# HTML : pas de cache navigateur (mais CF edge garde, invalidé à chaque deploy)
+/*
+  Cache-Control: public, max-age=0, must-revalidate
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: interest-cohort=()
+
+# Assets statiques : cache long (1 an, immuable)
+/css/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/img/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/js/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Fichiers SEO : cache court
+/sitemap.xml
+  Cache-Control: public, max-age=3600
+
+/robots.txt
+  Cache-Control: public, max-age=3600
+
+/llms.txt
+  Cache-Control: public, max-age=3600
