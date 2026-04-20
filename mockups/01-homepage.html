@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>toupiebeyblade.fr — Le guide ultime des toupies Beyblade</title>
+<link rel="stylesheet" href="_shared.css">
+<link rel="stylesheet" href="_beyblade.css">
+<style>
+  /* ========== HERO ========== */
+  .hero {
+    position: relative;
+    z-index: 2;
+    padding: 80px var(--gutter) 120px;
+    overflow: hidden;
+  }
+  .hero-grid {
+    max-width: var(--container);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 16px;
+    background: rgba(0, 153, 255, 0.08);
+    border: 1px solid rgba(0, 153, 255, 0.3);
+    border-radius: 100px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--accent-glow);
+    margin-bottom: 28px;
+  }
+  .hero-eyebrow .pulse {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent-glow);
+    box-shadow: 0 0 12px var(--accent-glow);
+    animation: pulse 1.5s infinite;
+  }
+  @keyframes pulse { 50% { opacity: 0.4; transform: scale(0.8); } }
+
+  .hero h1 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(56px, 9vw, 128px);
+    line-height: 0.85;
+    letter-spacing: -3px;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+  .hero h1 .accent {
+    color: var(--accent);
+    text-shadow: var(--glow-blue);
+    position: relative;
+    display: inline-block;
+  }
+  .hero h1 .strike {
+    display: block;
+    color: var(--text);
+    -webkit-text-stroke: 2px var(--accent);
+    -webkit-text-fill-color: transparent;
+  }
+  .hero p.lead {
+    font-size: 19px;
+    color: var(--text-soft);
+    max-width: 540px;
+    margin-bottom: 36px;
+    line-height: 1.55;
+  }
+  .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+
+  .hero-stats {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--line-soft);
+    display: flex;
+    gap: 48px;
+    flex-wrap: wrap;
+  }
+  .hero-stat {
+    display: flex;
+    flex-direction: column;
+  }
+  .hero-stat-num {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 40px;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .hero-stat-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    margin-top: 6px;
+  }
+
+  /* Hero visual : stadium with rotating beyblades */
+  .hero-visual {
+    position: relative;
+    aspect-ratio: 1;
+    display: grid;
+    place-items: center;
+  }
+  .stadium {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+  }
+  .stadium-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+  }
+  .stadium-ring.r1 { inset: 0; border: 2px solid rgba(0,153,255,0.15); }
+  .stadium-ring.r2 { inset: 8%; border: 1px dashed rgba(0,153,255,0.25); animation: spin 60s linear infinite; }
+  .stadium-ring.r3 { inset: 18%; border: 1px solid rgba(0,153,255,0.4); }
+  .stadium-ring.r4 {
+    inset: 28%;
+    background: radial-gradient(circle at center,
+      rgba(0,153,255,0.15) 0%,
+      rgba(0,153,255,0.05) 40%,
+      transparent 70%);
+    border: 1px solid rgba(0, 229, 255, 0.3);
+    box-shadow: inset 0 0 60px rgba(0,153,255,0.15), 0 0 80px rgba(0,153,255,0.2);
+  }
+  .stadium-ring.r5 {
+    inset: 38%;
+    background: radial-gradient(circle at 30% 30%, #0d1f38, #050912);
+    border: 2px solid var(--accent);
+    box-shadow: 0 0 40px var(--accent), inset 0 0 30px rgba(0,0,0,0.8);
+  }
+  /* Hexagonal grid */
+  .stadium-hex {
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 50% 50%, transparent 30%, rgba(0,153,255,0.03) 31%, rgba(0,153,255,0.03) 32%, transparent 33%);
+    background-size: 40px 40px;
+    opacity: 0.4;
+  }
+
+  .hero-bey {
+    position: absolute;
+    width: 28%;
+    z-index: 3;
+  }
+  .hero-bey.b1 { top: 8%; left: 10%; }
+  .hero-bey.b2 { bottom: 12%; right: 8%; width: 32%; }
+  .hero-bey.b1 .beyblade-viz { animation: orbit1 8s ease-in-out infinite; }
+  .hero-bey.b2 .beyblade-viz { animation: orbit2 8s ease-in-out infinite; }
+  @keyframes orbit1 { 50% { transform: translate(20px, 20px); } }
+  @keyframes orbit2 { 50% { transform: translate(-20px, -20px); } }
+
+  .vs-badge {
+    position: absolute;
+    z-index: 4;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--energy), #c92800);
+    display: grid;
+    place-items: center;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 28px;
+    color: white;
+    box-shadow: 0 0 40px var(--energy), inset 0 -4px 12px rgba(0,0,0,0.4);
+    border: 3px solid white;
+  }
+
+  /* Tag NOUVEAU 2026 */
+  .new-tag {
+    display: inline-block;
+    margin-left: 12px;
+    padding: 4px 10px;
+    background: var(--energy);
+    color: white;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transform: rotate(-3deg);
+    border-radius: 3px;
+    box-shadow: var(--glow-energy);
+    vertical-align: middle;
+  }
+
+  /* ========== GAMME BANNERS ========== */
+  .gammes {
+    padding: 80px 0;
+    position: relative;
+    z-index: 2;
+  }
+  .gammes-header {
+    max-width: var(--container);
+    margin: 0 auto 48px;
+    padding: 0 var(--gutter);
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .gammes-header .left h2 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(40px, 5vw, 72px);
+    line-height: 0.95;
+    letter-spacing: -1.5px;
+    text-transform: uppercase;
+  }
+  .gammes-header .right {
+    color: var(--text-soft);
+    max-width: 380px;
+    font-size: 15px;
+  }
+
+  .gamme-banners {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+    display: grid;
+    gap: 16px;
+  }
+  .gamme-banner {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    min-height: 220px;
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    align-items: center;
+    transition: all 0.3s ease;
+    isolation: isolate;
+  }
+  .gamme-banner::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 80% at 100% 50%, var(--banner-color), transparent 60%);
+    opacity: 0.25;
+    z-index: 0;
+  }
+  .gamme-banner::after {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: var(--banner-color);
+    box-shadow: 0 0 24px var(--banner-color);
+  }
+  .gamme-banner:hover {
+    transform: translateY(-2px);
+    border-color: var(--banner-color);
+    box-shadow: 0 12px 40px -10px rgba(0,0,0,0.6);
+  }
+  .gamme-banner.x { --banner-color: #0099ff; }
+  .gamme-banner.burst { --banner-color: #ff3d00; }
+  .gamme-banner.metal { --banner-color: #ffb800; }
+  .gamme-banner.arenes { --banner-color: #00d68f; }
+
+  .gamme-content {
+    padding: 36px 48px;
+    position: relative;
+    z-index: 2;
+  }
+  .gamme-tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--banner-color);
+    padding: 4px 10px;
+    border: 1px solid var(--banner-color);
+    border-radius: 3px;
+    margin-bottom: 16px;
+  }
+  .gamme-content h3 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(36px, 4vw, 56px);
+    line-height: 0.9;
+    letter-spacing: -1px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .gamme-content p {
+    color: var(--text-soft);
+    font-size: 15px;
+    max-width: 480px;
+    margin-bottom: 24px;
+  }
+  .gamme-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--banner-color);
+  }
+  .gamme-cta::after {
+    content: "→";
+    transition: transform 0.2s;
+  }
+  .gamme-banner:hover .gamme-cta::after { transform: translateX(6px); }
+
+  .gamme-visual {
+    position: relative;
+    aspect-ratio: 1;
+    width: 220px;
+    justify-self: center;
+  }
+
+  /* ========== TOP TOUPIES ========== */
+  .top-toupies {
+    padding: 80px 0;
+    position: relative;
+    z-index: 2;
+  }
+  .top-toupies-header {
+    max-width: var(--container);
+    margin: 0 auto 48px;
+    padding: 0 var(--gutter);
+  }
+  .top-toupies-header .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  .top-toupies-header .eyebrow::before {
+    content: ""; width: 32px; height: 1px; background: var(--accent);
+  }
+  .top-toupies-header h2 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(40px, 5vw, 72px);
+    line-height: 0.95;
+    letter-spacing: -1.5px;
+    text-transform: uppercase;
+  }
+
+  .toupies-grid {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  .toupie-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+    isolation: isolate;
+  }
+  .toupie-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--card-color, var(--accent)), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .toupie-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--card-color, var(--accent));
+    box-shadow: var(--shadow-card-hover);
+  }
+  .toupie-card:hover::before { opacity: 1; }
+  .toupie-card-img {
+    aspect-ratio: 1;
+    background:
+      radial-gradient(circle at 50% 60%, rgba(0,153,255,0.15), transparent 50%),
+      var(--bg-elev);
+    display: grid;
+    place-items: center;
+    padding: 28px;
+    position: relative;
+  }
+  .toupie-card .ranking {
+    position: absolute;
+    top: 12px; left: 12px;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 32px;
+    color: var(--text);
+    text-shadow: 0 0 20px var(--accent);
+    line-height: 1;
+    z-index: 2;
+  }
+  .toupie-card .ranking::before {
+    content: "#";
+    font-size: 16px;
+    color: var(--accent);
+    vertical-align: top;
+    margin-right: 2px;
+  }
+  .toupie-card-body { padding: 20px; }
+  .toupie-card .gamme-mini {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    margin-bottom: 8px;
+  }
+  .toupie-card h4 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 22px;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: -0.5px;
+    margin-bottom: 16px;
+  }
+  .toupie-card-foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 16px;
+    border-top: 1px solid var(--line-soft);
+  }
+  .toupie-rating {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+  }
+  .toupie-rating .num {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 28px;
+    color: var(--accent-glow);
+    line-height: 1;
+  }
+  .toupie-rating .max {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-mute);
+  }
+
+  /* ========== EDITORIAL ========== */
+  .editorial {
+    padding: 80px 0;
+    position: relative;
+    z-index: 2;
+  }
+  .editorial-grid {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 24px;
+  }
+  .article-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+  .article-card.featured {
+    grid-row: span 2;
+  }
+  .article-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+  }
+  .article-img {
+    aspect-ratio: 16/9;
+    background:
+      linear-gradient(135deg, rgba(0,153,255,0.2), rgba(255,61,0,0.15)),
+      radial-gradient(circle at 30% 60%, rgba(0, 229, 255, 0.3), transparent 50%),
+      var(--bg-elev-2);
+    position: relative;
+    overflow: hidden;
+  }
+  .article-card.featured .article-img { aspect-ratio: 16/10; }
+  .article-img::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(45deg, transparent 0, transparent 20px, rgba(255,255,255,0.02) 20px, rgba(255,255,255,0.02) 21px);
+  }
+  .article-cat {
+    position: absolute;
+    top: 16px; left: 16px;
+    z-index: 2;
+    padding: 6px 12px;
+    background: var(--bg-deep);
+    border: 1px solid var(--accent);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    border-radius: 3px;
+  }
+  .article-body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+  .article-body h3 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 22px;
+    line-height: 1.05;
+    text-transform: uppercase;
+    letter-spacing: -0.5px;
+    margin-bottom: 12px;
+  }
+  .article-card.featured .article-body h3 { font-size: 32px; }
+  .article-body p {
+    color: var(--text-soft);
+    font-size: 14px;
+    line-height: 1.55;
+    margin-bottom: 20px;
+    flex: 1;
+  }
+  .article-meta {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-mute);
+  }
+  .article-meta .accent { color: var(--accent); }
+
+  /* ========== BANNIERE FAQ/GUIDE ========== */
+  .guide-banner {
+    max-width: var(--container);
+    margin: 80px auto;
+    padding: 0 var(--gutter);
+    position: relative;
+    z-index: 2;
+  }
+  .guide-inner {
+    background:
+      linear-gradient(135deg, rgba(0,153,255,0.08), rgba(255,61,0,0.04)),
+      var(--bg-surface);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 56px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .guide-inner::before {
+    content: "";
+    position: absolute;
+    right: -100px;
+    top: -100px;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(0,229,255,0.2), transparent 60%);
+    pointer-events: none;
+  }
+  .guide-inner h2 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(32px, 4vw, 52px);
+    line-height: 0.95;
+    letter-spacing: -1px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .guide-inner p {
+    color: var(--text-soft);
+    max-width: 540px;
+  }
+
+  /* ========== RESPONSIVE ========== */
+  @media (max-width: 900px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+    .hero-visual { max-width: 400px; margin: 0 auto; }
+    .gamme-banner { grid-template-columns: 1fr; }
+    .gamme-visual { display: none; }
+    .toupies-grid { grid-template-columns: repeat(2, 1fr); }
+    .editorial-grid { grid-template-columns: 1fr; }
+    .article-card.featured { grid-row: auto; }
+    .guide-inner { grid-template-columns: 1fr; padding: 32px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/" class="logo">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="12,2 15,9 22,9 16.5,14 18.5,21 12,17 5.5,21 7.5,14 2,9 9,9" />
+        </svg>
+      </div>
+      <div>
+        <div class="logo-text">Toupie<span class="accent">Beyblade</span></div>
+        <span class="logo-tag">Le guide ultime · 2026</span>
+      </div>
+    </a>
+    <nav class="nav">
+      <a href="#" class="active">Accueil</a>
+      <a href="#">Toutes les toupies</a>
+      <a href="#" class="has-submenu">Comparatifs</a>
+      <a href="#">Guides</a>
+      <a href="#">Blog</a>
+      <a href="#">Contact</a>
+    </nav>
+    <button class="search-btn" aria-label="Rechercher">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="7"/><path d="m20 20-4.3-4.3"/>
+      </svg>
+    </button>
+    <button class="menu-toggle" aria-label="Menu">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="hero-eyebrow">
+        <span class="pulse"></span>
+        Nouveautés Beyblade X · Saison 2026
+      </div>
+      <h1>
+        Le guide<br>
+        <span class="accent">ultime</span> des<br>
+        <span class="strike">toupies</span>
+      </h1>
+      <p class="lead">Tests détaillés, comparatifs honnêtes, fiches techniques exhaustives. Trouvez la toupie qui dominera votre stadium — du Beyblade X 2026 aux classiques Metal Fusion.</p>
+      <div class="hero-actions">
+        <a href="#" class="btn btn-primary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="9 6 15 12 9 18"/></svg>
+          Voir les comparatifs
+        </a>
+        <a href="#" class="btn btn-ghost">Top 10 du moment</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><span class="hero-stat-num">42</span><span class="hero-stat-label">Toupies testées</span></div>
+        <div class="hero-stat"><span class="hero-stat-num">5</span><span class="hero-stat-label">Gammes couvertes</span></div>
+        <div class="hero-stat"><span class="hero-stat-num">12K+</span><span class="hero-stat-label">Lecteurs/mois</span></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="stadium">
+        <div class="stadium-hex"></div>
+        <div class="stadium-ring r1"></div>
+        <div class="stadium-ring r2"></div>
+        <div class="stadium-ring r3"></div>
+        <div class="stadium-ring r4"></div>
+        <div class="stadium-ring r5"></div>
+      </div>
+      <div class="hero-bey b1">
+        <div class="beyblade-viz with-photo spinning">
+          <div class="center"></div>
+          <img src="img/dran-sword.webp" alt="Dranzer Spiral" class="bey-photo">
+        </div>
+      </div>
+      <div class="hero-bey b2">
+        <div class="beyblade-viz with-photo spinning energy">
+          <div class="center"></div>
+          <img src="img/phoenix-wing.webp" alt="Phoenix Wing" class="bey-photo">
+        </div>
+      </div>
+      <div class="vs-badge">VS</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GAMMES ============ -->
+<section class="gammes">
+  <div class="gammes-header">
+    <div class="left">
+      <div class="section-eyebrow">/ Explorer par gamme</div>
+      <h2>Choisissez<br>votre arène</h2>
+    </div>
+    <div class="right">
+      <p>4 gammes principales, chacune avec son lore, ses champions et ses mécaniques de combat. Cliquez pour explorer notre sélection complète.</p>
+    </div>
+  </div>
+
+  <div class="gamme-banners">
+    <a href="#" class="gamme-banner x">
+      <div class="gamme-content">
+        <span class="gamme-tag">Saison 2024-2026</span>
+        <h3>Beyblade X <span class="new-tag">Nouveau</span></h3>
+        <p>La gamme actuelle. Système Blade/Ratchet/Bit avec rail X et combats explosifs en stadium incliné.</p>
+        <span class="gamme-cta">Découvrir 18 toupies X</span>
+      </div>
+      <div class="gamme-visual">
+        <div class="beyblade-viz with-photo spinning">
+          <div class="center"></div>
+          <img src="img/dran-sword.webp" alt="" class="bey-photo">
+        </div>
+      </div>
+    </a>
+
+    <a href="#" class="gamme-banner burst">
+      <div class="gamme-content">
+        <span class="gamme-tag">Depuis 2016</span>
+        <h3>Beyblade Burst</h3>
+        <p>Le système Layer/Disc/Driver avec mécanique d'éclatement (Burst Finish). Gamme mature avec un catalogue immense.</p>
+        <span class="gamme-cta">Découvrir 14 toupies Burst</span>
+      </div>
+      <div class="gamme-visual">
+        <div class="beyblade-viz spinning energy">
+          <div class="ring-outer"></div>
+          <div class="ring-mid"></div>
+          <div class="star"></div>
+          <div class="center"></div>
+        </div>
+      </div>
+    </a>
+
+    <a href="#" class="gamme-banner metal">
+      <div class="gamme-content">
+        <span class="gamme-tag">Classique 2010-2013</span>
+        <h3>Metal Fusion</h3>
+        <p>L'ère métallique avec Pegasus, L-Drago, Earth Eagle. Toupies cultes pour les collectionneurs et les nostalgiques.</p>
+        <span class="gamme-cta">Découvrir 8 toupies Metal</span>
+      </div>
+      <div class="gamme-visual">
+        <div class="beyblade-viz spinning gold">
+          <div class="ring-outer"></div>
+          <div class="ring-mid"></div>
+          <div class="star"></div>
+          <div class="center"></div>
+        </div>
+      </div>
+    </a>
+
+    <a href="#" class="gamme-banner arenes">
+      <div class="gamme-content">
+        <span class="gamme-tag">Accessoires</span>
+        <h3>Arènes & lanceurs</h3>
+        <p>Le bon stadium, le bon lanceur, le bon driver. Notre sélection d'accessoires testés en conditions de combat réelles.</p>
+        <span class="gamme-cta">Découvrir 12 accessoires</span>
+      </div>
+      <div class="gamme-visual">
+        <div class="beyblade-viz spinning green">
+          <div class="ring-outer"></div>
+          <div class="ring-mid"></div>
+          <div class="star"></div>
+          <div class="center"></div>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ============ TOP TOUPIES ============ -->
+<section class="top-toupies">
+  <div class="top-toupies-header">
+    <div class="eyebrow">/ Classement avril 2026</div>
+    <h2>Top 4 toupies<br>du moment</h2>
+  </div>
+  <div class="toupies-grid">
+    <article class="toupie-card" style="--card-color:#0099ff">
+      <div class="toupie-card-img">
+        <span class="ranking">1</span>
+        <div class="beyblade-viz with-photo spinning" style="width:80%">
+          <div class="center"></div>
+          <img src="img/dran-sword.webp" alt="Dranzer Spiral" class="bey-photo">
+        </div>
+      </div>
+      <div class="toupie-card-body">
+        <div class="gamme-mini">Beyblade X · Attaque</div>
+        <h4>Dranzer Spiral</h4>
+        <div class="toupie-card-foot">
+          <span class="type-badge type-attack">Attaque</span>
+          <div class="toupie-rating"><span class="num">9.2</span><span class="max">/10</span></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="toupie-card" style="--card-color:#ff3d00">
+      <div class="toupie-card-img">
+        <span class="ranking">2</span>
+        <div class="beyblade-viz with-photo spinning" style="width:80%">
+          <div class="center"></div>
+          <img src="img/phoenix-wing.webp" alt="Phoenix Wing" class="bey-photo">
+        </div>
+      </div>
+      <div class="toupie-card-body">
+        <div class="gamme-mini">Beyblade X · Défense</div>
+        <h4>Phoenix Wing</h4>
+        <div class="toupie-card-foot">
+          <span class="type-badge type-defense">Défense</span>
+          <div class="toupie-rating"><span class="num">8.8</span><span class="max">/10</span></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="toupie-card" style="--card-color:#ffb800">
+      <div class="toupie-card-img">
+        <span class="ranking">3</span>
+        <div class="beyblade-viz spinning gold" style="width:75%">
+          <div class="ring-outer"></div><div class="ring-mid"></div><div class="star"></div><div class="center"></div>
+        </div>
+      </div>
+      <div class="toupie-card-body">
+        <div class="gamme-mini">Metal Fusion · Stamina</div>
+        <h4>Pegasus Galaxy</h4>
+        <div class="toupie-card-foot">
+          <span class="type-badge type-stamina">Stamina</span>
+          <div class="toupie-rating"><span class="num">8.5</span><span class="max">/10</span></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="toupie-card" style="--card-color:#00d68f">
+      <div class="toupie-card-img">
+        <span class="ranking">4</span>
+        <div class="beyblade-viz spinning green" style="width:75%">
+          <div class="ring-outer"></div><div class="ring-mid"></div><div class="star"></div><div class="center"></div>
+        </div>
+      </div>
+      <div class="toupie-card-body">
+        <div class="gamme-mini">Beyblade Burst · Équilibre</div>
+        <h4>Valtryek Volcanic</h4>
+        <div class="toupie-card-foot">
+          <span class="type-badge type-balance">Équilibre</span>
+          <div class="toupie-rating"><span class="num">8.3</span><span class="max">/10</span></div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ EDITORIAL ============ -->
+<section class="editorial">
+  <div class="top-toupies-header">
+    <div class="eyebrow">/ Lecture longue · Guides & analyses</div>
+    <h2>Le mag des<br>blader·euse·s</h2>
+  </div>
+  <div class="editorial-grid">
+    <article class="article-card featured">
+      <div class="article-img">
+        <span class="article-cat">Guide d'achat</span>
+      </div>
+      <div class="article-body">
+        <h3>Quelle est la meilleure toupie Beyblade en 2026 ?</h3>
+        <p>Notre comparatif annuel, basé sur 200+ heures de tests en stadium. Les 10 toupies à acheter cette année, classées par budget et par style de combat.</p>
+        <span class="article-meta">15 min de lecture · <span class="accent">Mis à jour il y a 2 jours</span></span>
+      </div>
+    </article>
+    <article class="article-card">
+      <div class="article-img">
+        <span class="article-cat">Featured</span>
+      </div>
+      <div class="article-body">
+        <h3>La toupie Beyblade la plus forte du monde</h3>
+        <p>Verdict du tournoi mondial 2025 et analyse des combos imbattables.</p>
+        <span class="article-meta">8 min · <span class="accent">Trending</span></span>
+      </div>
+    </article>
+    <article class="article-card">
+      <div class="article-img">
+        <span class="article-cat">Collectionneur</span>
+      </div>
+      <div class="article-body">
+        <h3>Top 7 des toupies Beyblade les plus rares</h3>
+        <p>Éditions limitées, exclusivités Japon, prototypes de combat.</p>
+        <span class="article-meta">12 min · Premium</span>
+      </div>
+    </article>
+    <article class="article-card">
+      <div class="article-img">
+        <span class="article-cat">Tutoriel</span>
+      </div>
+      <div class="article-body">
+        <h3>Maîtriser le launch parfait en 30 secondes</h3>
+        <p>La technique des champions japonais expliquée pas à pas.</p>
+        <span class="article-meta">5 min · Débutants</span>
+      </div>
+    </article>
+    <article class="article-card">
+      <div class="article-img">
+        <span class="article-cat">Coloriage</span>
+      </div>
+      <div class="article-body">
+        <h3>50 coloriages Beyblade gratuits à imprimer</h3>
+        <p>X, Burst, Metal Fusion. La plus grosse collection FR.</p>
+        <span class="article-meta">PDF · Téléchargement</span>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ GUIDE BANNER ============ -->
+<section class="guide-banner">
+  <div class="guide-inner">
+    <div>
+      <div class="section-eyebrow">/ Guide d'achat</div>
+      <h2>Pas sûr de votre choix ?<br>Notre quiz le fait pour vous</h2>
+      <p>5 questions, 1 minute. Notre algorithme croise votre style de combat, votre budget et votre niveau pour vous recommander la toupie idéale parmi nos 42 fiches.</p>
+    </div>
+    <a href="#" class="btn btn-primary">Lancer le quiz</a>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <a href="/" class="logo" style="margin-bottom:16px">
+        <div class="logo-mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="12,2 15,9 22,9 16.5,14 18.5,21 12,17 5.5,21 7.5,14 2,9 9,9" />
+          </svg>
+        </div>
+        <div>
+          <div class="logo-text">Toupie<span class="accent">Beyblade</span></div>
+          <span class="logo-tag">Le guide ultime · 2026</span>
+        </div>
+      </a>
+      <p style="max-width:340px; margin-top:16px">Le blog français de référence sur les toupies Beyblade. Tests indépendants, comparatifs détaillés, guides d'achat.</p>
+    </div>
+    <div>
+      <h4>Gammes</h4>
+      <ul>
+        <li><a href="#">Beyblade X</a></li>
+        <li><a href="#">Beyblade Burst</a></li>
+        <li><a href="#">Metal Fusion</a></li>
+        <li><a href="#">Arènes</a></li>
+        <li><a href="#">Lanceurs</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Guides</h4>
+      <ul>
+        <li><a href="#">Meilleur Beyblade</a></li>
+        <li><a href="#">Quiz du choix</a></li>
+        <li><a href="#">Tournois 2026</a></li>
+        <li><a href="#">Coloriages</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>À propos</h4>
+      <ul>
+        <li><a href="#">Notre méthode</a></li>
+        <li><a href="#">L'équipe</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Mentions légales</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 toupiebeyblade.fr</span>
+    <span>En tant que partenaire Amazon, nous gagnons une commission sur les achats éligibles</span>
+  </div>
+</footer>
+
+</body>
+</html>

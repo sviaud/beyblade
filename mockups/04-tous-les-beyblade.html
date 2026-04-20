@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Toutes les toupies Beyblade · toupiebeyblade.fr</title>
+<link rel="stylesheet" href="_shared.css">
+<link rel="stylesheet" href="_beyblade.css">
+<style>
+  /* ========== HERO ========== */
+  .catalog-hero {
+    position: relative;
+    z-index: 2;
+    padding: 56px var(--gutter) 32px;
+    max-width: var(--container);
+    margin: 0 auto;
+  }
+  .catalog-hero h1 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(48px, 7vw, 96px);
+    line-height: 0.9;
+    letter-spacing: -2px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .catalog-hero h1 .accent { color: var(--accent); text-shadow: var(--glow-blue); }
+  .catalog-hero .lead {
+    font-size: 17px;
+    color: var(--text-soft);
+    max-width: 680px;
+    line-height: 1.6;
+    margin-bottom: 28px;
+  }
+
+  .quick-nav {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding: 16px 0;
+    border-top: 1px solid var(--line-soft);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .quick-nav-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    align-self: center;
+    margin-right: 4px;
+  }
+  .jump {
+    padding: 10px 18px;
+    background: var(--bg-surface);
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-soft);
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .jump:hover {
+    color: var(--text);
+    border-color: var(--jump-color, var(--accent));
+  }
+  .jump::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--jump-color, var(--accent));
+    box-shadow: 0 0 8px var(--jump-color, var(--accent));
+  }
+  .jump.x { --jump-color: #0099ff; }
+  .jump.burst { --jump-color: #ff3d00; }
+  .jump.metal { --jump-color: #ffb800; }
+  .jump.acc { --jump-color: #00d68f; }
+
+  /* ========== SECTION GAMME ========== */
+  .gamme-section {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 56px var(--gutter) 0;
+    position: relative;
+    z-index: 2;
+  }
+  .gamme-banner-strip {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    padding: 32px 40px;
+    margin-bottom: 32px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 24px;
+    background: var(--bg-surface);
+    border: 1px solid var(--line);
+    isolation: isolate;
+  }
+  .gamme-banner-strip::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 100% at 0% 50%, var(--gamme-color), transparent 60%);
+    opacity: 0.18;
+    z-index: -1;
+  }
+  .gamme-banner-strip::after {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 6px;
+    background: var(--gamme-color);
+    box-shadow: 0 0 24px var(--gamme-color);
+  }
+  .gamme-banner-strip.x { --gamme-color: #0099ff; }
+  .gamme-banner-strip.burst { --gamme-color: #ff3d00; }
+  .gamme-banner-strip.metal { --gamme-color: #ffb800; }
+  .gamme-banner-strip.acc { --gamme-color: #00d68f; }
+
+  .gamme-banner-strip .info {}
+  .gamme-banner-strip .gamme-tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gamme-color);
+    padding: 4px 10px;
+    border: 1px solid var(--gamme-color);
+    border-radius: 3px;
+    margin-bottom: 12px;
+  }
+  .gamme-banner-strip h2 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(36px, 4.5vw, 56px);
+    line-height: 0.9;
+    letter-spacing: -1px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .gamme-banner-strip p {
+    color: var(--text-soft);
+    max-width: 600px;
+    font-size: 15px;
+  }
+  .gamme-count {
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .gamme-count .num {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 64px;
+    line-height: 1;
+    color: var(--gamme-color);
+    text-shadow: 0 0 24px var(--gamme-color);
+  }
+  .gamme-count .label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    margin-top: 4px;
+  }
+
+  /* ========== CARDS GRID ========== */
+  .toupies-catalog {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .cat-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+    isolation: isolate;
+  }
+  .cat-card::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--card-color, var(--accent));
+    box-shadow: 0 0 12px var(--card-color, var(--accent));
+    transform: scaleX(0.3);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+  .cat-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--card-color, var(--accent));
+    box-shadow: var(--shadow-card-hover);
+  }
+  .cat-card:hover::after { transform: scaleX(1); }
+
+  .cat-card .img-wrap {
+    aspect-ratio: 4/3;
+    background:
+      radial-gradient(circle at 50% 60%, color-mix(in srgb, var(--card-color, var(--accent)) 15%, transparent), transparent 50%),
+      var(--bg-elev);
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    position: relative;
+  }
+  .cat-card .badge-new {
+    position: absolute;
+    top: 10px; right: 10px;
+    z-index: 2;
+    padding: 3px 8px;
+    background: var(--energy);
+    color: white;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border-radius: 3px;
+    transform: rotate(2deg);
+  }
+  .cat-card .badge-rare {
+    position: absolute;
+    top: 10px; right: 10px;
+    z-index: 2;
+    padding: 3px 8px;
+    background: var(--champion);
+    color: var(--bg-deep);
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border-radius: 3px;
+  }
+  .cat-card .body { padding: 16px; }
+  .cat-card .meta {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    margin-bottom: 6px;
+  }
+  .cat-card h3 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 18px;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: -0.3px;
+    margin-bottom: 12px;
+  }
+  .cat-card .footer-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 10px;
+    border-top: 1px solid var(--line-soft);
+  }
+  .cat-card .rating {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 2px;
+  }
+  .cat-card .rating .num {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 18px;
+    color: var(--accent-glow);
+    line-height: 1;
+  }
+  .cat-card .rating .max {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-mute);
+  }
+  .cat-card .stock-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 9px;
+    background: rgba(0, 214, 143, 0.08);
+    border: 1px solid var(--good);
+    border-radius: 100px;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--good);
+  }
+  .cat-card .stock-pill .d {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--good);
+    box-shadow: 0 0 6px var(--good);
+  }
+
+  .gamme-cta-line {
+    text-align: center;
+    margin-top: 12px;
+    margin-bottom: 24px;
+  }
+  .gamme-cta-line a {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 28px;
+    background: var(--bg-surface);
+    border: 1px solid var(--gamme-color);
+    border-radius: 100px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gamme-color);
+    transition: all 0.2s ease;
+  }
+  .gamme-cta-line a:hover {
+    background: var(--gamme-color);
+    color: var(--bg-deep);
+    box-shadow: 0 0 20px var(--gamme-color);
+  }
+
+  /* Color tokens for cards */
+  .x-color { --gamme-color: #0099ff; }
+  .burst-color { --gamme-color: #ff3d00; }
+  .metal-color { --gamme-color: #ffb800; }
+  .acc-color { --gamme-color: #00d68f; }
+
+  @media (max-width: 1100px) {
+    .toupies-catalog { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 800px) {
+    .toupies-catalog { grid-template-columns: repeat(2, 1fr); }
+    .gamme-banner-strip { grid-template-columns: 1fr; padding: 24px; }
+    .gamme-count { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="01-homepage.html" class="logo">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="12,2 15,9 22,9 16.5,14 18.5,21 12,17 5.5,21 7.5,14 2,9 9,9" />
+        </svg>
+      </div>
+      <div>
+        <div class="logo-text">Toupie<span class="accent">Beyblade</span></div>
+        <span class="logo-tag">Le guide ultime · 2026</span>
+      </div>
+    </a>
+    <nav class="nav">
+      <a href="01-homepage.html">Accueil</a>
+      <a href="04-tous-les-beyblade.html" class="active">Toutes les toupies</a>
+      <a href="03-comparatif.html" class="has-submenu">Comparatifs</a>
+      <a href="#">Guides</a>
+      <a href="#">Blog</a>
+      <a href="#">Contact</a>
+    </nav>
+    <button class="search-btn">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="7"/><path d="m20 20-4.3-4.3"/>
+      </svg>
+    </button>
+    <button class="menu-toggle">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<nav class="breadcrumb">
+  <a href="01-homepage.html">Accueil</a>
+  <span class="sep">›</span>
+  <span>Toutes les toupies Beyblade</span>
+</nav>
+
+<section class="catalog-hero">
+  <h1>Toutes les <span class="accent">toupies</span><br>Beyblade</h1>
+  <p class="lead">42 fiches détaillées, 4 gammes, des notes vérifiables. Du Beyblade X 2026 aux classiques Metal Fusion, retrouvez l'intégralité de notre catalogue groupé par gamme — du plus récent au plus historique.</p>
+
+  <div class="quick-nav">
+    <span class="quick-nav-label">Sauter à :</span>
+    <a href="#x" class="jump x">Beyblade X (18)</a>
+    <a href="#burst" class="jump burst">Burst (14)</a>
+    <a href="#metal" class="jump metal">Metal Fusion (8)</a>
+    <a href="#accessoires" class="jump acc">Accessoires (12)</a>
+  </div>
+</section>
+
+<!-- ============ BEYBLADE X ============ -->
+<section class="gamme-section x-color" id="x">
+  <div class="gamme-banner-strip x">
+    <div class="info">
+      <span class="gamme-tag">Saison 2024-2026</span>
+      <h2>Beyblade X</h2>
+      <p>La gamme actuelle. Système Blade/Ratchet/Bit avec rampe Xtreme. Toupies les plus performantes du moment, sorties chez Hasbro et Takara Tomy.</p>
+    </div>
+    <div class="gamme-count">
+      <div class="num">18</div>
+      <div class="label">Toupies testées</div>
+    </div>
+  </div>
+
+  <div class="toupies-catalog">
+    <a href="02-article-produit.html" class="cat-card" style="--card-color:#0099ff">
+      <div class="img-wrap">
+        <span class="badge-new">Nouveau 2026</span>
+        <div class="beyblade-viz with-photo spinning" style="width:80%"><div class="center"></div><img src="img/dran-sword.webp" alt="Dranzer Spiral" class="bey-photo"></div>
+      </div>
+      <div class="body">
+        <div class="meta">BX-42 · Attaque</div>
+        <h3>Dranzer Spiral</h3>
+        <div class="footer-row">
+          <div class="rating"><span class="num">9.2</span><span class="max">/10</span></div>
+          <span class="stock-pill"><span class="d"></span>En stock</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="#" class="cat-card" style="--card-color:#0099ff">
+      <div class="img-wrap">
+        <div class="beyblade-viz with-photo spinning" style="width:80%"><div class="center"></div><img src="img/phoenix-wing.webp" alt="Phoenix Wing" class="bey-photo"></div>
+      </div>
+      <div class="body">
+        <div class="meta">BX-41 · Défense</div>
+        <h3>Phoenix Wing</h3>
+        <div class="footer-row">
+          <div class="rating"><span class="num">8.8</span><span class="max">/10</span></div>
+          <span class="stock-pill"><span class="d"></span>En stock</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="#" class="cat-card" style="--card-color:#0099ff">
+      <div class="img-wrap">
+        <div class="beyblade-viz gold" style="width:80%"><div class="ring-outer"></div><div class="ring-mid"></div><div class="star"></div><div class="center"></div></div>
+      </div>
+      <div class="body">
+        <div class="meta">BX-40 · Attaque</div>
+        <h3>Tyranno Beat</h3>
+        <div class="footer-row">
+          <div class="rating"><span class="num">8.6</span><span class="max">/10</span></div>
+          <span class="stock-pill"><span class="d"></span>En stock</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="#" class="cat-card" style="--card-color:#0099ff">
+      <div class="img-wrap">
+        <div class="beyblade-viz with-photo spinning" style="width:80%"><div class="center"></div><img src="img/wizard-arrow.webp" alt="Wizard Rod" class="bey-photo"></div>
+      </div>
+      <div class="body">
+        <div class="meta">BX-39 · Équilibre</div>
+        <h3>Wizard Rod</h3>
+        <div class="footer-row">
+          <div class="rating"><span class="num">8.4</span><span class="max">/10</span></div>
+          <span class="stock-pill"><span class="d"></span>En stock</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="#" class="cat-card" style="--card-color:#0099ff">
+      <div class="img-wrap">
+        <div class="beyblade-viz with-photo spinning" style="width:80%"><div class="center"></div><img src="img/knight-shield.webp" alt="Knight Shield" class="bey-photo"></div>
+      </div>
+      <div class="body">
+        <div class="meta">BX-38 · Défense</div>
+        <h3>Knight Shield</h3>
+        <div class="footer-row">
+          <div class="rating"><span class="num">8.2</span><span class="max">/10</span></div>
+          <span class="stock-pill"><span class="d"></span>En stock</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="#" class="cat-card" style="--card-color:#0099ff">
+      <div class="img-wrap">
+        <div class="beyblade-viz green" style="width:80%"><div class="ring-outer"></div><div class="ring-mid"></div><div class="star"></div><div class="center"></div></div>
+      </div>
+      <div class="body">
+        <div class="meta">BX-37 · Stamina</div>
+        <h3>Hells Scythe</h3>
+        <div class="footer-row">
+          <div class="rating"><span class="num">7.9</span><span class="max">/10</span></div>
+          <span class="stock-pill"><span class="d"></span>En stock</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="#" class="cat-card" style="--card-color:#0099ff">
+      <div class="img-wrap">
+        <div class="beyblade-viz energy" style="width:80%"><div class="ring-outer"></div><div class="ring-mid"></div><div class="star"></div><div class="center"></div></div>
+      </div>
+      <div class="body">
+        <div class="meta">BX-36 · Attaque</div>
+        <h3>Cobalt Drake</h3>
+        <div class="footer-row">
+          <div class="rating"><span class="num">7.5</span><span class="max">/10</span></div>
+          <span class="stock-pill"><span class="d"></span>En stock</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="#" class="cat-card" style="--card-color:#0099ff">
+      <div class="img-wrap">
+        <div class="beyblade-viz with-photo spinning" style="width:80%"><div class="center"></div><img src="img/sphinx-cowl.webp" alt="Sphinx Cowl" class="bey-photo"></div>
+      </div>
+      <div class="body">
+        <div class="meta">BX-35 · Équilibre</div>
+        <h3>Sphinx Cowl</h3>
+        <div class="footer-row">
+          <div class="rating"><span class="num">7.4</span><span class="max">/10</span></div>
+          <span class="stock-pill"><span class="d"></span>En stock</span>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <div class="gamme-cta-line">
+    <a href="03-comparatif.html">Voir le comparatif Beyblade X complet →</a>
+  </div>
+</section>
+
+<!-- ============ BURST ============ -->
+<section class="gamme-section burst-color" id="burst">
+  <div class="gamme-banner-strip burst">
+    <div class="info">
+      <span class="gamme-tag">Depuis 2016</span>
+      <h2>Beyblade Burst</h2>
+      <p>Le système Layer/Disc/Driver avec mécanique d'éclatement. Gamme mature avec un catalogue immense — Burst Surge, Quad Drive, Quad Strike, Pro Series.</p>
+    </div>
+    <div class="gamme-count">
+      <div class="num">14</div>
+      <div class="label">Toupies testées</div>
+    </div>
+  </div>
+
+  <div class="toupies-catalog">
+    <a href="#" class="cat-card" style="--card-color:#ff3d00">
+      <div class="img-wrap">
+        <div class="beyblade-viz energy" style="width:80%"><div class="ring-outer"></div><div class="ring-mid"></div><div class="star"></div><div class="center"></div></div>
+      </div>
+      <div class="body">
+        <div class="meta">B-200 · Équilibre</div>
+        <h3>Valtryek Volcanic</h3>
+        <div class="footer-row">
+          <div class="rating"><span class="num">8.3</span><span class="max">/10</span></div>
+          <span class="stock-pill"><span class="d"></span>En stock</span>
+        </div>
+      </div>
+    </a>
+    <a href="#" class="cat-card" style="--card-color:#ff3d00">
+      <div class="img-wrap">
+        <div class="beyblade-viz" style="width:80%"><div class="ring-outer"></div><div class="ring-mid"></div><div class="star"></div><div class="center"></div></div>
+      </div>
+      <div class="body">
+        <div class="meta">B-198 · Attaque</div>
+        <h3>Spryzen Surge</h3>
+        <div class="footer-row">
+          <div class="rating"><span class="num">8.1</span><span class="max">/10</span></div>
+          <span class="stock-pill"><span class="d"></span>En stock</span>
+        </div>
+      </div>
+    </a>
+    <a href="#" class="cat-card" style="--card-color:#ff3d00">
+      <div class="img-wrap">
+        <div class="beyblade-viz green" style="width:80%"><div class="ring-outer"></div><div class="ring-mid"></div><div class="star"></div><div class="center"></div></div>
+      </div>
+      <div class="body">
+        <div class="meta">B-195 · Stamina</div>
+        <h3>Achilles Hyper</h3>
+        <div class="footer-row">
+          <div class="rating"><span class="num">8.0</span><span class="max">/10</span></div>
+          <span class="stock-pill"><span class="d"></span>En stock</span>
+        </div>
+      </div>
+    </a>
+    <a href="#" class="cat-card" style="--card-color:#ff3d00">
+      <div class="img-wrap">
+        <div class="beyblade-viz energy" style="width:80%"><div class="ring-outer"></div><div class="ring-mid"></div><div class="star"></div><div class="center"></div></div>
+      </div>
+      <div class="body">
+        <div class="meta">B-192 · Défense</div>
+        <h3>Roktavor R7</h3>
+        <div class="footer-row">
+          <div class="rating"><span class="num">7.8</span><span class="max">/10</span></div>
+          <span class="stock-pill"><span class="d"></span>En stock</span>
+        </div>
+      </div>
+    </a>
+    <a href="#" class="cat-card" style="--card-color:#ff3d00">
+      <div class="img-wrap">
+        <div class="beyblade-viz gold" style="width:80%"><div class="ring-outer"></div><div class="ring-mid"></div><div class="star"></div><div class="center"></div></div>
+      </div>
+      <div class="body">
+        <div class="meta">B-185 · Stamina</div>
+        <h3>Lord Spriggan</h3>
+        <div class="footer-row">
+          <div class="rating"><span class="num">7.7</span><span class="max">/10</span></div>
+          <span class="stock-pill"><span class="d"></span>En stock</span>
+        </div>
+      </div>
+    </a>
+    <a href="#" class="cat-card" style="--card-color:#ff3d00">
+      <div class="img-wrap">
+        <div class="beyblade-viz" style="width:80%"><div class="ring-outer"></div><div class="ring-mid"></div><div class="star"></div><div class="center"></div></div>
+      </div>
+      <div class="body">
+        <div class="meta">B-180 · Attaque</div>
+        <h3>Brave Valkyrie</h3>
+        <div class="footer-row">
+          <div class="rating"><span class="num">7.6</span><span class="max">/10</span></div>
+          <span class="stock-pill"><span class="d"></span>En stock</span>
+        </div>
+      </div>
+    </a>
+    <a href="#" class="cat-card" style="--card-color:#ff3d00">
+      <div class="img-wrap">
+        <div class="beyblade-viz green" style="width:80%"><div class="ring-outer"></div><div class="ring-mid"></div><div class="star"></div><div class="center"></div></div>
+      </div>
+      <div class="body">
+        <div class="meta">B-176 · Équilibre</div>
+        <h3>Master Diabolos</h3>
+        <div class="footer-row">
+          <div class="rating"><span class="num">7.4</span><span class="max">/10</span></div>
+          <span class="stock-pill"><span class="d"></span>En stock</span>
+        </div>
+      </div>
+    </a>
+    <a href="#" class="cat-card" style="--card-color:#ff3d00">
+      <div class="img-wrap">
+        <div class="beyblade-viz energy" style="width:80%"><div class="ring-outer"></div><div class="ring-mid"></div><div class="star"></div><div class="center"></div></div>
+      </div>
+      <div class="body">
+        <div class="meta">B-170 · Défense</div>
+        <h3>King Helios</h3>
+        <div class="footer-row">
+          <div class="rating"><span class="num">7.2</span><span class="max">/10</span></div>
+          <span class="stock-pill"><span class="d"></span>En stock</span>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <div class="gamme-cta-line">
+    <a href="#">Voir le comparatif Burst complet →</a>
+  </div>
+</section>
+
+<!-- ============ METAL FUSION ============ -->
+<section class="gamme-section metal-color" id="metal">
+  <div class="gamme-banner-strip metal">
+    <div class="info">
+      <span class="gamme-tag">Classique 2010-2013</span>
+      <h2>Metal Fusion</h2>
+      <p>L'ère métallique avec Pegasus, L-Drago, Earth Eagle. Toupies cultes en édition collector pour les nostalgiques et les nouveaux blader·euse·s curieux des origines.</p>
+    </div>
+    <div class="gamme-count">
+      <div class="num">8</div>
+      <div class="label">Toupies testées</div>
+    </div>
+  </div>
+
+  <div class="toupies-catalog">
+    <a href="#" class="cat-card" style="--card-color:#ffb800">
+      <div class="img-wrap">
+        <span class="badge-rare">Rare</span>
+        <div class="beyblade-viz gold" style="width:80%"><div class="ring-outer"></div><div class="ring-mid"></div><div class="star"></div><div class="center"></div></div>
+      </div>
+      <div class="body">
+        <div class="meta">BB-105 · Stamina</div>
+        <h3>Pegasus Galaxy</h3>
+        <div class="footer-row">
+          <div class="rating"><span class="num">8.5</span><span class="max">/10</span></div>
+          <span class="stock-pill"><span class="d"></span>En stock</span>
+        </div>
+      </div>
+    </a>
+    <a href="#" class="cat-card" style="--card-color:#ffb800">
+      <div class="img-wrap">
+        <div class="beyblade-viz energy" style="width:80%"><div class="ring-outer"></div><div class="ring-mid"></div><div class="star"></div><div class="center"></div></div>
+      </div>
+      <div class="body">
+        <div class="meta">BB-108 · Attaque</div>
+        <h3>L-Drago Destroy</h3>
+        <div class="footer-row">
+          <div class="rating"><span class="num">8.2</span><span class="max">/10</span></div>
+          <span class="stock-pill"><span class="d"></span>En stock</span>
+        </div>
+      </div>
+    </a>
+    <a href="#" class="cat-card" style="--card-color:#ffb800">
+      <div class="img-wrap">
+        <div class="beyblade-viz" style="width:80%"><div class="ring-outer"></div><div class="ring-mid"></div><div class="star"></div><div class="center"></div></div>
+      </div>
+      <div class="body">
+        <div class="meta">BB-118 · Défense</div>
+        <h3>Earth Eagle</h3>
+        <div class="footer-row">
+          <div class="rating"><span class="num">7.9</span><span class="max">/10</span></div>
+          <span class="stock-pill"><span class="d"></span>En stock</span>
+        </div>
+      </div>
+    </a>
+    <a href="#" class="cat-card" style="--card-color:#ffb800">
+      <div class="img-wrap">
+        <div class="beyblade-viz green" style="width:80%"><div class="ring-outer"></div><div class="ring-mid"></div><div class="star"></div><div class="center"></div></div>
+      </div>
+      <div class="body">
+        <div class="meta">BB-114 · Équilibre</div>
+        <h3>Hell Kerbecs</h3>
+        <div class="footer-row">
+          <div class="rating"><span class="num">7.6</span><span class="max">/10</span></div>
+          <span class="stock-pill"><span class="d"></span>En stock</span>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <div class="gamme-cta-line">
+    <a href="#">Voir le comparatif Metal Fusion →</a>
+  </div>
+</section>
+
+<!-- ============ ACCESSOIRES ============ -->
+<section class="gamme-section acc-color" id="accessoires">
+  <div class="gamme-banner-strip acc">
+    <div class="info">
+      <span class="gamme-tag">Accessoires</span>
+      <h2>Arènes & lanceurs</h2>
+      <p>Le bon stadium, le bon lanceur, le bon driver. Accessoires testés en conditions de combat. Indispensables pour exploiter le potentiel de chaque toupie.</p>
+    </div>
+    <div class="gamme-count">
+      <div class="num">12</div>
+      <div class="label">Accessoires</div>
+    </div>
+  </div>
+
+  <div class="toupies-catalog">
+    <a href="#" class="cat-card" style="--card-color:#00d68f">
+      <div class="img-wrap" style="background:radial-gradient(circle, rgba(0,214,143,0.15), transparent 60%), var(--bg-elev)">
+        <svg width="80%" height="80%" viewBox="0 0 200 200" fill="none">
+          <ellipse cx="100" cy="100" rx="90" ry="40" stroke="#00d68f" stroke-width="3"/>
+          <ellipse cx="100" cy="105" rx="70" ry="30" stroke="#00d68f" stroke-width="2" stroke-dasharray="4 4"/>
+          <ellipse cx="100" cy="110" rx="40" ry="15" stroke="#00d68f" stroke-width="1.5" opacity="0.6"/>
+          <circle cx="100" cy="110" r="4" fill="#00d68f"/>
+        </svg>
+      </div>
+      <div class="body">
+        <div class="meta">Stadium · Beyblade X</div>
+        <h3>Xtreme Stadium</h3>
+        <div class="footer-row">
+          <div class="rating"><span class="num">9.0</span><span class="max">/10</span></div>
+          <span class="stock-pill"><span class="d"></span>En stock</span>
+        </div>
+      </div>
+    </a>
+    <a href="#" class="cat-card" style="--card-color:#00d68f">
+      <div class="img-wrap" style="background:radial-gradient(circle, rgba(0,214,143,0.15), transparent 60%), var(--bg-elev)">
+        <svg width="60%" height="60%" viewBox="0 0 100 200" fill="none">
+          <rect x="35" y="20" width="30" height="100" fill="#00d68f" opacity="0.3" stroke="#00d68f" stroke-width="2"/>
+          <rect x="40" y="120" width="20" height="40" fill="#00d68f" opacity="0.5"/>
+          <circle cx="50" cy="170" r="12" fill="#00d68f"/>
+          <line x1="50" y1="40" x2="50" y2="115" stroke="#fff" stroke-width="1" opacity="0.4"/>
+        </svg>
+      </div>
+      <div class="body">
+        <div class="meta">Lanceur · Beyblade X</div>
+        <h3>Xtreme Launcher Pro</h3>
+        <div class="footer-row">
+          <div class="rating"><span class="num">8.7</span><span class="max">/10</span></div>
+          <span class="stock-pill"><span class="d"></span>En stock</span>
+        </div>
+      </div>
+    </a>
+    <a href="#" class="cat-card" style="--card-color:#00d68f">
+      <div class="img-wrap" style="background:radial-gradient(circle, rgba(0,214,143,0.15), transparent 60%), var(--bg-elev)">
+        <svg width="80%" height="80%" viewBox="0 0 200 200" fill="none">
+          <polygon points="100,30 160,65 160,135 100,170 40,135 40,65" stroke="#00d68f" stroke-width="3" opacity="0.4"/>
+          <polygon points="100,55 140,77 140,123 100,145 60,123 60,77" stroke="#00d68f" stroke-width="2"/>
+          <circle cx="100" cy="100" r="4" fill="#00d68f"/>
+        </svg>
+      </div>
+      <div class="body">
+        <div class="meta">Stadium · Burst</div>
+        <h3>Burst Stadium Pro</h3>
+        <div class="footer-row">
+          <div class="rating"><span class="num">8.4</span><span class="max">/10</span></div>
+          <span class="stock-pill"><span class="d"></span>En stock</span>
+        </div>
+      </div>
+    </a>
+    <a href="#" class="cat-card" style="--card-color:#00d68f">
+      <div class="img-wrap" style="background:radial-gradient(circle, rgba(0,214,143,0.15), transparent 60%), var(--bg-elev)">
+        <svg width="60%" height="60%" viewBox="0 0 100 200" fill="none">
+          <rect x="30" y="20" width="40" height="80" fill="#00d68f" opacity="0.2" stroke="#00d68f" stroke-width="2" rx="4"/>
+          <rect x="38" y="100" width="24" height="50" fill="#00d68f" opacity="0.4"/>
+          <circle cx="50" cy="160" r="16" fill="#00d68f"/>
+          <text x="50" y="55" font-size="12" font-weight="bold" fill="white" text-anchor="middle">L/R</text>
+        </svg>
+      </div>
+      <div class="body">
+        <div class="meta">Lanceur · Universel</div>
+        <h3>Lanceur Bidirectionnel</h3>
+        <div class="footer-row">
+          <div class="rating"><span class="num">8.0</span><span class="max">/10</span></div>
+          <span class="stock-pill"><span class="d"></span>En stock</span>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <div class="gamme-cta-line">
+    <a href="#">Voir le comparatif Accessoires →</a>
+  </div>
+</section>
+
+<div style="height:80px"></div>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <a href="01-homepage.html" class="logo">
+        <div class="logo-mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="12,2 15,9 22,9 16.5,14 18.5,21 12,17 5.5,21 7.5,14 2,9 9,9" />
+          </svg>
+        </div>
+        <div>
+          <div class="logo-text">Toupie<span class="accent">Beyblade</span></div>
+          <span class="logo-tag">Le guide ultime · 2026</span>
+        </div>
+      </a>
+      <p style="max-width:340px; margin-top:16px">Le blog français de référence sur les toupies Beyblade. Tests indépendants, comparatifs détaillés, guides d'achat.</p>
+    </div>
+    <div><h4>Gammes</h4><ul><li><a href="#">Beyblade X</a></li><li><a href="#">Beyblade Burst</a></li><li><a href="#">Metal Fusion</a></li><li><a href="#">Arènes</a></li><li><a href="#">Lanceurs</a></li></ul></div>
+    <div><h4>Guides</h4><ul><li><a href="#">Meilleur Beyblade</a></li><li><a href="#">Quiz du choix</a></li><li><a href="#">Tournois 2026</a></li><li><a href="#">Coloriages</a></li></ul></div>
+    <div><h4>À propos</h4><ul><li><a href="#">Notre méthode</a></li><li><a href="#">L'équipe</a></li><li><a href="#">Contact</a></li><li><a href="#">Mentions légales</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 toupiebeyblade.fr</span>
+    <span>En tant que partenaire Amazon, nous gagnons une commission sur les achats éligibles</span>
+  </div>
+</footer>
+
+</body>
+</html>

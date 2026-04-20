@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maquettes — toupiebeyblade.fr</title>
+<link rel="stylesheet" href="_shared.css">
+<style>
+  .index-hero {
+    padding: 80px var(--gutter) 40px;
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .index-hero h1 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(48px, 8vw, 96px);
+    line-height: 0.9;
+    letter-spacing: -2px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .index-hero h1 .accent { color: var(--accent); text-shadow: var(--glow-blue); }
+  .index-hero p { color: var(--text-soft); font-size: 18px; max-width: 600px; margin: 0 auto; }
+  .index-meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    margin: 24px 0;
+    padding: 8px 20px;
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-soft);
+  }
+  .index-meta .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--good); box-shadow: 0 0 12px var(--good); animation: pulse 2s infinite; }
+  @keyframes pulse { 50% { opacity: 0.5; } }
+
+  .mockups-grid {
+    max-width: var(--container);
+    margin: 60px auto;
+    padding: 0 var(--gutter);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+  }
+  .mockup-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 28px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .mockup-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .mockup-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card);
+  }
+  .mockup-card:hover::before { opacity: 1; }
+  .mockup-num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .mockup-card h3 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 28px;
+    text-transform: uppercase;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+    line-height: 1;
+  }
+  .mockup-card p {
+    color: var(--text-soft);
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+  .mockup-card a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--accent);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  .mockup-card a::after {
+    content: "→";
+    transition: transform 0.2s;
+  }
+  .mockup-card:hover a::after { transform: translateX(4px); }
+</style>
+</head>
+<body>
+
+<div class="index-hero">
+  <div class="index-meta">
+    <span class="dot"></span>
+    <span>Brief V1 · 5 maquettes · Bleu électrique</span>
+  </div>
+  <h1>Maquettes <span class="accent">Beyblade</span></h1>
+  <p>Direction esthétique « Battle-ready editorial ». Dark mode futuriste, glow électrique, typographie athlétique. Cliquez sur une maquette pour la prévisualiser.</p>
+</div>
+
+<div class="mockups-grid">
+  <div class="mockup-card">
+    <div class="mockup-num">01 / Homepage</div>
+    <h3>Accueil</h3>
+    <p>Hero animé + bannières par gamme + dernières fiches + section éditoriale</p>
+    <a href="01-homepage.html">Voir la maquette</a>
+  </div>
+  <div class="mockup-card">
+    <div class="mockup-num">02 / Article produit</div>
+    <h3>Fiche toupie</h3>
+    <p>Bloc « Notre avis » avec carrousel, notation /10, type, stats RPG, FAQ</p>
+    <a href="02-article-produit.html">Voir la maquette</a>
+  </div>
+  <div class="mockup-card">
+    <div class="mockup-num">03 / Comparatif</div>
+    <h3>Comparatif Beyblade X</h3>
+    <p>Page comparatif avec tableau de notation et cartes par produit</p>
+    <a href="03-comparatif.html">Voir la maquette</a>
+  </div>
+  <div class="mockup-card">
+    <div class="mockup-num">04 / Catalogue</div>
+    <h3>Tous les Beyblade</h3>
+    <p>Catalogue groupé par gamme avec bandeaux colorés et grille de cartes</p>
+    <a href="04-tous-les-beyblade.html">Voir la maquette</a>
+  </div>
+  <div class="mockup-card">
+    <div class="mockup-num">05 / Mobile</div>
+    <h3>Menu mobile</h3>
+    <p>Hamburger flottant + slide-in latéral + responsive review block</p>
+    <a href="05-menu-mobile.html">Voir la maquette</a>
+  </div>
+</div>
+
+</body>
+</html>

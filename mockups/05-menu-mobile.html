@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Menu mobile — toupiebeyblade.fr</title>
+<link rel="stylesheet" href="_shared.css">
+<link rel="stylesheet" href="_beyblade.css">
+<style>
+  /* ========== MOBILE FRAME PRESENTATION ========== */
+  body {
+    padding: 40px 20px;
+    overflow-x: hidden;
+  }
+  .demo-intro {
+    max-width: 1100px;
+    margin: 0 auto 56px;
+    position: relative;
+    z-index: 2;
+  }
+  .demo-intro h1 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(40px, 5vw, 64px);
+    line-height: 0.95;
+    letter-spacing: -1.5px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .demo-intro h1 .accent { color: var(--accent); }
+  .demo-intro p {
+    color: var(--text-soft);
+    font-size: 17px;
+    max-width: 640px;
+  }
+
+  .phones-row {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    position: relative;
+    z-index: 2;
+  }
+  .phone-frame {
+    background: var(--bg-elev);
+    border: 8px solid #1a2538;
+    border-radius: 38px;
+    overflow: hidden;
+    aspect-ratio: 9/19;
+    position: relative;
+    box-shadow:
+      0 30px 80px -20px rgba(0,0,0,0.7),
+      0 0 0 1px rgba(0, 153, 255, 0.15),
+      inset 0 0 0 1px rgba(255,255,255,0.05);
+  }
+  .phone-notch {
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 22px;
+    background: #0a0f18;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+    z-index: 100;
+  }
+  .phone-screen {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    background: var(--bg-deep);
+  }
+  .phone-label {
+    margin-top: 16px;
+    text-align: center;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-soft);
+  }
+  .phone-label .num {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    margin-right: 6px;
+  }
+
+  /* ========== MOBILE STYLES (inside phones) ========== */
+  .m-page {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: var(--bg-deep);
+    color: var(--text);
+    font-family: var(--font-body);
+    position: relative;
+  }
+  .m-status {
+    height: 32px;
+    background: var(--bg-deep);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text);
+    letter-spacing: 0.5px;
+  }
+  .m-status .right {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    font-size: 10px;
+  }
+
+  .m-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 16px 12px;
+    border-bottom: 1px solid var(--line-soft);
+    background: rgba(7, 11, 20, 0.95);
+    backdrop-filter: blur(12px);
+  }
+  .m-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .m-logo-mark {
+    width: 32px;
+    height: 32px;
+    position: relative;
+    display: grid;
+    place-items: center;
+  }
+  .m-logo-mark::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: conic-gradient(from 0deg, var(--accent), var(--accent-glow), var(--accent), var(--accent-deep), var(--accent));
+    border-radius: 50%;
+    animation: spin 8s linear infinite;
+  }
+  .m-logo-mark::after {
+    content: "";
+    position: absolute;
+    inset: 3px;
+    background: var(--bg-deep);
+    border-radius: 50%;
+  }
+  .m-logo-mark svg {
+    position: relative; z-index: 2;
+    width: 18px; height: 18px;
+    color: var(--accent-glow);
+  }
+  .m-logo-text {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 16px;
+    letter-spacing: -0.3px;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+  .m-logo-text .accent { color: var(--accent); }
+
+  /* Hamburger button (floating) */
+  .m-hamburger {
+    position: absolute;
+    bottom: 20px; right: 20px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent-deep));
+    color: white;
+    display: grid;
+    place-items: center;
+    z-index: 200;
+    box-shadow: 0 10px 30px -8px var(--accent), 0 0 0 1px var(--accent-glow);
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+  .m-hamburger:hover { transform: scale(1.05); }
+  .m-hamburger .lines {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .m-hamburger .lines span {
+    width: 22px;
+    height: 2.5px;
+    background: white;
+    border-radius: 2px;
+  }
+  .m-hamburger .lines span:nth-child(2) { width: 16px; }
+  .m-hamburger .lines span:nth-child(3) { width: 22px; }
+
+  .m-hamburger.energy {
+    background: linear-gradient(135deg, var(--energy), #c92800);
+    box-shadow: 0 10px 30px -8px var(--energy), 0 0 0 1px var(--energy-soft);
+  }
+
+  /* Phone 1 : Homepage closed */
+  .m-hero {
+    padding: 24px 16px 80px;
+    overflow: hidden;
+  }
+  .m-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    background: rgba(0, 153, 255, 0.1);
+    border: 1px solid rgba(0, 153, 255, 0.4);
+    border-radius: 100px;
+    font-family: var(--font-mono);
+    font-size: 8px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--accent-glow);
+    margin-bottom: 14px;
+  }
+  .m-eyebrow .pulse {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--accent-glow);
+    box-shadow: 0 0 6px var(--accent-glow);
+  }
+  .m-hero h1 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 38px;
+    line-height: 0.9;
+    letter-spacing: -1.5px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .m-hero h1 .accent { color: var(--accent); text-shadow: var(--glow-blue-soft); }
+  .m-hero p {
+    font-size: 12px;
+    color: var(--text-soft);
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+  .m-hero-bey-wrap {
+    height: 130px;
+    position: relative;
+    margin: 16px 0;
+  }
+  .m-hero-bey {
+    position: absolute;
+    width: 90px;
+  }
+  .m-hero-bey.l { left: 10px; top: 0; }
+  .m-hero-bey.r { right: 10px; bottom: 0; width: 100px; }
+  .m-hero-vs {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--energy);
+    display: grid;
+    place-items: center;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 14px;
+    color: white;
+    border: 2px solid white;
+    box-shadow: 0 0 16px var(--energy);
+  }
+  .m-cta {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+  }
+  .m-cta-btn {
+    flex: 1;
+    padding: 12px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-deep));
+    color: white;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    border-radius: 6px;
+    text-align: center;
+    border: 1px solid var(--accent-glow);
+    box-shadow: var(--glow-blue-soft);
+  }
+  .m-cta-btn.ghost {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--line);
+    box-shadow: none;
+  }
+  .m-section-title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 0.95;
+    text-transform: uppercase;
+    letter-spacing: -0.5px;
+    margin: 28px 16px 14px;
+  }
+  .m-section-title .accent { color: var(--accent); }
+  .m-card-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 0 16px;
+  }
+  .m-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .m-card .img {
+    aspect-ratio: 1;
+    background: var(--bg-elev);
+    display: grid;
+    place-items: center;
+    padding: 12px;
+    position: relative;
+  }
+  .m-card .rank {
+    position: absolute;
+    top: 4px; left: 6px;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 16px;
+    color: white;
+    text-shadow: 0 0 8px var(--accent);
+  }
+  .m-card .body {
+    padding: 8px 10px 10px;
+  }
+  .m-card .meta {
+    font-family: var(--font-mono);
+    font-size: 7px;
+    letter-spacing: 1px;
+    color: var(--text-mute);
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+  .m-card h4 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: -0.2px;
+    margin-bottom: 6px;
+    line-height: 1;
+  }
+  .m-card .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .m-card .rate {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 14px;
+    color: var(--accent-glow);
+  }
+  .m-card .rate small { font-size: 8px; color: var(--text-mute); }
+  .m-tag-mini {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 8px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 2px 5px;
+    border: 1px solid currentColor;
+    border-radius: 2px;
+  }
+  .m-tag-mini.atk { color: var(--energy); }
+  .m-tag-mini.def { color: var(--accent); }
+
+  /* Phone 2 : Menu OPEN (slide-in) */
+  .m-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(7, 11, 20, 0.7);
+    backdrop-filter: blur(8px);
+    z-index: 150;
+  }
+  .m-drawer {
+    position: absolute;
+    top: 0; right: 0; bottom: 0;
+    width: 88%;
+    background: var(--bg-surface);
+    border-left: 2px solid var(--accent);
+    z-index: 160;
+    box-shadow: -20px 0 60px rgba(0, 153, 255, 0.2), -2px 0 0 rgba(0, 229, 255, 0.4);
+    display: flex;
+    flex-direction: column;
+  }
+  .m-drawer-header {
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .m-drawer-title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .m-close {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: rgba(0, 153, 255, 0.1);
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    display: grid;
+    place-items: center;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 16px;
+  }
+
+  .m-drawer-search {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .m-search-input {
+    width: 100%;
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    color: var(--text);
+    padding: 10px 14px 10px 36px;
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-size: 12px;
+    position: relative;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%235f7494' stroke-width='2'><circle cx='11' cy='11' r='7'/><path d='m20 20-4.3-4.3'/></svg>");
+    background-repeat: no-repeat;
+    background-position: 12px center;
+  }
+  .m-search-input::placeholder { color: var(--text-mute); }
+
+  .m-drawer-nav {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px 0;
+  }
+  .m-nav-section {
+    padding: 12px 16px 4px;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-mute);
+  }
+  .m-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 20px;
+    color: var(--text);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-left: 3px solid transparent;
+    transition: all 0.15s ease;
+    text-decoration: none;
+  }
+  .m-nav-item.active {
+    color: var(--accent);
+    background: rgba(0, 153, 255, 0.06);
+    border-left-color: var(--accent);
+  }
+  .m-nav-item .arrow {
+    margin-left: auto;
+    color: var(--text-mute);
+    font-family: var(--font-mono);
+  }
+  .m-nav-item:hover {
+    background: rgba(0, 153, 255, 0.04);
+  }
+
+  .m-sub {
+    padding: 4px 0 8px 36px;
+    border-left: 1px solid var(--line-soft);
+    margin-left: 32px;
+  }
+  .m-sub-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    color: var(--text-soft);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .m-sub-item .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--sub-color, var(--accent));
+    box-shadow: 0 0 6px var(--sub-color, var(--accent));
+  }
+
+  .m-drawer-footer {
+    padding: 16px 20px;
+    border-top: 1px solid var(--line-soft);
+    background: var(--bg-elev);
+  }
+  .m-drawer-foot-cta {
+    display: block;
+    text-align: center;
+    padding: 12px;
+    background: linear-gradient(135deg, #ff9500, #ff5500);
+    color: white;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border-radius: 6px;
+    margin-bottom: 12px;
+  }
+  .m-drawer-social {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+  }
+  .m-soc {
+    width: 32px; height: 32px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    color: var(--text-soft);
+    font-size: 12px;
+  }
+
+  /* Phone 3 : Article scroll (review block stacké) */
+  .m-article-header {
+    padding: 16px 16px 12px;
+  }
+  .m-breadcrumb {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    margin-bottom: 10px;
+  }
+  .m-breadcrumb .sep { color: var(--accent); }
+  .m-article-title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 28px;
+    line-height: 0.9;
+    letter-spacing: -1px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .m-article-title .accent { color: var(--accent); }
+  .m-article-sub {
+    font-size: 11px;
+    color: var(--text-soft);
+    line-height: 1.4;
+    margin-bottom: 12px;
+  }
+  .m-article-meta {
+    display: flex;
+    gap: 12px;
+    padding: 8px 0;
+    border-top: 1px solid var(--line-soft);
+    border-bottom: 1px solid var(--line-soft);
+    font-family: var(--font-mono);
+    font-size: 8px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-mute);
+  }
+
+  /* Mobile review block (stacked) */
+  .m-review {
+    margin: 16px;
+    background: var(--bg-surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+  }
+  .m-review::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  }
+  .m-review-head {
+    padding: 12px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .m-review-head .lbl {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  .m-review-head .grade {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 28px;
+    color: var(--accent-glow);
+    line-height: 1;
+    text-shadow: var(--glow-blue-soft);
+  }
+  .m-review-head .grade small {
+    font-size: 11px;
+    color: var(--text-mute);
+  }
+  .m-carousel {
+    padding: 16px;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .m-carousel-main {
+    aspect-ratio: 1;
+    background: radial-gradient(circle at 50% 60%, rgba(0,153,255,0.15), transparent 50%), var(--bg-elev);
+    border: 1px solid var(--line-soft);
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    margin-bottom: 8px;
+  }
+  .m-thumbs {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+  }
+  .m-thumb {
+    aspect-ratio: 1;
+    background: var(--bg-elev);
+    border: 1px solid var(--line-soft);
+    border-radius: 4px;
+    padding: 4px;
+    display: grid;
+    place-items: center;
+  }
+  .m-thumb.active {
+    border-color: var(--accent);
+    box-shadow: 0 0 8px rgba(0,153,255,0.3);
+  }
+  .m-rating-info {
+    padding: 16px;
+  }
+  .m-product-name {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: -0.3px;
+    margin-bottom: 4px;
+  }
+  .m-product-meta {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    margin-bottom: 12px;
+  }
+  .m-stat {
+    display: grid;
+    grid-template-columns: 70px 1fr 24px;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .m-stat .l {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .m-stat .b {
+    height: 5px;
+    background: var(--bg-elev);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .m-stat .b > span {
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-deep), var(--accent-glow));
+  }
+  .m-stat .n {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 10px;
+    color: var(--accent-glow);
+    text-align: right;
+  }
+  .m-cta-buy {
+    margin-top: 12px;
+    display: block;
+    text-align: center;
+    padding: 12px;
+    background: linear-gradient(135deg, #ff9500, #ff5500);
+    color: white;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(255, 100, 0, 0.4);
+  }
+
+  .m-prose {
+    padding: 8px 16px 24px;
+  }
+  .m-h2 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: -0.3px;
+    margin: 20px 0 8px;
+    padding-left: 12px;
+    border-left: 3px solid var(--accent);
+    line-height: 1.05;
+  }
+  .m-prose p {
+    font-size: 13px;
+    color: var(--text-soft);
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+
+  /* Bottom dock */
+  .m-bottom-dock {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(13, 22, 40, 0.95);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid var(--line);
+    padding: 8px 12px 12px;
+    display: flex;
+    justify-content: space-around;
+    z-index: 50;
+  }
+  .m-dock-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    color: var(--text-mute);
+    font-family: var(--font-mono);
+    font-size: 8px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 4px 8px;
+  }
+  .m-dock-item.active { color: var(--accent); }
+  .m-dock-item svg { width: 18px; height: 18px; }
+
+  @media (max-width: 1000px) {
+    .phones-row { grid-template-columns: repeat(2, 1fr); }
+    .phones-row > div:nth-child(3) { display: none; }
+  }
+  @media (max-width: 700px) {
+    .phones-row { grid-template-columns: 1fr; max-width: 400px; }
+    .phones-row > div:nth-child(2),
+    .phones-row > div:nth-child(3) { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="demo-intro">
+  <div style="font-family:var(--font-mono); font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--accent); margin-bottom:14px">/ Maquette 05 · Mobile</div>
+  <h1>Expérience<br><span class="accent">mobile</span> & menu</h1>
+  <p>Le hamburger flottant en bas-droite reste accessible au pouce. Le menu glisse depuis la droite avec un overlay flou. Les blocs review se restructurent en pile verticale (carrousel + stats + CTA).</p>
+</div>
+
+<div class="phones-row">
+
+  <!-- ============ PHONE 1 — Homepage closed ============ -->
+  <div>
+    <div class="phone-frame">
+      <div class="phone-notch"></div>
+      <div class="phone-screen">
+        <div class="m-page">
+          <div class="m-status">
+            <span>9:41</span>
+            <span class="right">●●●●● <span style="margin-left:6px">5G</span> <span>100%</span></span>
+          </div>
+          <div class="m-header">
+            <div class="m-logo">
+              <div class="m-logo-mark">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="12,2 15,9 22,9 16.5,14 18.5,21 12,17 5.5,21 7.5,14 2,9 9,9" />
+                </svg>
+              </div>
+              <div class="m-logo-text">Toupie<span class="accent">Beyblade</span></div>
+            </div>
+            <button class="search-btn" style="width:32px; height:32px; border-radius:8px">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4.3-4.3"/></svg>
+            </button>
+          </div>
+          <div class="m-hero">
+            <div class="m-eyebrow"><span class="pulse"></span>Beyblade X · Saison 2026</div>
+            <h1>Le guide<br><span class="accent">ultime</span><br>des toupies</h1>
+            <p>Tests détaillés et comparatifs honnêtes des meilleures toupies de 2026.</p>
+            <div class="m-hero-bey-wrap">
+              <div class="m-hero-bey l">
+                <div class="beyblade-viz spinning"><div class="ring-outer"></div><div class="ring-mid"></div><div class="star"></div><div class="center"></div></div>
+              </div>
+              <div class="m-hero-bey r">
+                <div class="beyblade-viz spinning energy"><div class="ring-outer"></div><div class="ring-mid"></div><div class="star"></div><div class="center"></div></div>
+              </div>
+              <div class="m-hero-vs">VS</div>
+            </div>
+            <div class="m-cta">
+              <a href="#" class="m-cta-btn">Comparatifs</a>
+              <a href="#" class="m-cta-btn ghost">Top 10</a>
+            </div>
+          </div>
+          <div class="m-section-title">Top<br><span class="accent">toupies</span></div>
+          <div class="m-card-row">
+            <div class="m-card">
+              <div class="img">
+                <span class="rank">#1</span>
+                <div class="beyblade-viz spinning" style="width:80%"><div class="ring-outer"></div><div class="ring-mid"></div><div class="star"></div><div class="center"></div></div>
+              </div>
+              <div class="body">
+                <div class="meta">Beyblade X</div>
+                <h4>Dranzer Spiral</h4>
+                <div class="footer">
+                  <span class="m-tag-mini atk">Attaque</span>
+                  <span class="rate">9.2<small>/10</small></span>
+                </div>
+              </div>
+            </div>
+            <div class="m-card">
+              <div class="img">
+                <span class="rank">#2</span>
+                <div class="beyblade-viz energy" style="width:80%"><div class="ring-outer"></div><div class="ring-mid"></div><div class="star"></div><div class="center"></div></div>
+              </div>
+              <div class="body">
+                <div class="meta">Beyblade X</div>
+                <h4>Phoenix Wing</h4>
+                <div class="footer">
+                  <span class="m-tag-mini def">Défense</span>
+                  <span class="rate">8.8<small>/10</small></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Floating hamburger -->
+          <button class="m-hamburger" aria-label="Menu">
+            <div class="lines"><span></span><span></span><span></span></div>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="phone-label"><span class="num">01</span> Accueil — état fermé</div>
+  </div>
+
+  <!-- ============ PHONE 2 — Menu OPEN ============ -->
+  <div>
+    <div class="phone-frame">
+      <div class="phone-notch"></div>
+      <div class="phone-screen">
+        <div class="m-page">
+          <div class="m-status">
+            <span>9:41</span>
+            <span class="right">●●●●● <span style="margin-left:6px">5G</span> <span>100%</span></span>
+          </div>
+          <div class="m-header" style="opacity:0.4">
+            <div class="m-logo">
+              <div class="m-logo-mark">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 15,9 22,9 16.5,14 18.5,21 12,17 5.5,21 7.5,14 2,9 9,9"/></svg>
+              </div>
+              <div class="m-logo-text">Toupie<span class="accent">Beyblade</span></div>
+            </div>
+          </div>
+          <div style="height:200px; padding:24px 16px; opacity:0.3">
+            <h1 style="font-family:var(--font-display); font-weight:900; font-size:38px; line-height:0.9; letter-spacing:-1.5px; text-transform:uppercase">Le guide<br><span style="color:var(--accent)">ultime</span></h1>
+          </div>
+
+          <div class="m-overlay"></div>
+          <div class="m-drawer">
+            <div class="m-drawer-header">
+              <div class="m-drawer-title">Menu</div>
+              <button class="m-close">×</button>
+            </div>
+            <div class="m-drawer-search">
+              <input type="text" class="m-search-input" placeholder="Rechercher une toupie...">
+            </div>
+            <nav class="m-drawer-nav">
+              <div class="m-nav-section">Navigation</div>
+              <a href="#" class="m-nav-item active">
+                <span>Accueil</span>
+                <span class="arrow">→</span>
+              </a>
+              <a href="#" class="m-nav-item">
+                <span>Toutes les toupies</span>
+                <span class="arrow">→</span>
+              </a>
+              <a href="#" class="m-nav-item" style="border-bottom: none">
+                <span>Comparatifs</span>
+                <span class="arrow">▾</span>
+              </a>
+              <div class="m-sub">
+                <a href="#" class="m-sub-item" style="--sub-color:#0099ff"><span class="dot"></span>Beyblade X</a>
+                <a href="#" class="m-sub-item" style="--sub-color:#ff3d00"><span class="dot"></span>Beyblade Burst</a>
+                <a href="#" class="m-sub-item" style="--sub-color:#ffb800"><span class="dot"></span>Metal Fusion</a>
+                <a href="#" class="m-sub-item" style="--sub-color:#00d68f"><span class="dot"></span>Arènes & lanceurs</a>
+              </div>
+              <a href="#" class="m-nav-item">
+                <span>Guides</span>
+                <span class="arrow">→</span>
+              </a>
+              <a href="#" class="m-nav-item">
+                <span>Blog</span>
+                <span class="arrow">→</span>
+              </a>
+
+              <div class="m-nav-section" style="margin-top:8px">Guides</div>
+              <a href="#" class="m-nav-item" style="font-size:12px; padding:10px 20px">
+                <span>Meilleur Beyblade 2026</span>
+                <span class="arrow">→</span>
+              </a>
+              <a href="#" class="m-nav-item" style="font-size:12px; padding:10px 20px">
+                <span>Quiz du choix</span>
+                <span class="arrow">→</span>
+              </a>
+              <a href="#" class="m-nav-item" style="font-size:12px; padding:10px 20px">
+                <span>Contact</span>
+                <span class="arrow">→</span>
+              </a>
+            </nav>
+            <div class="m-drawer-footer">
+              <a href="#" class="m-drawer-foot-cta">Recevoir notre newsletter</a>
+              <div class="m-drawer-social">
+                <a href="#" class="m-soc">f</a>
+                <a href="#" class="m-soc">▶</a>
+                <a href="#" class="m-soc">📷</a>
+                <a href="#" class="m-soc">🐦</a>
+              </div>
+            </div>
+          </div>
+
+          <button class="m-hamburger energy" aria-label="Fermer" style="z-index:170">
+            <div class="lines"><span style="transform:rotate(45deg) translateY(4px)"></span><span style="opacity:0; width:22px"></span><span style="transform:rotate(-45deg) translateY(-4px)"></span></div>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="phone-label"><span class="num">02</span> Menu ouvert (slide-in)</div>
+  </div>
+
+  <!-- ============ PHONE 3 — Article scrolled ============ -->
+  <div>
+    <div class="phone-frame">
+      <div class="phone-notch"></div>
+      <div class="phone-screen">
+        <div class="m-page">
+          <div class="m-status">
+            <span>9:41</span>
+            <span class="right">●●●●● <span style="margin-left:6px">5G</span> <span>100%</span></span>
+          </div>
+          <div class="m-header">
+            <div class="m-logo">
+              <div class="m-logo-mark">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 15,9 22,9 16.5,14 18.5,21 12,17 5.5,21 7.5,14 2,9 9,9"/></svg>
+              </div>
+              <div class="m-logo-text">Toupie<span class="accent">Beyblade</span></div>
+            </div>
+          </div>
+          <div class="m-article-header">
+            <div class="m-breadcrumb">Accueil <span class="sep">›</span> Beyblade X <span class="sep">›</span> Dranzer</div>
+            <h1 class="m-article-title">Dranzer Spiral<br><span class="accent">test</span></h1>
+            <p class="m-article-sub">Le phénix renait avec un Blade Helical inédit pour une vélocité chirurgicale.</p>
+            <div class="m-article-meta">
+              <span>Léo M.</span>
+              <span>14 avril</span>
+              <span>12 min</span>
+            </div>
+          </div>
+
+          <div class="m-review">
+            <div class="m-review-head">
+              <div>
+                <div class="lbl" style="color:var(--accent)">Notre verdict</div>
+                <div style="font-family:var(--font-mono); font-size:8px; color:var(--text-mute); letter-spacing:1.2px; text-transform:uppercase">Excellent</div>
+              </div>
+              <div class="grade">9.2<small>/10</small></div>
+            </div>
+            <div class="m-carousel">
+              <div class="m-carousel-main">
+                <div class="beyblade-viz spinning" style="width:75%"><div class="ring-outer"></div><div class="ring-mid"></div><div class="star"></div><div class="center"></div></div>
+              </div>
+              <div class="m-thumbs">
+                <div class="m-thumb active"><div class="beyblade-viz spinning" style="width:90%"><div class="ring-outer"></div><div class="ring-mid"></div><div class="star"></div><div class="center"></div></div></div>
+                <div class="m-thumb"><div class="beyblade-viz energy" style="width:90%"><div class="ring-outer"></div><div class="ring-mid"></div><div class="star"></div><div class="center"></div></div></div>
+                <div class="m-thumb"><div class="beyblade-viz gold" style="width:90%"><div class="ring-outer"></div><div class="ring-mid"></div><div class="star"></div><div class="center"></div></div></div>
+                <div class="m-thumb"><div class="beyblade-viz green" style="width:90%"><div class="ring-outer"></div><div class="ring-mid"></div><div class="star"></div><div class="center"></div></div></div>
+              </div>
+            </div>
+            <div class="m-rating-info">
+              <div class="m-product-name">Dranzer Spiral 3-60P</div>
+              <div class="m-product-meta">Beyblade X · BX-42 · Attaque</div>
+              <div class="m-stat"><span class="l">Puissance</span><span class="b"><span style="width:95%"></span></span><span class="n">9.5</span></div>
+              <div class="m-stat"><span class="l">Endurance</span><span class="b"><span style="width:75%"></span></span><span class="n">7.5</span></div>
+              <div class="m-stat"><span class="l">Défense</span><span class="b"><span style="width:70%"></span></span><span class="n">7.0</span></div>
+              <div class="m-stat"><span class="l">Précision</span><span class="b"><span style="width:90%"></span></span><span class="n">9.0</span></div>
+              <a href="#" class="m-cta-buy">▶ Voir sur Amazon · 22,99 €</a>
+            </div>
+          </div>
+
+          <div class="m-prose">
+            <h2 class="m-h2">Présentation</h2>
+            <p>La Dranzer Spiral marque le retour officiel du phénix mythique avec une nouvelle itération BX-42 sortie en mars 2026...</p>
+          </div>
+
+          <!-- Bottom dock as alternative nav pattern -->
+          <div class="m-bottom-dock">
+            <a href="#" class="m-dock-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12 12 3l9 9"/><path d="M5 10v10h14V10"/></svg>
+              <span>Accueil</span>
+            </a>
+            <a href="#" class="m-dock-item active">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+              <span>Toupies</span>
+            </a>
+            <a href="#" class="m-dock-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+              <span>Compare</span>
+            </a>
+            <a href="#" class="m-dock-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4.3-4.3"/></svg>
+              <span>Recherche</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="phone-label"><span class="num">03</span> Article (review stacké)</div>
+  </div>
+</div>
+
+<div style="max-width:1100px; margin:80px auto 0; padding:32px; background:var(--bg-surface); border:1px solid var(--line); border-radius:16px; position:relative; z-index:2">
+  <div style="font-family:var(--font-mono); font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--accent); margin-bottom:12px">/ Notes mobile</div>
+  <h2 style="font-family:var(--font-display); font-weight:900; font-size:32px; line-height:0.95; text-transform:uppercase; letter-spacing:-0.5px; margin-bottom:16px">Décisions UX clés</h2>
+  <ul style="color:var(--text-soft); font-size:15px; line-height:1.7; padding-left:20px">
+    <li><strong style="color:var(--text)">Hamburger flottant en bas-droite</strong> (au lieu du classique header) → accessible au pouce sans tendre la main vers le haut de l'écran</li>
+    <li><strong style="color:var(--text)">Slide-in latéral 88% width</strong> avec overlay flou et auto-fermeture au clic sur un lien</li>
+    <li><strong style="color:var(--text)">Sous-menu Comparatifs déplié inline</strong> avec dots colorés par gamme (mémorisation visuelle)</li>
+    <li><strong style="color:var(--text)">Review block stacké</strong> : carrousel en haut, stats au milieu, CTA Amazon en bas — flux naturel de lecture</li>
+    <li><strong style="color:var(--text)">Bottom dock de navigation</strong> en alternative sur les pages de contenu (pattern app-like)</li>
+    <li><strong style="color:var(--text)">Logo réduit à 32px</strong> + nav cachée pour libérer l'espace, recherche directement accessible</li>
+  </ul>
+</div>
+
+<div style="height:80px"></div>
+
+</body>
+</html>

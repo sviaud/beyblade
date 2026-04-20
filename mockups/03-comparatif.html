@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Comparatif Beyblade X 2026 · toupiebeyblade.fr</title>
+<link rel="stylesheet" href="_shared.css">
+<link rel="stylesheet" href="_beyblade.css">
+<style>
+  /* ========== HERO ========== */
+  .compare-hero {
+    position: relative;
+    z-index: 2;
+    padding: 56px var(--gutter) 48px;
+    max-width: var(--container);
+    margin: 0 auto;
+  }
+  .compare-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 6px 14px;
+    background: rgba(0, 153, 255, 0.08);
+    border: 1px solid rgba(0, 153, 255, 0.3);
+    border-radius: 100px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent-glow);
+    margin-bottom: 24px;
+  }
+  .compare-hero h1 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(48px, 7vw, 96px);
+    line-height: 0.9;
+    letter-spacing: -2px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    max-width: 900px;
+  }
+  .compare-hero h1 .accent { color: var(--accent); text-shadow: var(--glow-blue); }
+  .compare-hero .lead {
+    font-size: 18px;
+    color: var(--text-soft);
+    max-width: 680px;
+    line-height: 1.6;
+  }
+
+  .compare-meta {
+    display: flex;
+    gap: 32px;
+    margin-top: 32px;
+    padding: 20px 0;
+    border-top: 1px solid var(--line-soft);
+    border-bottom: 1px solid var(--line-soft);
+    flex-wrap: wrap;
+  }
+  .compare-meta-item {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-mute);
+  }
+  .compare-meta-item strong {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 28px;
+    color: var(--accent);
+    margin-bottom: 2px;
+    letter-spacing: -0.5px;
+  }
+
+  /* ========== FILTER BAR ========== */
+  .filter-bar {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+    position: relative;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+  }
+  .filter-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    margin-right: 4px;
+  }
+  .filter-pill {
+    padding: 8px 16px;
+    background: var(--bg-surface);
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-soft);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .filter-pill:hover { border-color: var(--accent); color: var(--text); }
+  .filter-pill.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
+    box-shadow: var(--glow-blue-soft);
+  }
+  .filter-bar .sep {
+    width: 1px;
+    height: 20px;
+    background: var(--line);
+    margin: 0 4px;
+  }
+  .sort-select {
+    margin-left: auto;
+    padding: 8px 14px 8px 16px;
+    background: var(--bg-surface);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  /* ========== PODIUM ========== */
+  .podium {
+    max-width: var(--container);
+    margin: 32px auto 56px;
+    padding: 0 var(--gutter);
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr 1fr;
+    gap: 16px;
+    align-items: end;
+  }
+  .podium-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 28px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .podium-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, var(--podium-color), transparent 60%);
+    opacity: 0.18;
+    z-index: -1;
+  }
+  .podium-card .rank-badge {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--podium-color);
+    color: var(--bg-deep);
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 30px;
+    display: grid;
+    place-items: center;
+    margin: 0 auto 20px;
+    box-shadow: 0 0 24px var(--podium-color);
+    border: 3px solid white;
+  }
+  .podium-card.first {
+    --podium-color: #ffb800;
+    border-color: var(--podium-color);
+    transform: translateY(-20px);
+  }
+  .podium-card.second { --podium-color: #c0c8d8; }
+  .podium-card.third { --podium-color: #cd7f32; }
+
+  .podium-bey {
+    width: 140px;
+    height: 140px;
+    margin: 0 auto 20px;
+  }
+  .podium-card h3 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 22px;
+    text-transform: uppercase;
+    letter-spacing: -0.5px;
+    margin-bottom: 4px;
+    line-height: 1;
+  }
+  .podium-card .meta {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    margin-bottom: 16px;
+  }
+  .podium-rating {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 4px;
+    padding: 6px 14px;
+    background: rgba(0, 229, 255, 0.08);
+    border: 1px solid var(--accent);
+    border-radius: 100px;
+    margin-bottom: 16px;
+  }
+  .podium-rating .num {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 22px;
+    color: var(--accent-glow);
+  }
+  .podium-rating .max {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-mute);
+  }
+  .podium-stock {
+    margin-bottom: 16px;
+    padding: 6px 12px;
+    border: 1px solid var(--good);
+    background: rgba(0, 214, 143, 0.06);
+    border-radius: 100px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--good);
+  }
+  .podium-stock .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--good);
+    box-shadow: 0 0 8px var(--good);
+    animation: pulse 2s infinite;
+  }
+  .podium-card .btn {
+    width: 100%;
+  }
+
+  /* ========== COMPARISON TABLE ========== */
+  .table-section {
+    max-width: var(--container);
+    margin: 80px auto;
+    padding: 0 var(--gutter);
+    position: relative;
+    z-index: 2;
+  }
+  .table-section-header {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .table-section-header h2 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(36px, 5vw, 60px);
+    line-height: 0.95;
+    letter-spacing: -1px;
+    text-transform: uppercase;
+  }
+
+  .compare-table-wrap {
+    background: var(--bg-surface);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    overflow: hidden;
+    overflow-x: auto;
+  }
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 920px;
+  }
+  .compare-table th {
+    text-align: left;
+    padding: 18px 20px;
+    background: var(--bg-elev);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    border-bottom: 2px solid var(--accent);
+    position: sticky;
+    top: 76px;
+  }
+  .compare-table td {
+    padding: 20px;
+    border-bottom: 1px solid var(--line-soft);
+    font-size: 14px;
+    color: var(--text);
+    vertical-align: middle;
+  }
+  .compare-table tbody tr {
+    transition: background 0.2s ease;
+  }
+  .compare-table tbody tr:hover {
+    background: rgba(0, 153, 255, 0.04);
+  }
+  .compare-table tr:last-child td { border-bottom: none; }
+
+  .product-cell {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 220px;
+  }
+  .product-cell .mini {
+    width: 56px; height: 56px;
+    flex-shrink: 0;
+  }
+  .product-cell .info { min-width: 0; }
+  .product-cell .name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin-bottom: 2px;
+  }
+  .product-cell .ref {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-mute);
+    letter-spacing: 1px;
+  }
+
+  .mini-bar {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .mini-bar .bar {
+    width: 64px;
+    height: 6px;
+    background: var(--bg-elev);
+    border-radius: 3px;
+    overflow: hidden;
+    border: 1px solid var(--line-soft);
+  }
+  .mini-bar .fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-deep), var(--accent-glow));
+  }
+  .mini-bar .num {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 12px;
+    color: var(--accent-glow);
+    min-width: 28px;
+  }
+
+  .table-rating {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 22px;
+    color: var(--accent-glow);
+  }
+  .table-rating small { color: var(--text-mute); font-size: 13px; font-weight: 500; }
+
+  .table-stock {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--good);
+    white-space: nowrap;
+  }
+  .table-stock::before {
+    content: "";
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--good);
+    box-shadow: 0 0 6px var(--good);
+  }
+  .table-buy {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 14px;
+    background: linear-gradient(135deg, #ff9500, #ff5500);
+    color: white;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+  .table-buy:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(255, 100, 0, 0.4);
+  }
+
+  /* ========== METHODOLOGY ========== */
+  .methodology {
+    max-width: var(--container);
+    margin: 80px auto;
+    padding: 0 var(--gutter);
+    position: relative;
+    z-index: 2;
+  }
+  .method-inner {
+    background: var(--bg-surface);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 48px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 48px;
+  }
+  .method-inner h2 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 40px;
+    line-height: 0.95;
+    letter-spacing: -1px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .method-inner h2 .accent { color: var(--accent); }
+  .method-inner > div:first-child p {
+    color: var(--text-soft);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .method-criteria {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .method-card {
+    padding: 16px 18px;
+    background: var(--bg-elev);
+    border: 1px solid var(--line-soft);
+    border-radius: 10px;
+    border-left: 3px solid var(--accent);
+  }
+  .method-card .name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+  .method-card p {
+    font-size: 12.5px;
+    color: var(--text-soft);
+    line-height: 1.5;
+  }
+
+  /* ========== FAQ COMPACT ========== */
+  .faq-compact {
+    max-width: var(--container);
+    margin: 80px auto;
+    padding: 0 var(--gutter);
+    position: relative;
+    z-index: 2;
+  }
+  .faq-compact h2 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(36px, 5vw, 60px);
+    line-height: 0.95;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    margin-bottom: 32px;
+  }
+  .faq-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .faq-card {
+    padding: 24px 28px;
+    background: var(--bg-surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    border-left: 3px solid var(--accent);
+  }
+  .faq-card h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 17px;
+    margin-bottom: 10px;
+    color: var(--text);
+  }
+  .faq-card p {
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: var(--text-soft);
+  }
+
+  @media (max-width: 900px) {
+    .podium { grid-template-columns: 1fr; }
+    .podium-card.first { transform: none; }
+    .method-inner { grid-template-columns: 1fr; padding: 28px; }
+    .faq-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="01-homepage.html" class="logo">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="12,2 15,9 22,9 16.5,14 18.5,21 12,17 5.5,21 7.5,14 2,9 9,9" />
+        </svg>
+      </div>
+      <div>
+        <div class="logo-text">Toupie<span class="accent">Beyblade</span></div>
+        <span class="logo-tag">Le guide ultime · 2026</span>
+      </div>
+    </a>
+    <nav class="nav">
+      <a href="01-homepage.html">Accueil</a>
+      <a href="04-tous-les-beyblade.html">Toutes les toupies</a>
+      <a href="03-comparatif.html" class="has-submenu active">Comparatifs</a>
+      <a href="#">Guides</a>
+      <a href="#">Blog</a>
+      <a href="#">Contact</a>
+    </nav>
+    <button class="search-btn">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="7"/><path d="m20 20-4.3-4.3"/>
+      </svg>
+    </button>
+    <button class="menu-toggle">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<nav class="breadcrumb">
+  <a href="01-homepage.html">Accueil</a>
+  <span class="sep">›</span>
+  <a href="#">Comparatifs</a>
+  <span class="sep">›</span>
+  <span>Beyblade X</span>
+</nav>
+
+<section class="compare-hero">
+  <div class="compare-eyebrow">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 3h18v18H3z"/><path d="M9 3v18M15 3v18M3 9h18M3 15h18"/></svg>
+    Mis à jour avril 2026 · 12 toupies testées
+  </div>
+  <h1>Comparatif <span class="accent">Beyblade X</span><br>2026 — le guide complet</h1>
+  <p class="lead">Notre verdict sur les 12 toupies Beyblade X de la saison 2024-2026, classées par note globale. Tests réalisés en stadium Xtreme officiel sur 200+ heures de combat. Toutes les notes sont vérifiables : nous publions notre méthodologie ci-dessous.</p>
+
+  <div class="compare-meta">
+    <div class="compare-meta-item"><strong>12</strong>Toupies testées</div>
+    <div class="compare-meta-item"><strong>200h+</strong>De combats</div>
+    <div class="compare-meta-item"><strong>5</strong>Critères notés</div>
+    <div class="compare-meta-item"><strong>0€</strong>Sponsorisation</div>
+  </div>
+</section>
+
+<!-- ============ FILTER BAR ============ -->
+<div class="filter-bar">
+  <span class="filter-label">Type :</span>
+  <button class="filter-pill active">Tous</button>
+  <button class="filter-pill">Attaque</button>
+  <button class="filter-pill">Défense</button>
+  <button class="filter-pill">Stamina</button>
+  <button class="filter-pill">Équilibre</button>
+  <span class="sep"></span>
+  <span class="filter-label">Budget :</span>
+  <button class="filter-pill">&lt; 15 €</button>
+  <button class="filter-pill">15-25 €</button>
+  <button class="filter-pill">25 €+</button>
+  <select class="sort-select">
+    <option>Trier : Note ↓</option>
+    <option>Prix ↑</option>
+    <option>Plus récente</option>
+  </select>
+</div>
+
+<!-- ============ PODIUM ============ -->
+<div class="podium">
+  <article class="podium-card second">
+    <div class="rank-badge">2</div>
+    <div class="podium-bey">
+      <div class="beyblade-viz with-photo spinning">
+        <div class="center"></div>
+        <img src="img/phoenix-wing.webp" alt="Phoenix Wing" class="bey-photo">
+      </div>
+    </div>
+    <h3>Phoenix Wing</h3>
+    <div class="meta">9-60GF · Défense</div>
+    <div class="podium-rating"><span class="num">8.8</span><span class="max">/10</span></div>
+    <div class="podium-stock"><span class="dot"></span>En stock sur Amazon</div>
+    <a href="02-article-produit.html" class="btn btn-ghost" style="width:100%">Voir le test</a>
+  </article>
+
+  <article class="podium-card first">
+    <div class="rank-badge">1</div>
+    <div class="podium-bey">
+      <div class="beyblade-viz with-photo spinning">
+        <div class="center"></div>
+        <img src="img/dran-sword.webp" alt="Dranzer Spiral" class="bey-photo">
+      </div>
+    </div>
+    <h3>Dranzer Spiral</h3>
+    <div class="meta">3-60P · Attaque</div>
+    <div class="podium-rating"><span class="num">9.2</span><span class="max">/10</span></div>
+    <div class="podium-stock"><span class="dot"></span>En stock sur Amazon</div>
+    <a href="02-article-produit.html" class="btn btn-primary" style="width:100%">Voir le test</a>
+  </article>
+
+  <article class="podium-card third">
+    <div class="rank-badge">3</div>
+    <div class="podium-bey">
+      <div class="beyblade-viz with-photo spinning">
+        <div class="center"></div>
+        <img src="img/wizard-arrow.webp" alt="Tyranno Beat" class="bey-photo">
+      </div>
+    </div>
+    <h3>Tyranno Beat</h3>
+    <div class="meta">7-60F · Attaque</div>
+    <div class="podium-rating"><span class="num">8.6</span><span class="max">/10</span></div>
+    <div class="podium-stock"><span class="dot"></span>En stock sur Amazon</div>
+    <a href="02-article-produit.html" class="btn btn-ghost" style="width:100%">Voir le test</a>
+  </article>
+</div>
+
+<!-- ============ TABLE ============ -->
+<section class="table-section">
+  <div class="table-section-header">
+    <h2>Le tableau<br>complet</h2>
+    <p style="color:var(--text-soft); max-width:340px; font-size:14px">Cliquez sur une colonne pour trier. Les notes sont sur 10. Le rapport qualité/prix est calculé sur la base du prix Amazon FR moyen.</p>
+  </div>
+
+  <div class="compare-table-wrap">
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Toupie</th>
+          <th>Type</th>
+          <th>Puissance</th>
+          <th>Endurance</th>
+          <th>Défense</th>
+          <th>Précision</th>
+          <th>Note</th>
+          <th>Dispo</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="product-cell">
+              <div class="mini"><div class="beyblade-viz"><div class="ring-outer"></div><div class="ring-mid"></div><div class="star"></div><div class="center"></div></div></div>
+              <div class="info"><div class="name">Dranzer Spiral</div><div class="ref">BX-42 · 3-60P</div></div>
+            </div>
+          </td>
+          <td><span class="type-badge type-attack">Attaque</span></td>
+          <td><div class="mini-bar"><div class="bar"><div class="fill" style="width:95%"></div></div><span class="num">9.5</span></div></td>
+          <td><div class="mini-bar"><div class="bar"><div class="fill" style="width:75%"></div></div><span class="num">7.5</span></div></td>
+          <td><div class="mini-bar"><div class="bar"><div class="fill" style="width:70%"></div></div><span class="num">7.0</span></div></td>
+          <td><div class="mini-bar"><div class="bar"><div class="fill" style="width:90%"></div></div><span class="num">9.0</span></div></td>
+          <td><span class="table-rating">9.2<small>/10</small></span></td>
+          <td><span class="table-stock">En stock</span></td>
+          <td><a href="#" class="table-buy">Amazon</a></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="product-cell">
+              <div class="mini"><div class="beyblade-viz energy"><div class="ring-outer"></div><div class="ring-mid"></div><div class="star"></div><div class="center"></div></div></div>
+              <div class="info"><div class="name">Phoenix Wing</div><div class="ref">BX-41 · 9-60GF</div></div>
+            </div>
+          </td>
+          <td><span class="type-badge type-defense">Défense</span></td>
+          <td><div class="mini-bar"><div class="bar"><div class="fill" style="width:75%"></div></div><span class="num">7.5</span></div></td>
+          <td><div class="mini-bar"><div class="bar"><div class="fill" style="width:88%"></div></div><span class="num">8.8</span></div></td>
+          <td><div class="mini-bar"><div class="bar"><div class="fill" style="width:95%"></div></div><span class="num">9.5</span></div></td>
+          <td><div class="mini-bar"><div class="bar"><div class="fill" style="width:78%"></div></div><span class="num">7.8</span></div></td>
+          <td><span class="table-rating">8.8<small>/10</small></span></td>
+          <td><span class="table-stock">En stock</span></td>
+          <td><a href="#" class="table-buy">Amazon</a></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="product-cell">
+              <div class="mini"><div class="beyblade-viz gold"><div class="ring-outer"></div><div class="ring-mid"></div><div class="star"></div><div class="center"></div></div></div>
+              <div class="info"><div class="name">Tyranno Beat</div><div class="ref">BX-40 · 7-60F</div></div>
+            </div>
+          </td>
+          <td><span class="type-badge type-attack">Attaque</span></td>
+          <td><div class="mini-bar"><div class="bar"><div class="fill" style="width:90%"></div></div><span class="num">9.0</span></div></td>
+          <td><div class="mini-bar"><div class="bar"><div class="fill" style="width:72%"></div></div><span class="num">7.2</span></div></td>
+          <td><div class="mini-bar"><div class="bar"><div class="fill" style="width:75%"></div></div><span class="num">7.5</span></div></td>
+          <td><div class="mini-bar"><div class="bar"><div class="fill" style="width:85%"></div></div><span class="num">8.5</span></div></td>
+          <td><span class="table-rating">8.6<small>/10</small></span></td>
+          <td><span class="table-stock">En stock</span></td>
+          <td><a href="#" class="table-buy">Amazon</a></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="product-cell">
+              <div class="mini"><div class="beyblade-viz green"><div class="ring-outer"></div><div class="ring-mid"></div><div class="star"></div><div class="center"></div></div></div>
+              <div class="info"><div class="name">Wizard Rod</div><div class="ref">BX-39 · 5-70DB</div></div>
+            </div>
+          </td>
+          <td><span class="type-badge type-balance">Équilibre</span></td>
+          <td><div class="mini-bar"><div class="bar"><div class="fill" style="width:78%"></div></div><span class="num">7.8</span></div></td>
+          <td><div class="mini-bar"><div class="bar"><div class="fill" style="width:90%"></div></div><span class="num">9.0</span></div></td>
+          <td><div class="mini-bar"><div class="bar"><div class="fill" style="width:82%"></div></div><span class="num">8.2</span></div></td>
+          <td><div class="mini-bar"><div class="bar"><div class="fill" style="width:80%"></div></div><span class="num">8.0</span></div></td>
+          <td><span class="table-rating">8.4<small>/10</small></span></td>
+          <td><span class="table-stock">En stock</span></td>
+          <td><a href="#" class="table-buy">Amazon</a></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="product-cell">
+              <div class="mini"><div class="beyblade-viz"><div class="ring-outer"></div><div class="ring-mid"></div><div class="star"></div><div class="center"></div></div></div>
+              <div class="info"><div class="name">Knight Shield</div><div class="ref">BX-38 · 4-60BB</div></div>
+            </div>
+          </td>
+          <td><span class="type-badge type-defense">Défense</span></td>
+          <td><div class="mini-bar"><div class="bar"><div class="fill" style="width:65%"></div></div><span class="num">6.5</span></div></td>
+          <td><div class="mini-bar"><div class="bar"><div class="fill" style="width:85%"></div></div><span class="num">8.5</span></div></td>
+          <td><div class="mini-bar"><div class="bar"><div class="fill" style="width:92%"></div></div><span class="num">9.2</span></div></td>
+          <td><div class="mini-bar"><div class="bar"><div class="fill" style="width:75%"></div></div><span class="num">7.5</span></div></td>
+          <td><span class="table-rating">8.2<small>/10</small></span></td>
+          <td><span class="table-stock">En stock</span></td>
+          <td><a href="#" class="table-buy">Amazon</a></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="product-cell">
+              <div class="mini"><div class="beyblade-viz green"><div class="ring-outer"></div><div class="ring-mid"></div><div class="star"></div><div class="center"></div></div></div>
+              <div class="info"><div class="name">Hells Scythe</div><div class="ref">BX-37 · 4-60T</div></div>
+            </div>
+          </td>
+          <td><span class="type-badge type-stamina">Stamina</span></td>
+          <td><div class="mini-bar"><div class="bar"><div class="fill" style="width:60%"></div></div><span class="num">6.0</span></div></td>
+          <td><div class="mini-bar"><div class="bar"><div class="fill" style="width:95%"></div></div><span class="num">9.5</span></div></td>
+          <td><div class="mini-bar"><div class="bar"><div class="fill" style="width:75%"></div></div><span class="num">7.5</span></div></td>
+          <td><div class="mini-bar"><div class="bar"><div class="fill" style="width:80%"></div></div><span class="num">8.0</span></div></td>
+          <td><span class="table-rating">7.9<small>/10</small></span></td>
+          <td><span class="table-stock">En stock</span></td>
+          <td><a href="#" class="table-buy">Amazon</a></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="product-cell">
+              <div class="mini"><div class="beyblade-viz energy"><div class="ring-outer"></div><div class="ring-mid"></div><div class="star"></div><div class="center"></div></div></div>
+              <div class="info"><div class="name">Cobalt Drake</div><div class="ref">BX-36 · 4-70Q</div></div>
+            </div>
+          </td>
+          <td><span class="type-badge type-attack">Attaque</span></td>
+          <td><div class="mini-bar"><div class="bar"><div class="fill" style="width:85%"></div></div><span class="num">8.5</span></div></td>
+          <td><div class="mini-bar"><div class="bar"><div class="fill" style="width:65%"></div></div><span class="num">6.5</span></div></td>
+          <td><div class="mini-bar"><div class="bar"><div class="fill" style="width:60%"></div></div><span class="num">6.0</span></div></td>
+          <td><div class="mini-bar"><div class="bar"><div class="fill" style="width:78%"></div></div><span class="num">7.8</span></div></td>
+          <td><span class="table-rating">7.5<small>/10</small></span></td>
+          <td><span class="table-stock">En stock</span></td>
+          <td><a href="#" class="table-buy">Amazon</a></td>
+        </tr>
+        <tr>
+          <td>
+            <div class="product-cell">
+              <div class="mini"><div class="beyblade-viz gold"><div class="ring-outer"></div><div class="ring-mid"></div><div class="star"></div><div class="center"></div></div></div>
+              <div class="info"><div class="name">Sphinx Cowl</div><div class="ref">BX-35 · 9-80B</div></div>
+            </div>
+          </td>
+          <td><span class="type-badge type-balance">Équilibre</span></td>
+          <td><div class="mini-bar"><div class="bar"><div class="fill" style="width:70%"></div></div><span class="num">7.0</span></div></td>
+          <td><div class="mini-bar"><div class="bar"><div class="fill" style="width:75%"></div></div><span class="num">7.5</span></div></td>
+          <td><div class="mini-bar"><div class="bar"><div class="fill" style="width:78%"></div></div><span class="num">7.8</span></div></td>
+          <td><div class="mini-bar"><div class="bar"><div class="fill" style="width:72%"></div></div><span class="num">7.2</span></div></td>
+          <td><span class="table-rating">7.4<small>/10</small></span></td>
+          <td><span class="table-stock">En stock</span></td>
+          <td><a href="#" class="table-buy">Amazon</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ METHODOLOGY ============ -->
+<section class="methodology">
+  <div class="method-inner">
+    <div>
+      <h2>Notre <span class="accent">méthode</span></h2>
+      <p>Chaque toupie est testée 30+ fois dans un stadium Xtreme officiel par 2 testeurs indépendants. Aucune marque ne sponsorise ces tests. Les notes brutes et la grille d'évaluation sont publiées sur GitHub.</p>
+      <a href="#" style="color:var(--accent); font-family:var(--font-mono); font-size:12px; letter-spacing:1.5px; text-transform:uppercase; margin-top:16px; display:inline-block">Voir la méthodologie complète →</a>
+    </div>
+    <div class="method-criteria">
+      <div class="method-card">
+        <div class="name">Puissance</div>
+        <p>Force d'impact mesurée en KO/min contre un défenseur étalon (Knight Shield).</p>
+      </div>
+      <div class="method-card">
+        <div class="name">Endurance</div>
+        <p>Durée moyenne de spin en lancer maximal solo (chrono jusqu'à arrêt complet).</p>
+      </div>
+      <div class="method-card">
+        <div class="name">Défense</div>
+        <p>Nombre de KOs encaissés sans burst contre un attaquant étalon (Tyranno Beat).</p>
+      </div>
+      <div class="method-card">
+        <div class="name">Précision</div>
+        <p>Reproductibilité de la trajectoire en lancer (variance mesurée sur 20 launchs).</p>
+      </div>
+      <div class="method-card">
+        <div class="name">Durabilité</div>
+        <p>État après 100 combats : vis intactes, plastique sans crack, performance stable.</p>
+      </div>
+      <div class="method-card">
+        <div class="name">Rapport Q/P</div>
+        <p>Note globale divisée par le prix Amazon FR moyen (mise à jour hebdo).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="faq-compact">
+  <h2>Questions fréquentes<br>sur Beyblade X</h2>
+  <div class="faq-grid">
+    <div class="faq-card">
+      <h3>Quelle Beyblade X choisir pour débuter ?</h3>
+      <p>Notre recommandation : la <strong>Knight Shield</strong> (8.2/10). Pardonnante aux erreurs de lancer, défensive donc rarement KO, prix abordable (17,49 €). Vous pourrez progresser en complexité ensuite.</p>
+    </div>
+    <div class="faq-card">
+      <h3>Beyblade X est-elle compatible avec Burst ?</h3>
+      <p>Non. Stadiums, lanceurs, mécaniques d'éclatement sont incompatibles. Beyblade X utilise un système Blade/Ratchet/Bit là où Burst utilise Layer/Disc/Driver.</p>
+    </div>
+    <div class="faq-card">
+      <h3>Faut-il acheter le stadium Xtreme officiel ?</h3>
+      <p>Indispensable pour exploiter pleinement le système X. Les stadiums génériques annulent l'effet de la rampe et faussent les performances. Comptez 39,99 € pour le stadium officiel Takara Tomy.</p>
+    </div>
+    <div class="faq-card">
+      <h3>Différence entre version JP et FR ?</h3>
+      <p>Aucune sur les mécaniques. Les versions japonaises (Takara Tomy) ont parfois des coloris exclusifs. Les versions FR (Hasbro) sont identiques techniquement et garanties par la marque.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <a href="01-homepage.html" class="logo">
+        <div class="logo-mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="12,2 15,9 22,9 16.5,14 18.5,21 12,17 5.5,21 7.5,14 2,9 9,9" />
+          </svg>
+        </div>
+        <div>
+          <div class="logo-text">Toupie<span class="accent">Beyblade</span></div>
+          <span class="logo-tag">Le guide ultime · 2026</span>
+        </div>
+      </a>
+      <p style="max-width:340px; margin-top:16px">Le blog français de référence sur les toupies Beyblade. Tests indépendants, comparatifs détaillés, guides d'achat.</p>
+    </div>
+    <div><h4>Gammes</h4><ul><li><a href="#">Beyblade X</a></li><li><a href="#">Beyblade Burst</a></li><li><a href="#">Metal Fusion</a></li><li><a href="#">Arènes</a></li><li><a href="#">Lanceurs</a></li></ul></div>
+    <div><h4>Guides</h4><ul><li><a href="#">Meilleur Beyblade</a></li><li><a href="#">Quiz du choix</a></li><li><a href="#">Tournois 2026</a></li><li><a href="#">Coloriages</a></li></ul></div>
+    <div><h4>À propos</h4><ul><li><a href="#">Notre méthode</a></li><li><a href="#">L'équipe</a></li><li><a href="#">Contact</a></li><li><a href="#">Mentions légales</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 toupiebeyblade.fr</span>
+    <span>En tant que partenaire Amazon, nous gagnons une commission sur les achats éligibles</span>
+  </div>
+</footer>
+
+</body>
+</html>

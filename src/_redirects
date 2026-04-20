@@ -1,0 +1,51 @@
+# ==============================================================
+# Cloudflare Pages redirects — toupiebeyblade.fr
+# Format: <source> <destination> <status>
+# ==============================================================
+# 305 backlinks survivants depuis l'ancien site Beyblade Metal Fusion (2011-2013)
+# Source: REDIRECTIONS.md
+# ==============================================================
+
+# Anciennes fiches /avis/{slug}/ — règles spécifiques d'abord
+/avis/ray-unicorno/*       /ray-unicorno-d125cs/             301
+/avis/rock-leone/*         /rock-leone-145wb/                301
+/avis/meteo-l-drago/*      /meteo-l-drago-lw105lrf/          301
+/avis/galaxy-pegasus/*     /galaxy-pegasus-w105r2f/          301
+
+# Catégories de saisons → gamme Metal Fusion
+/saison/metal-master/*     /beyblade-metal-fusion/           301
+/saison/metal-fusion/*     /beyblade-metal-fusion/           301
+/saison/metal-fight/*      /beyblade-metal-fusion/           301
+
+# Catégories par type → comparatif Burst
+/categorie/attaque/*       /comparatif-beyblade-burst/       301
+/categorie/defense/*       /comparatif-beyblade-burst/       301
+/categorie/endurance/*     /comparatif-beyblade-burst/       301
+/categorie/equilibre/*     /comparatif-beyblade-burst/       301
+
+# Pièces génériques (Metal Fusion 4-part system) → catégorie Metal Fusion
+/roue-fusion/*             /beyblade-metal-fusion/           301
+/facebolt/*                /beyblade-metal-fusion/           301
+/axe-rotation/*            /beyblade-metal-fusion/           301
+/anneau-energie/*          /beyblade-metal-fusion/           301
+/pointe-performance/*      /beyblade-metal-fusion/           301
+
+# Pièces Burst Layer system
+/layer/*                   /beyblade-burst/                  301
+/disc/*                    /beyblade-burst/                  301
+/driver/*                  /beyblade-burst/                  301
+
+# Avis génériques (autres fiches non recréées) → catégorie Metal Fusion
+/avis/*                    /beyblade-metal-fusion/           301
+
+# Pages éditoriales legacy
+/tests                     /comparatifs/                     301
+/tests/                    /comparatifs/                     301
+/test/                     /comparatifs/                     301
+/test                      /comparatifs/                     301
+/boutique                  /                                 301
+/boutique/                 /                                 301
+/shop                      /                                 301
+/shop/                     /                                 301
+
+# Fallback : trailing slash normalisation gérée auto par Cloudflare Pages

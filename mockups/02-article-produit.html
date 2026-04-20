@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dranzer Spiral — Test complet · toupiebeyblade.fr</title>
+<link rel="stylesheet" href="_shared.css">
+<link rel="stylesheet" href="_beyblade.css">
+<style>
+  /* ========== ARTICLE LAYOUT ========== */
+  .article-wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 32px var(--gutter) 80px;
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 56px;
+  }
+  .article-main {}
+
+  /* ========== HEADER ARTICLE ========== */
+  .article-header {
+    margin-bottom: 32px;
+  }
+  .article-header h1 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(40px, 5.5vw, 80px);
+    line-height: 0.9;
+    letter-spacing: -2px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .article-header .subtitle {
+    font-size: 19px;
+    color: var(--text-soft);
+    max-width: 720px;
+    line-height: 1.55;
+  }
+  .article-meta-bar {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-top: 24px;
+    padding: 16px 0;
+    border-top: 1px solid var(--line-soft);
+    border-bottom: 1px solid var(--line-soft);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    flex-wrap: wrap;
+  }
+  .article-meta-bar .accent { color: var(--accent); }
+  .article-meta-bar .author {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .article-meta-bar .author-avatar {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--energy));
+  }
+
+  /* ========== INTRO ========== */
+  .article-intro {
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--text);
+    margin: 32px 0 48px;
+    padding: 24px 28px;
+    background: linear-gradient(135deg, rgba(0,153,255,0.04), transparent);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 12px 12px 0;
+  }
+  .article-intro::first-letter {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 64px;
+    color: var(--accent);
+    float: left;
+    line-height: 0.85;
+    margin: 4px 12px 0 0;
+    text-shadow: var(--glow-blue-soft);
+  }
+
+  /* ========== REVIEW BLOCK ========== */
+  .review-block {
+    background: var(--bg-surface);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 0;
+    overflow: hidden;
+    margin: 56px 0;
+    position: relative;
+  }
+  .review-block::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--accent) 0%, var(--accent-glow) 50%, var(--accent) 100%);
+    box-shadow: 0 0 16px var(--accent);
+  }
+  .review-header {
+    padding: 20px 28px;
+    border-bottom: 1px solid var(--line-soft);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .review-header-title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 22px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .review-header-title svg { color: var(--accent); }
+  .review-grade {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .review-grade-num {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 56px;
+    line-height: 1;
+    color: var(--accent-glow);
+    text-shadow: var(--glow-blue);
+  }
+  .review-grade-num small {
+    font-size: 18px;
+    color: var(--text-mute);
+    margin-left: 4px;
+  }
+  .review-grade-label {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    background: var(--accent);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 3px;
+    margin-bottom: 4px;
+    display: inline-block;
+  }
+
+  .review-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+
+  /* ========== CAROUSEL ========== */
+  .carousel {
+    padding: 28px;
+    border-right: 1px solid var(--line-soft);
+  }
+  .carousel-main {
+    aspect-ratio: 1;
+    background:
+      radial-gradient(circle at 50% 60%, rgba(0,153,255,0.2), transparent 50%),
+      var(--bg-elev);
+    border: 1px solid var(--line-soft);
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    padding: 40px;
+    margin-bottom: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+  .carousel-main::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(45deg, transparent 0, transparent 20px, rgba(0,153,255,0.02) 20px, rgba(0,153,255,0.02) 21px);
+  }
+  .carousel-thumbs {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+  .carousel-thumb {
+    aspect-ratio: 1;
+    background: var(--bg-elev);
+    border: 1px solid var(--line-soft);
+    border-radius: 6px;
+    padding: 8px;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    transition: all 0.2s ease;
+    position: relative;
+  }
+  .carousel-thumb:hover { border-color: var(--accent); }
+  .carousel-thumb.active {
+    border-color: var(--accent);
+    box-shadow: var(--glow-blue-soft);
+  }
+  .carousel-thumb.active::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border: 2px solid var(--accent);
+    border-radius: 6px;
+    pointer-events: none;
+  }
+
+  /* ========== RATING SIDE ========== */
+  .rating-side {
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+  }
+  .rating-side h3 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 28px;
+    text-transform: uppercase;
+    letter-spacing: -0.5px;
+    margin-bottom: 4px;
+  }
+  .rating-side .product-meta {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    margin-bottom: 16px;
+  }
+  .rating-side .verdict {
+    color: var(--text-soft);
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 24px;
+    padding: 16px;
+    background: rgba(0, 153, 255, 0.04);
+    border-radius: 8px;
+    border-left: 3px solid var(--accent);
+  }
+  .rating-side .verdict strong { color: var(--text); }
+
+  .stat-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex: 1;
+  }
+  .stat-row {
+    display: grid;
+    grid-template-columns: 90px 1fr 36px;
+    align-items: center;
+    gap: 12px;
+  }
+  .stat-label {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+  .stat-bar {
+    height: 8px;
+    background: var(--bg-elev);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--line-soft);
+  }
+  .stat-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-deep), var(--accent), var(--accent-glow));
+    box-shadow: var(--glow-blue-soft);
+    border-radius: 4px;
+    position: relative;
+    transition: width 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .stat-fill::after {
+    content: "";
+    position: absolute;
+    top: 0; bottom: 0;
+    right: 0;
+    width: 16px;
+    background: linear-gradient(90deg, transparent, white);
+    opacity: 0.6;
+  }
+  .stat-num {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--accent-glow);
+    text-align: right;
+  }
+
+  .availability-row {
+    margin: 20px 0 12px;
+    padding: 12px 14px;
+    border: 1px solid var(--good);
+    background: rgba(0, 214, 143, 0.05);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--good);
+  }
+  .availability-row .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--good);
+    box-shadow: 0 0 8px var(--good);
+    animation: pulse 2s infinite;
+  }
+  .review-cta {
+    display: block;
+    text-align: center;
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #ff9500, #ff5500);
+    color: white;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 15px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px -8px rgba(255, 100, 0, 0.5), 0 0 24px rgba(255, 100, 0, 0.2);
+    transition: all 0.2s ease;
+  }
+  .review-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px -8px rgba(255, 100, 0, 0.7);
+  }
+  .review-cta::before {
+    content: "▶ ";
+    color: white;
+  }
+  .review-disclaimer {
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    margin-top: 10px;
+  }
+
+  /* ========== ARTICLE BODY ========== */
+  .article-body h2 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(32px, 4vw, 44px);
+    line-height: 1;
+    letter-spacing: -1px;
+    text-transform: uppercase;
+    margin: 56px 0 20px;
+    position: relative;
+    padding-left: 20px;
+  }
+  .article-body h2::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 6px;
+    bottom: 8px;
+    width: 4px;
+    background: var(--accent);
+    box-shadow: var(--glow-blue-soft);
+  }
+  .article-body h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 22px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 36px 0 12px;
+    color: var(--text);
+  }
+  .article-body p {
+    font-size: 17px;
+    line-height: 1.75;
+    color: var(--text-soft);
+    margin-bottom: 18px;
+  }
+  .article-body p strong { color: var(--text); }
+  .article-body ul, .article-body ol {
+    margin: 16px 0 24px 24px;
+    color: var(--text-soft);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+  .article-body li { margin-bottom: 8px; }
+  .article-body li::marker { color: var(--accent); }
+
+  /* Tableau specs */
+  .specs-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    background: var(--bg-surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .specs-table th {
+    text-align: left;
+    padding: 14px 18px;
+    background: var(--bg-elev);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    border-bottom: 2px solid var(--accent);
+    width: 40%;
+  }
+  .specs-table td {
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--line-soft);
+    font-size: 15px;
+    color: var(--text);
+  }
+  .specs-table tr:last-child td,
+  .specs-table tr:last-child th { border-bottom: none; }
+  .specs-table .type-cell { display: inline-block; }
+
+  /* Pros / cons */
+  .pros-cons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 28px 0;
+  }
+  .pros, .cons {
+    padding: 24px;
+    border-radius: 12px;
+    background: var(--bg-surface);
+    border: 1px solid var(--line);
+  }
+  .pros { border-left: 4px solid var(--good); }
+  .cons { border-left: 4px solid var(--energy); }
+  .pros h4, .cons h4 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .pros h4 { color: var(--good); }
+  .cons h4 { color: var(--energy); }
+  .pros ul, .cons ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 14.5px;
+    color: var(--text-soft);
+  }
+  .pros li, .cons li {
+    padding: 8px 0 8px 26px;
+    position: relative;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .pros li:last-child, .cons li:last-child { border-bottom: none; }
+  .pros li::before {
+    content: "+";
+    position: absolute;
+    left: 0; top: 8px;
+    width: 18px; height: 18px;
+    background: var(--good);
+    color: var(--bg-deep);
+    border-radius: 4px;
+    display: grid;
+    place-items: center;
+    font-weight: 900;
+    font-size: 14px;
+  }
+  .cons li::before {
+    content: "−";
+    position: absolute;
+    left: 0; top: 8px;
+    width: 18px; height: 18px;
+    background: var(--energy);
+    color: white;
+    border-radius: 4px;
+    display: grid;
+    place-items: center;
+    font-weight: 900;
+    font-size: 14px;
+  }
+
+  /* Maillage interne */
+  .related {
+    margin: 36px 0;
+    padding: 32px;
+    background: var(--bg-surface);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+  }
+  .related-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .related h3 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 28px;
+    text-transform: uppercase;
+    letter-spacing: -0.5px;
+    margin-bottom: 24px;
+  }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .related-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px;
+    background: var(--bg-elev);
+    border: 1px solid var(--line-soft);
+    border-radius: 10px;
+    transition: all 0.2s ease;
+  }
+  .related-card:hover {
+    border-color: var(--accent);
+    transform: translateX(4px);
+  }
+  .related-card .mini-bey {
+    width: 56px; height: 56px;
+    flex-shrink: 0;
+  }
+  .related-card .info { flex: 1; min-width: 0; }
+  .related-card .info .gamme {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-mute);
+  }
+  .related-card .info .name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 2px 0;
+  }
+  .related-card .info .rating {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--accent-glow);
+  }
+
+  /* FAQ */
+  .faq {
+    margin: 36px 0;
+  }
+  .faq-item {
+    background: var(--bg-surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    transition: all 0.2s ease;
+  }
+  .faq-item:hover { border-color: var(--accent); }
+  .faq-item summary {
+    cursor: pointer;
+    padding: 18px 22px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 17px;
+    letter-spacing: 0.3px;
+    color: var(--text);
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after {
+    content: "+";
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 24px;
+    color: var(--accent);
+    width: 32px; height: 32px;
+    display: grid;
+    place-items: center;
+    background: rgba(0,153,255,0.08);
+    border-radius: 50%;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+  }
+  .faq-item[open] summary::after { content: "−"; }
+  .faq-item .faq-body {
+    padding: 0 22px 22px;
+    color: var(--text-soft);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* Final CTA */
+  .final-cta {
+    margin: 56px 0 0;
+    padding: 48px 40px;
+    background:
+      radial-gradient(ellipse at center, rgba(0,153,255,0.15), transparent 70%),
+      linear-gradient(135deg, var(--bg-surface), var(--bg-elev));
+    border: 1px solid var(--accent);
+    border-radius: 16px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .final-cta::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(135deg, transparent 0, transparent 30px, rgba(0,153,255,0.02) 30px, rgba(0,153,255,0.02) 31px);
+  }
+  .final-cta h3 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(28px, 4vw, 40px);
+    line-height: 0.95;
+    text-transform: uppercase;
+    letter-spacing: -0.5px;
+    margin-bottom: 12px;
+    position: relative;
+  }
+  .final-cta p {
+    color: var(--text-soft);
+    margin-bottom: 24px;
+    max-width: 480px;
+    margin-left: auto; margin-right: auto;
+    position: relative;
+  }
+
+  /* ========== SIDEBAR ========== */
+  .sidebar {
+    position: sticky;
+    top: 96px;
+    align-self: start;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .sidebar-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .sidebar-card h4 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 14px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    color: var(--accent);
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .toc-list { list-style: none; }
+  .toc-list li {
+    padding: 7px 0 7px 12px;
+    font-size: 13px;
+    color: var(--text-soft);
+    border-left: 2px solid transparent;
+    margin-left: -2px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    line-height: 1.3;
+  }
+  .toc-list li.active {
+    color: var(--accent);
+    border-left-color: var(--accent);
+    font-weight: 700;
+    background: linear-gradient(90deg, rgba(0,153,255,0.08), transparent);
+  }
+  .toc-list li:hover { color: var(--text); border-left-color: var(--text-mute); }
+  .verdict-box {
+    text-align: center;
+    padding: 20px 16px;
+  }
+  .verdict-box .grade {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 64px;
+    color: var(--accent-glow);
+    line-height: 1;
+    text-shadow: var(--glow-blue);
+  }
+  .verdict-box .grade small { font-size: 22px; color: var(--text-mute); }
+  .verdict-box .label {
+    margin-top: 8px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-soft);
+  }
+  .stars {
+    margin: 12px 0 4px;
+    color: var(--champion);
+    letter-spacing: 2px;
+    font-size: 16px;
+  }
+
+  /* ========== RESPONSIVE ========== */
+  @media (max-width: 980px) {
+    .article-wrap { grid-template-columns: 1fr; }
+    .sidebar { position: static; order: 2; }
+    .review-body { grid-template-columns: 1fr; }
+    .carousel { border-right: none; border-bottom: 1px solid var(--line-soft); }
+    .review-grade-num { font-size: 40px; }
+    .pros-cons { grid-template-columns: 1fr; }
+    .related-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="12,2 15,9 22,9 16.5,14 18.5,21 12,17 5.5,21 7.5,14 2,9 9,9" />
+        </svg>
+      </div>
+      <div>
+        <div class="logo-text">Toupie<span class="accent">Beyblade</span></div>
+        <span class="logo-tag">Le guide ultime · 2026</span>
+      </div>
+    </a>
+    <nav class="nav">
+      <a href="01-homepage.html">Accueil</a>
+      <a href="04-tous-les-beyblade.html">Toutes les toupies</a>
+      <a href="03-comparatif.html" class="has-submenu active">Comparatifs</a>
+      <a href="#">Guides</a>
+      <a href="#">Blog</a>
+      <a href="#">Contact</a>
+    </nav>
+    <button class="search-btn">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="7"/><path d="m20 20-4.3-4.3"/>
+      </svg>
+    </button>
+    <button class="menu-toggle">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<nav class="breadcrumb">
+  <a href="01-homepage.html">Accueil</a>
+  <span class="sep">›</span>
+  <a href="03-comparatif.html">Beyblade X</a>
+  <span class="sep">›</span>
+  <span>Dranzer Spiral</span>
+</nav>
+
+<div class="article-wrap">
+  <!-- ============ MAIN ============ -->
+  <article class="article-main">
+    <header class="article-header">
+      <h1>Dranzer Spiral<br><span style="color:var(--accent)">test complet</span></h1>
+      <p class="subtitle">Le phénix renait avec un Blade Helical inédit, un Ratchet 3-60 et un Bit Point pour une vélocité chirurgicale en stadium.</p>
+      <div class="article-meta-bar">
+        <span>Mis à jour le <span class="accent">14 avril 2026</span></span>
+        <span>· <span class="accent">14 min</span> de lecture</span>
+        <span>· <span class="accent">200+ heures</span> de tests stadium</span>
+        <span>· <span class="accent">60 combats</span> chronométrés</span>
+      </div>
+    </header>
+
+    <p class="article-intro">Sortie en mars 2026, la <strong>Dranzer Spiral</strong> est la nouvelle figure de proue de la gamme Beyblade X — et probablement la toupie d'attaque la plus polyvalente que Takara Tomy ait sortie depuis 18 mois. Après 60 combats chronométrés en stadium Xtreme officiel et 200+ heures de tests longue durée, voici notre verdict détaillé : à qui s'adresse cette toupie, ce qui justifie (ou non) son positionnement, et quelles alternatives considérer si vous hésitez encore.</p>
+
+    <!-- ============ REVIEW BLOCK ============ -->
+    <div class="review-block">
+      <div class="review-header">
+        <div class="review-header-title">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polygon points="12 2 15 8.5 22 9.3 17 14 18.5 21 12 17.7 5.5 21 7 14 2 9.3 9 8.5"/>
+          </svg>
+          Notre verdict
+        </div>
+        <div class="review-grade">
+          <div>
+            <span class="review-grade-label">Excellent</span>
+            <div style="font-family:var(--font-mono); font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--text-mute)">Note globale</div>
+          </div>
+          <div class="review-grade-num">9.2<small>/10</small></div>
+        </div>
+      </div>
+
+      <div class="review-body">
+        <!-- CAROUSEL -->
+        <div class="carousel">
+          <div class="carousel-main">
+            <div class="beyblade-viz with-photo spinning" style="width:90%">
+              <div class="center"></div>
+              <img src="img/dran-sword.webp" alt="Dranzer Spiral 3-60P" class="bey-photo">
+            </div>
+          </div>
+          <div class="carousel-thumbs">
+            <div class="carousel-thumb active">
+              <div class="beyblade-viz with-photo" style="width:95%">
+                <div class="center"></div>
+                <img src="img/dran-sword.webp" alt="" class="bey-photo">
+              </div>
+            </div>
+            <div class="carousel-thumb">
+              <div class="beyblade-viz with-photo" style="width:95%">
+                <div class="center"></div>
+                <img src="img/knight-shield.webp" alt="" class="bey-photo">
+              </div>
+            </div>
+            <div class="carousel-thumb">
+              <div class="beyblade-viz with-photo" style="width:95%">
+                <div class="center"></div>
+                <img src="img/wizard-arrow.webp" alt="" class="bey-photo">
+              </div>
+            </div>
+            <div class="carousel-thumb">
+              <div class="beyblade-viz with-photo" style="width:95%">
+                <div class="center"></div>
+                <img src="img/sphinx-cowl.webp" alt="" class="bey-photo">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RATING SIDE -->
+        <div class="rating-side">
+          <h3>Dranzer Spiral 3-60P</h3>
+          <div class="product-meta">Beyblade X · BX-42 · 2026</div>
+          <span class="type-badge type-attack" style="margin-bottom:12px; align-self:flex-start">Type Attaque</span>
+          <p class="verdict"><strong>Verdict en 1 ligne :</strong> la meilleure toupie d'attaque Beyblade X de 2026 si vous savez la lancer correctement.</p>
+
+          <div class="stat-bars">
+            <div class="stat-row">
+              <span class="stat-label">Puissance</span>
+              <div class="stat-bar"><div class="stat-fill" style="width:95%"></div></div>
+              <span class="stat-num">9.5</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Endurance</span>
+              <div class="stat-bar"><div class="stat-fill" style="width:75%"></div></div>
+              <span class="stat-num">7.5</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Défense</span>
+              <div class="stat-bar"><div class="stat-fill" style="width:70%"></div></div>
+              <span class="stat-num">7.0</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Précision</span>
+              <div class="stat-bar"><div class="stat-fill" style="width:90%"></div></div>
+              <span class="stat-num">9.0</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Durabilité</span>
+              <div class="stat-bar"><div class="stat-fill" style="width:88%"></div></div>
+              <span class="stat-num">8.8</span>
+            </div>
+          </div>
+
+          <div class="availability-row">
+            <span class="dot"></span>
+            <span class="lbl">En stock sur Amazon FR</span>
+          </div>
+          <a href="#" class="review-cta">Voir le prix sur Amazon</a>
+          <div class="review-disclaimer">Lien d'affiliation · Achat sans surcoût pour vous</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ ARTICLE BODY ============ -->
+    <div class="article-body">
+      <h2 id="presentation">Présentation</h2>
+      <p>La Dranzer Spiral marque le retour officiel du phénix mythique — un nom familier aux blader·euse·s depuis l'ère originale Beyblade Plastic en 2002. Cette nouvelle itération <strong>BX-42</strong>, sortie en mars 2026 chez Takara Tomy (puis distribuée par Hasbro pour le marché européen), a été conçue pour exploiter au maximum la rampe inclinée du stadium Xtreme grâce à un Blade <em>Helical</em> aux ailettes en spirale, un système de propulsion par rebond unique à la gamme Beyblade X.</p>
+      <p>Visuellement, la toupie reprend les codes du phénix : couleurs feu (rouge profond et orange métallisé), design d'ailettes asymétriques évoquant le plumage, et une signature <em>Spiral</em> gravée sur le Blade. C'est l'une des toupies les plus reconnaissables sorties cette année, avec une présence plateau qui frappe immédiatement l'adversaire — un atout psychologique non négligeable en tournoi local.</p>
+      <p>Sur le plan stratégique, la Dranzer Spiral se positionne comme une <strong>attaquante de transition</strong> : suffisamment rapide pour faire fuir les défenseurs, suffisamment résistante pour encaisser un retour de force, et suffisamment précise pour exploiter la rampe Xtreme. C'est cette polyvalence qui la distingue de la Tyranno Beat (plus brutale mais moins précise) et de la Cobalt Drake (très rapide mais fragile).</p>
+
+      <h2 id="lore">L'héritage du phénix dans la franchise</h2>
+      <p>Pour les nouveaux venus dans l'univers Beyblade, le nom <strong>Dranzer</strong> n'est pas anodin. C'est la toupie iconique de Kai Hiwatari, l'antagoniste-allié de la première saison animée (Bakuten Shoot Beyblade, 2001). Présente dans toutes les itérations de la franchise — Plastic, HMS, Metal Fight, Burst — la Dranzer s'est toujours définie comme une attaquante de précision, jamais comme une force brute.</p>
+      <p>Cette nouvelle Dranzer Spiral perpétue cette philosophie : elle ne gagne pas par la puissance pure, mais par la <strong>justesse de l'angle d'attaque</strong>. Si vous avez grandi avec la Dranzer Flame des années 2010, vous retrouverez la sensation familière d'une toupie qui "lit" le terrain. C'est un excellent argument pour les parents fans de la première heure qui veulent partager leur passion avec leurs enfants.</p>
+
+      <h2 id="specs">Caractéristiques techniques</h2>
+      <table class="specs-table">
+        <tr><th>Gamme</th><td>Beyblade X (2024-2026)</td></tr>
+        <tr><th>Référence officielle</th><td>BX-42 / Dranzer Spiral 3-60P</td></tr>
+        <tr><th>Année de sortie</th><td>Mars 2026</td></tr>
+        <tr><th>Type</th><td><span class="type-badge type-attack">Attaque</span></td></tr>
+        <tr><th>Blade</th><td>Helical (spiral aerodynamic)</td></tr>
+        <tr><th>Ratchet</th><td>3-60 (3 lobes, hauteur 6.0mm)</td></tr>
+        <tr><th>Bit</th><td>Point (P) — pointe rigide</td></tr>
+        <tr><th>Lanceur inclus</th><td>Xtreme Launcher (gris/orange)</td></tr>
+        <tr><th>Âge recommandé</th><td>8 ans et +</td></tr>
+        <tr><th>Poids total</th><td>34g</td></tr>
+      </table>
+
+      <h2 id="performances">Performances en combat</h2>
+      <p>Sur 60 lancers en stadium Xtreme contre un panel varié (Phoenix Wing, Knight Shield, Wizard Arrow, Tyranno Beat, Cobalt Drake), la Dranzer Spiral affiche un <strong>taux de victoire global de 71%</strong>. Décomposé par type d'adversaire, le tableau devient particulièrement instructif et révèle une signature de combat très spécifique.</p>
+
+      <h3>Contre les défenseurs (Knight Shield, Phoenix Wing)</h3>
+      <p>C'est ici que la Dranzer brille : <strong>83% de victoires</strong> en moyenne. La spirale du Blade Helical convertit la rampe inclinée du stadium Xtreme en momentum d'attaque latérale, créant des KO francs en moins de 8 secondes en moyenne. Contre la Knight Shield (4-60BB), le ratio monte même à 87%. Le seul défenseur qui pose réellement problème reste la Phoenix Wing avec son Driver Gear Flat qui résiste mieux aux impacts répétés.</p>
+
+      <h3>Contre les attaquants (Tyranno Beat, Cobalt Drake)</h3>
+      <p>Combat de coqs avec un ratio quasi-équilibré (52% pour la Dranzer). La Tyranno Beat possède plus de masse et frappe plus fort en collision frontale, mais la Dranzer compense par une trajectoire plus difficile à anticiper. C'est généralement le premier impact qui décide du combat — une raison de plus pour soigner son lancer.</p>
+
+      <h3>Contre les stamina (Wizard Arrow, Hells Scythe)</h3>
+      <p>Point faible évident : le scoring tombe à <strong>50/50 voire 45/55 défavorable</strong>. Les stamina pures comme la Wizard Arrow tournent simplement plus longtemps. La Dranzer doit absolument terminer le combat dans les 25 premières secondes par KO ; passé ce délai, sa réserve d'énergie cinétique s'épuise plus vite que celle de l'adversaire.</p>
+
+      <h2 id="how-to-launch">Comment lancer la Dranzer Spiral correctement</h2>
+      <p>La Dranzer Spiral est une toupie qui <strong>punit les lancers approximatifs</strong>. Pour exploiter son Blade Helical, vous devez maîtriser trois paramètres : l'angle, la force, et le timing de release.</p>
+
+      <h3>L'angle de lancer</h3>
+      <p>Inclinez votre lanceur de 15 à 20° vers l'avant (et non perpendiculaire au stadium). Cet angle envoie la toupie directement sur la rampe Xtreme et déclenche le momentum spiral. Un lancer trop vertical fait perdre 30% de la puissance d'attaque.</p>
+
+      <h3>La force de lancer</h3>
+      <p>Tirez le rip-cord d'un mouvement <strong>sec et complet</strong> en moins de 0,3 seconde. Un tirage progressif diminue la vitesse de rotation initiale. Si vous entendez un clac net du lanceur Xtreme officiel, c'est bon signe.</p>
+
+      <h3>Le timing de release</h3>
+      <p>Lâchez le bouton du lanceur <em>juste avant</em> que la toupie touche le bord du stadium, pas avant. Cela évite que la toupie atterrisse trop loin du centre et perde sa trajectoire optimale.</p>
+
+      <h2 id="combos">Combos avancés et personnalisation</h2>
+      <p>L'un des intérêts du système Beyblade X est sa modularité. Le Blade Helical de la Dranzer Spiral peut être combiné avec n'importe quel Ratchet et Bit de la gamme. Voici nos trois combos préférés validés en tournoi local :</p>
+
+      <table class="specs-table">
+        <tr><th>Combo</th><td><strong>Helical 3-60P</strong> (stock)</td></tr>
+        <tr><th>Profil</th><td>Polyvalent — note 9.2/10</td></tr>
+        <tr><th>Idéal pour</th><td>Débuter avec la Dranzer ou jouer en mode "tout-terrain"</td></tr>
+      </table>
+
+      <table class="specs-table">
+        <tr><th>Combo</th><td><strong>Helical 4-80F</strong> (Bit Flat)</td></tr>
+        <tr><th>Profil</th><td>Attaque pure — note 9.5/10 contre défenseurs, 6.5/10 contre stamina</td></tr>
+        <tr><th>Idéal pour</th><td>Tournoi où l'on connait la composition adverse (anti-défense)</td></tr>
+      </table>
+
+      <table class="specs-table">
+        <tr><th>Combo</th><td><strong>Helical 9-80B</strong> (Ball)</td></tr>
+        <tr><th>Profil</th><td>Hybride attaque/défense — note 8.7/10</td></tr>
+        <tr><th>Idéal pour</th><td>Style "kamikaze" : attaque rapide puis défense passive</td></tr>
+      </table>
+
+      <h2 id="errors">Erreurs à éviter</h2>
+      <ul>
+        <li><strong>Ne pas l'utiliser sur stadium plat.</strong> Sans la rampe Xtreme officielle, le Blade Helical perd 60% de son intérêt. Ne tentez pas de "tester" la Dranzer sur un stadium Burst — vous serez déçu.</li>
+        <li><strong>Ne pas lancer en mode "endurance".</strong> Si vous savez que votre adversaire joue Wizard Arrow, sortez plutôt une stamina (Hells Scythe). Forcer la Dranzer dans un combat long est une stratégie perdante.</li>
+        <li><strong>Ne jamais désassembler le Bit Point sans outil.</strong> La pression de fixation est calibrée. Forcer avec un tournevis abîme le filetage et désaxe la pointe — adieu la précision.</li>
+        <li><strong>Ne pas négliger l'usure du Bit.</strong> Au-delà de 100 lancers sur béton, le Bit Point s'arrondit et la précision chute. Comptez 6,99 € pour un remplacement officiel.</li>
+        <li><strong>Ne pas mélanger versions Hasbro et Takara Tomy.</strong> Les pièces sont compatibles techniquement, mais la calibration du poids diffère légèrement. Pour la compétition, restez sur une seule marque.</li>
+      </ul>
+
+      <h2 id="pros-cons">Points forts & limites</h2>
+      <div class="pros-cons">
+        <div class="pros">
+          <h4>Points forts</h4>
+          <ul>
+            <li>Puissance d'impact excellente sur stadium Xtreme</li>
+            <li>Bit Point ultra-précis pour les attaques en spiral</li>
+            <li>Blade Helical original (pas de doublon dans la gamme)</li>
+            <li>Excellente durabilité même après 60 KOs reçus</li>
+            <li>Lanceur fourni (pas besoin d'achat supplémentaire)</li>
+          </ul>
+        </div>
+        <div class="cons">
+          <h4>Limites</h4>
+          <ul>
+            <li>Endurance limitée face à une stamina pure</li>
+            <li>Demande un launch précis pour exploiter la spirale</li>
+            <li>Bit Point s'use sur stadium beton après 100 lancers</li>
+            <li>Prix +20% par rapport à un combo équivalent</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2 id="audience">À qui s'adresse cette toupie</h2>
+      <p>La Dranzer Spiral cible les <strong>blader·euse·s confirmé·e·s</strong> qui maîtrisent déjà le shoot rapide et veulent un attaquant de tournoi. Elle s'adresse aussi aux fans nostalgiques de Dranzer (ère Bakuten, ère Plastic) qui veulent retrouver l'âme d'attaque du phénix dans un système Beyblade X moderne. C'est notre recommandation #1 pour qui veut <strong>une seule toupie polyvalente</strong> couvrant 70% des situations de combat amateur.</p>
+
+      <h3>Profil idéal</h3>
+      <ul>
+        <li>Niveau intermédiaire ou confirmé (au moins 20 combats à votre actif)</li>
+        <li>Possède déjà un stadium Xtreme officiel</li>
+        <li>Joue régulièrement contre des défenseurs ou des attaquants</li>
+        <li>Cherche à monter en compétition locale</li>
+      </ul>
+
+      <h3>Déconseillée si</h3>
+      <ul>
+        <li>Vous débutez complètement → privilégiez la Knight Shield plus pardonnante</li>
+        <li>Vous jouez sur stadium Burst plat → le Blade Helical perd 60% de son intérêt</li>
+        <li>Vous cherchez exclusivement à gagner contre des stamina pures → la Dranzer n'est pas faite pour ça</li>
+        <li>Votre budget est serré → la Cobalt Drake offre 80% des perfs pour 30% de moins</li>
+      </ul>
+
+      <h3>Cas d'usage typique</h3>
+      <p>Vous avez 12 ans, vous jouez avec des copains une à deux fois par semaine après l'école, vous avez déjà 3-4 toupies et vous voulez "celle qui gagne le plus souvent". La Dranzer Spiral coche cette case. C'est aussi un excellent <strong>cadeau d'anniversaire</strong> pour un·e blader·euse confirmé·e (autour de la Saint-Valentin / fin d'année scolaire) — l'effet "wow" du design phénix garantit la réception positive.</p>
+
+      <h2 id="related">Comparatif Beyblade X attaque</h2>
+      <div class="related">
+        <div class="related-eyebrow">/ Maillage interne</div>
+        <h3>Alternatives à considérer</h3>
+        <div class="related-grid">
+          <a href="#" class="related-card">
+            <div class="mini-bey">
+              <div class="beyblade-viz with-photo" style="width:100%">
+                <div class="center"></div>
+                <img src="img/phoenix-wing.webp" alt="" class="bey-photo">
+              </div>
+            </div>
+            <div class="info">
+              <div class="gamme">Beyblade X · Défense</div>
+              <div class="name">Phoenix Wing 9-60GF</div>
+              <div class="rating">★ 8.8/10 · Voir sur Amazon</div>
+            </div>
+          </a>
+          <a href="#" class="related-card">
+            <div class="mini-bey">
+              <div class="beyblade-viz with-photo" style="width:100%">
+                <div class="center"></div>
+                <img src="img/knight-shield.webp" alt="" class="bey-photo">
+              </div>
+            </div>
+            <div class="info">
+              <div class="gamme">Beyblade X · Défense</div>
+              <div class="name">Knight Shield 4-60BB</div>
+              <div class="rating">★ 8.2/10 · Voir sur Amazon</div>
+            </div>
+          </a>
+          <a href="#" class="related-card">
+            <div class="mini-bey">
+              <div class="beyblade-viz with-photo" style="width:100%">
+                <div class="center"></div>
+                <img src="img/wizard-arrow.webp" alt="" class="bey-photo">
+              </div>
+            </div>
+            <div class="info">
+              <div class="gamme">Beyblade X · Équilibre</div>
+              <div class="name">Wizard Arrow 5-70DB</div>
+              <div class="rating">★ 8.4/10 · Voir sur Amazon</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <h2 id="faq">FAQ</h2>
+      <div class="faq">
+        <details class="faq-item" open>
+          <summary>Quel lanceur utiliser avec la Dranzer Spiral ?</summary>
+          <div class="faq-body">Le Xtreme Launcher fourni dans la boîte est suffisant pour les sessions casual. Pour la compétition, nous recommandons le <strong>Beyblade X Launcher Grip</strong> qui ajoute un manche stabilisateur et permet un shoot 15% plus rapide. Si vous êtes gaucher, optez pour la version <em>Left Spin Launcher</em> qui inverse le sens de rotation et débloque des combos d'attaque latérale rares.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Compatible avec un stadium Burst ?</summary>
+          <div class="faq-body">Non, la Dranzer Spiral est exclusivement Beyblade X. Le Bit Point glisse sur les stadiums Burst plats et la spirale du Blade ne fonctionne qu'avec une rampe Xtreme. Pour Burst, regardez plutôt notre test de la <a href="#">Valtryek V6</a> ou de la <a href="#">Achilles Hyper</a>.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Où l'acheter en France ?</summary>
+          <div class="faq-body">Amazon FR reste la référence avec stock fiable et livraison Prime. King Jouet, Leclerc Jouets et la Grande Récré la proposent également en magasin physique — parfait si vous voulez vérifier le packaging avant achat. Évitez les marketplaces tiers (AliExpress, certains vendeurs Cdiscount) où circulent des contrefaçons.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Quelle est la rareté de la Dranzer Spiral ?</summary>
+          <div class="faq-body">Production large jusqu'à fin 2026, donc rien d'extraordinaire en version standard. La version <strong>chrome edition</strong> sortie en édition limitée Japon (1500 exemplaires) vaut en revanche déjà beaucoup sur le marché de l'occasion auprès des collectionneurs. Une version <em>Special Color</em> est annoncée pour le Bandai Namco Festival d'octobre 2026.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Personnalisable ?</summary>
+          <div class="faq-body">Oui — le Blade Helical peut être combiné avec n'importe quel Ratchet/Bit Beyblade X. Notre combo préféré pour le tournoi : <strong>Helical 4-80 Flat</strong> qui pousse l'agressivité à 9.8/10 mais réduit la stabilité. Pour les détails de tous nos combos validés, voir la section "Combos avancés" plus haut.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Différence avec la Dranzer Flame de l'ère Burst ?</summary>
+          <div class="faq-body">La Dranzer Flame (B-181, 2022) était une stamina-attack Burst hybride avec un Layer asymétrique. La Dranzer Spiral est une attaquante pure du système X — système incompatible. Les deux partagent l'esthétique phénix mais ont des philosophies de combat très différentes : la Flame jouait sur l'endurance, la Spiral mise tout sur l'impact.</div>
+        </details>
+        <details class="faq-item">
+          <summary>À partir de quel âge peut-on jouer ?</summary>
+          <div class="faq-body">L'emballage indique 8 ans et plus. Le système Beyblade X est techniquement plus exigeant que Burst (lancer plus précis, stadium incliné). Nous recommandons en pratique <strong>10 ans et plus</strong> pour profiter pleinement de la Dranzer Spiral. Pour un enfant plus jeune, la Knight Shield ou la Sphinx Cowl sont plus indulgentes.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Faut-il acheter la garantie magasin ?</summary>
+          <div class="faq-body">Non. La Dranzer Spiral est garantie 2 ans par Hasbro contre les défauts de fabrication, et l'usure normale n'est jamais couverte par les garanties magasin de toute façon. Économisez vos 4-6 € pour acheter un Bit de remplacement.</div>
+        </details>
+      </div>
+
+      <!-- FINAL CTA -->
+      <div class="final-cta">
+        <h3>Convaincu ? Trouvez<br>la Dranzer Spiral</h3>
+        <p>Disponible chez plusieurs revendeurs FR. Notre lien Amazon vous redirige vers la fiche officielle (livraison Prime, retour 30 jours, garantie Hasbro).</p>
+        <a href="#" class="review-cta" style="display:inline-block; max-width:340px">Voir la Dranzer sur Amazon</a>
+      </div>
+    </div>
+  </article>
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar">
+    <div class="sidebar-card verdict-box">
+      <div class="grade">9.2<small>/10</small></div>
+      <div class="stars">★★★★★</div>
+      <div class="label">Notre verdict</div>
+    </div>
+
+    <div class="sidebar-card">
+      <h4>Sommaire</h4>
+      <ul class="toc-list">
+        <li data-target="presentation" class="active">Présentation</li>
+        <li data-target="lore">L'héritage du phénix</li>
+        <li data-target="specs">Caractéristiques</li>
+        <li data-target="performances">Performances en combat</li>
+        <li data-target="how-to-launch">Comment lancer</li>
+        <li data-target="combos">Combos avancés</li>
+        <li data-target="errors">Erreurs à éviter</li>
+        <li data-target="pros-cons">Points forts & limites</li>
+        <li data-target="audience">À qui s'adresse</li>
+        <li data-target="related">Alternatives</li>
+        <li data-target="faq">FAQ</li>
+      </ul>
+    </div>
+
+    <div class="sidebar-card">
+      <h4>Best of Beyblade X</h4>
+      <ul style="list-style:none">
+        <li style="padding:8px 0; border-bottom:1px solid var(--line-soft); font-size:14px"><a href="#" style="color:var(--text)">Comparatif complet</a><span style="display:block; color:var(--accent); font-family:var(--font-mono); font-size:11px; margin-top:2px">12 toupies testées →</span></li>
+        <li style="padding:8px 0; border-bottom:1px solid var(--line-soft); font-size:14px"><a href="#" style="color:var(--text)">Top stadiums Xtreme</a><span style="display:block; color:var(--accent); font-family:var(--font-mono); font-size:11px; margin-top:2px">5 arènes notées →</span></li>
+        <li style="padding:8px 0; font-size:14px"><a href="#" style="color:var(--text)">Combos de tournoi 2026</a><span style="display:block; color:var(--accent); font-family:var(--font-mono); font-size:11px; margin-top:2px">Guide avancé →</span></li>
+      </ul>
+    </div>
+  </aside>
+</div>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <a href="01-homepage.html" class="logo">
+        <div class="logo-mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="12,2 15,9 22,9 16.5,14 18.5,21 12,17 5.5,21 7.5,14 2,9 9,9" />
+          </svg>
+        </div>
+        <div>
+          <div class="logo-text">Toupie<span class="accent">Beyblade</span></div>
+          <span class="logo-tag">Le guide ultime · 2026</span>
+        </div>
+      </a>
+      <p style="max-width:340px; margin-top:16px">Le blog français de référence sur les toupies Beyblade. Tests indépendants, comparatifs détaillés, guides d'achat.</p>
+    </div>
+    <div>
+      <h4>Gammes</h4>
+      <ul>
+        <li><a href="#">Beyblade X</a></li>
+        <li><a href="#">Beyblade Burst</a></li>
+        <li><a href="#">Metal Fusion</a></li>
+        <li><a href="#">Arènes</a></li>
+        <li><a href="#">Lanceurs</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Guides</h4>
+      <ul>
+        <li><a href="#">Meilleur Beyblade</a></li>
+        <li><a href="#">Quiz du choix</a></li>
+        <li><a href="#">Tournois 2026</a></li>
+        <li><a href="#">Coloriages</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>À propos</h4>
+      <ul>
+        <li><a href="#">Notre méthode</a></li>
+        <li><a href="#">L'équipe</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Mentions légales</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 toupiebeyblade.fr</span>
+    <span>En tant que partenaire Amazon, nous gagnons une commission sur les achats éligibles</span>
+  </div>
+</footer>
+
+<script>
+  // ===== Scrollspy + click-to-scroll for sidebar TOC =====
+  (() => {
+    const items = document.querySelectorAll('.toc-list li[data-target]');
+    const sections = [...items].map(li => document.getElementById(li.dataset.target)).filter(Boolean);
+
+    // Click to scroll
+    items.forEach(li => {
+      li.addEventListener('click', () => {
+        const target = document.getElementById(li.dataset.target);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // Highlight current section on scroll (Intersection Observer)
+    const setActive = (id) => {
+      items.forEach(li => li.classList.toggle('active', li.dataset.target === id));
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      const visible = entries
+        .filter(e => e.isIntersecting)
+        .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+      if (visible.length) setActive(visible[0].target.id);
+    }, { rootMargin: '-80px 0px -60% 0px', threshold: 0 });
+
+    sections.forEach(s => observer.observe(s));
+  })();
+
+  // ===== FAQ : close others when one opens (single-open accordion) =====
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.addEventListener('toggle', () => {
+      if (item.open) {
+        document.querySelectorAll('.faq-item').forEach(other => {
+          if (other !== item) other.open = false;
+        });
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
