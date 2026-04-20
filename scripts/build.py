@@ -327,6 +327,87 @@ def build_article_galaxy_pegasus():
     return build_metal_fusion_article('galaxy-pegasus-w105r2f', product, 'article_galaxy_pegasus.html')
 
 
+def build_comparatif_metal_fusion():
+    """Génère /comparatif-beyblade-metal-fusion/ — page hub gamme MF."""
+    from seo_meta import (
+        render_head, breadcrumb_schema, faq_schema, SITE_URL,
+    )
+
+    # ItemList schema pour les 3 toupies testées (rich snippet)
+    itemlist = {
+        '@context': 'https://schema.org',
+        '@type': 'ItemList',
+        'name': 'Comparatif Beyblade Metal Fusion 2026',
+        'itemListOrder': 'https://schema.org/ItemListOrderDescending',
+        'numberOfItems': 3,
+        'itemListElement': [
+            {
+                '@type': 'ListItem', 'position': 1,
+                'item': {
+                    '@type': 'Product',
+                    'name': 'Rock Leone 145WB',
+                    'category': 'Beyblade Metal Fusion',
+                    'aggregateRating': {'@type': 'AggregateRating', 'ratingValue': 8.1, 'bestRating': 10, 'reviewCount': 1, 'ratingCount': 1},
+                    'url': f'{SITE_URL}/rock-leone-145wb/',
+                },
+            },
+            {
+                '@type': 'ListItem', 'position': 2,
+                'item': {
+                    '@type': 'Product',
+                    'name': 'Galaxy Pegasus W105R²F',
+                    'category': 'Beyblade Metal Fusion',
+                    'aggregateRating': {'@type': 'AggregateRating', 'ratingValue': 7.7, 'bestRating': 10, 'reviewCount': 1, 'ratingCount': 1},
+                    'url': f'{SITE_URL}/galaxy-pegasus-w105r2f/',
+                },
+            },
+            {
+                '@type': 'ListItem', 'position': 3,
+                'item': {
+                    '@type': 'Product',
+                    'name': 'Meteo L-Drago LW105LRF',
+                    'category': 'Beyblade Metal Fusion',
+                    'aggregateRating': {'@type': 'AggregateRating', 'ratingValue': 7.5, 'bestRating': 10, 'reviewCount': 1, 'ratingCount': 1},
+                    'url': f'{SITE_URL}/meteo-l-drago-lw105lrf/',
+                },
+            },
+        ],
+    }
+
+    faq = faq_schema([
+        ('Quelle Metal Fusion choisir pour débuter en collection ?',
+         "Notre recommandation : Galaxy Pegasus W105R²F (BB-70). Toupie iconique de Ginga (héros de l'anime), polyvalente, prix correct sur Amazon FR (15-25 €), facile à compléter avec d'autres pièces Metal Fusion compatibles."),
+        ('Quelle est la différence Metal Fusion vs Metal Masters vs Metal Fury ?',
+         "Trois sous-générations : Metal Fusion (2010, BB-1 à BB-100), Metal Masters (2011-2012, BB-101 à BB-130), Metal Fury / 4D (2012-2013, BB-131+). Toutes les pièces sont interchangeables — seul le marketing change."),
+        ('Les Metal Fusion sont-elles compatibles avec Beyblade Burst ou X ?',
+         "Non. Chaque gamme a son système : Metal Fusion = 5 pièces métalliques, Burst = Layer/Disc/Driver, X = Blade/Ratchet/Bit. Stadiums et lanceurs sont aussi spécifiques."),
+        ('Où acheter des Metal Fusion authentiques en 2026 ?',
+         "Amazon FR pour les versions Hasbro encore en production (Rock Leone, Galaxy Pegasus, Storm Pegasus). Pour les versions Takara Tomy originales : BeyStation, GoToupie ou eBay (vigilance contre les contrefaçons en plastique)."),
+        ('Comment reconnaître une Metal Fusion authentique d\'une contrefaçon ?',
+         "3 vérifications : (1) la Fusion Wheel doit être en métal (test aimant ou poids ~25-30g). (2) Le sticker du Face Bolt est imprimé proprement. (3) La boîte officielle a un code-barres EAN Hasbro France ou Takara Tomy Japan."),
+        ('Y a-t-il des tournois Metal Fusion en 2026 ?',
+         "Plus de tournois officiels Hasbro depuis 2014. La communauté worldbeyblade.org organise encore des tournois legacy en ligne et en présentiel (USA, Europe). En France, quelques meet-ups via beybladeforum.forumgratuit.org."),
+    ])
+
+    breadcrumb = breadcrumb_schema([
+        ('Accueil', '/'),
+        ('Comparatifs', '/comparatifs/'),
+        ('Beyblade Metal Fusion', '/comparatif-beyblade-metal-fusion/'),
+    ])
+
+    head = render_head(
+        title='Comparatif Beyblade Metal Fusion 2026 : 8 toupies BB-XX testées',
+        description="Comparatif complet des 8 toupies Beyblade Metal Fusion (2010-2013) : Rock Leone, Galaxy Pegasus, Meteo L-Drago et plus. Notes vérifiables, méthode publique, alternatives Amazon.",
+        canonical_path='/comparatif-beyblade-metal-fusion/',
+        og_type='website',
+        extra_css=['/css/page-comparatif.css'],
+        extra_jsonld=[itemlist, faq, breadcrumb],
+    )
+
+    body_inner = (SRC_TEMPLATES / 'page_comparatif_metal_fusion.html').read_text()
+    return write_page('comparatif-beyblade-metal-fusion', f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
+
+
 def build_sitemap():
     """Génère sitemap.xml à partir de toutes les pages dans /dist."""
     pages_data = []
@@ -410,6 +491,10 @@ def main():
 
     print('🦄 Building article : Galaxy Pegasus W105R²F...')
     p = build_article_galaxy_pegasus()
+    print(f'   → {p.relative_to(DIST_DIR.parent)}')
+
+    print('📊 Building comparatif : Beyblade Metal Fusion...')
+    p = build_comparatif_metal_fusion()
     print(f'   → {p.relative_to(DIST_DIR.parent)}')
 
     print('🚫 Building 404 page...')
