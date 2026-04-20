@@ -20,6 +20,18 @@ SITE_LOCALE = 'fr_FR'
 TWITTER_HANDLE = '@toupiebeyblade'  # à créer si besoin
 DEFAULT_OG_IMAGE = '/img/og-default.jpg'  # à créer (1200x630)
 
+# Google Analytics 4
+GA4_MEASUREMENT_ID = 'G-0521NL3J30'
+
+GA4_SNIPPET = f'''<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id={GA4_MEASUREMENT_ID}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){{dataLayer.push(arguments);}}
+  gtag('js', new Date());
+  gtag('config', '{GA4_MEASUREMENT_ID}');
+</script>'''
+
 
 # ============================================================
 #   META TAGS
@@ -59,6 +71,8 @@ def render_head(
     og_img_url = SITE_URL + (og_image or DEFAULT_OG_IMAGE)
 
     parts = [
+        # Google Analytics 4 — premier élément après <head> pour tracking immédiat
+        GA4_SNIPPET,
         '<meta charset="UTF-8">',
         '<meta name="viewport" content="width=device-width, initial-scale=1">',
         f'<title>{title_esc}</title>',
