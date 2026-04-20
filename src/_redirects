@@ -13,21 +13,21 @@
 /avis/galaxy-pegasus/ /galaxy-pegasus-w105r2f/ 301
 
 # Catégories
-/saison/metal-master/ /beyblade-metal-fusion/ 301
-/saison/metal-master /beyblade-metal-fusion/ 301
-/saison/metal-fusion/ /beyblade-metal-fusion/ 301
-/saison/metal-fight/ /beyblade-metal-fusion/ 301
+/saison/metal-master/ /comparatif-beyblade-metal-fusion/ 301
+/saison/metal-master /comparatif-beyblade-metal-fusion/ 301
+/saison/metal-fusion/ /comparatif-beyblade-metal-fusion/ 301
+/saison/metal-fight/ /comparatif-beyblade-metal-fusion/ 301
 /categorie/attaque/ /comparatif-beyblade-burst/ 301
 /categorie/defense/ /comparatif-beyblade-burst/ 301
 /categorie/endurance/ /comparatif-beyblade-burst/ 301
 /categorie/equilibre/ /comparatif-beyblade-burst/ 301
 
 # Pièces Metal Fusion → catégorie générale
-/roue-fusion/* /beyblade-metal-fusion/ 301
-/facebolt/* /beyblade-metal-fusion/ 301
-/axe-rotation/* /beyblade-metal-fusion/ 301
-/anneau-energie/* /beyblade-metal-fusion/ 301
-/pointe-performance/* /beyblade-metal-fusion/ 301
+/roue-fusion/* /comparatif-beyblade-metal-fusion/ 301
+/facebolt/* /comparatif-beyblade-metal-fusion/ 301
+/axe-rotation/* /comparatif-beyblade-metal-fusion/ 301
+/anneau-energie/* /comparatif-beyblade-metal-fusion/ 301
+/pointe-performance/* /comparatif-beyblade-metal-fusion/ 301
 
 # Pages legacy
 /tests /comparatifs/ 301
@@ -38,4 +38,4 @@
 /boutique/ /  301
 
 # Fallback /avis/ (autres fiches non recréées) — DERNIER en ordre
-/avis/* /beyblade-metal-fusion/ 301
+/avis/* /comparatif-beyblade-metal-fusion/ 301
