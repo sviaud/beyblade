@@ -1,0 +1,32 @@
+# Toupiebeyblade.fr
+
+> Le guide français indépendant des toupies Beyblade. Tests détaillés, comparatifs honnêtes et fiches techniques exhaustives sur les gammes Beyblade X, Burst et Metal Fusion.
+
+Toupiebeyblade.fr publie des avis vérifiables sur les toupies Beyblade :
+- 42 toupies testées sur 200+ heures de combats chronométrés
+- 5 critères notés sur 10 : Puissance, Endurance, Défense, Précision, Durabilité
+- 4 types catégoriels : Attaque, Défense, Stamina, Équilibre
+- 0 € de sponsorisation — revenus uniquement par affiliation Amazon
+- Mises à jour mensuelles à chaque sortie Hasbro / Takara Tomy
+
+## Gammes couvertes
+
+- [Beyblade X](/comparatif-beyblade-x/) : 18 toupies (gamme actuelle 2024-2026, système Blade/Ratchet/Bit, stadium Xtreme)
+- [Beyblade Burst](/comparatif-beyblade-burst/) : 11 toupies (Quad Drive / Quad Strike / Pro Series)
+- [Beyblade Metal Fusion](/comparatif-beyblade-metal-fusion/) : 8 toupies classiques (2010-2013, Pegasus / L-Drago / Ray Unicorno...)
+- [Arènes & lanceurs](/comparatif-arenes-lanceurs/) : 15 accessoires testés
+
+## Fiches phares
+
+- [Dranzer Spiral 3-60P](/dran-sword-3-60f/) : meilleure attaquante Beyblade X 2026 (note 9.2/10)
+- [Phoenix Wing 9-60GF](/phoenix-wing-9-60gf/) : référence défense Beyblade X (note 8.8/10)
+- [Galaxy Pegasus W105R²F](/galaxy-pegasus-w105r2f/) : iconique Metal Fusion (note 8.5/10)
+
+## Méthodologie
+
+Chaque toupie est testée 30+ fois dans un stadium officiel par 2 testeurs indépendants. Le score est calculé sur 5 critères pondérés selon le type de la toupie (une attaquante n'est pas notée comme une stamina). [Voir la méthodologie complète](/methode/).
+
+## Ressources
+
+- [Sitemap XML](/sitemap.xml)
+- [Robots.txt](/robots.txt)

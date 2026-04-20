@@ -43,9 +43,9 @@ def copy_static():
 
 
 def copy_root_files():
-    """Copie src/_redirects, src/_headers, src/robots.txt → dist/ (Cloudflare Pages)."""
+    """Copie src/_redirects, src/_headers, src/llms.txt, etc. → dist/ (Cloudflare Pages)."""
     count = 0
-    for name in ('_redirects', '_headers', 'robots.txt'):
+    for name in ('_redirects', '_headers', 'robots.txt', 'llms.txt'):
         src = SRC_DIR / name
         if src.exists():
             shutil.copy2(src, DIST_DIR / name)

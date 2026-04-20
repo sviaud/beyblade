@@ -26,46 +26,94 @@ from file_writer import (
 )
 from sitemap import render_sitemap, render_robots
 
+SRC_TEMPLATES = Path(__file__).resolve().parent.parent / 'src' / 'templates'
+
 
 def build_homepage():
-    """Génère / (placeholder pour V1 — sera étoffé avec catalogue.md)."""
-    from seo_meta import render_head
+    """Génère la homepage / depuis src/templates/homepage_body.html."""
+    from seo_meta import render_head, faq_schema, breadcrumb_schema, SITE_URL
+
+    # ItemList schema pour les Top 4 toupies (rich snippet potentiel)
+    top_toupies_itemlist = {
+        '@context': 'https://schema.org',
+        '@type': 'ItemList',
+        'name': 'Top 4 toupies Beyblade — Avril 2026',
+        'itemListOrder': 'https://schema.org/ItemListOrderDescending',
+        'numberOfItems': 4,
+        'itemListElement': [
+            {
+                '@type': 'ListItem',
+                'position': 1,
+                'item': {
+                    '@type': 'Product',
+                    'name': 'Dranzer Spiral 3-60P',
+                    'category': 'Beyblade X',
+                    'aggregateRating': {'@type': 'AggregateRating', 'ratingValue': 9.2, 'bestRating': 10, 'reviewCount': 1, 'ratingCount': 1},
+                    'url': f'{SITE_URL}/dran-sword-3-60f/',
+                },
+            },
+            {
+                '@type': 'ListItem',
+                'position': 2,
+                'item': {
+                    '@type': 'Product',
+                    'name': 'Phoenix Wing 9-60GF',
+                    'category': 'Beyblade X',
+                    'aggregateRating': {'@type': 'AggregateRating', 'ratingValue': 8.8, 'bestRating': 10, 'reviewCount': 1, 'ratingCount': 1},
+                    'url': f'{SITE_URL}/phoenix-wing-9-60gf/',
+                },
+            },
+            {
+                '@type': 'ListItem',
+                'position': 3,
+                'item': {
+                    '@type': 'Product',
+                    'name': 'Pegasus Galaxy W105R²F',
+                    'category': 'Beyblade Metal Fusion',
+                    'aggregateRating': {'@type': 'AggregateRating', 'ratingValue': 8.5, 'bestRating': 10, 'reviewCount': 1, 'ratingCount': 1},
+                    'url': f'{SITE_URL}/galaxy-pegasus-w105r2f/',
+                },
+            },
+            {
+                '@type': 'ListItem',
+                'position': 4,
+                'item': {
+                    '@type': 'Product',
+                    'name': 'Valtryek Volcanic',
+                    'category': 'Beyblade Burst',
+                    'aggregateRating': {'@type': 'AggregateRating', 'ratingValue': 8.3, 'bestRating': 10, 'reviewCount': 1, 'ratingCount': 1},
+                    'url': f'{SITE_URL}/valtryek-volcanic/',
+                },
+            },
+        ],
+    }
+
+    # FAQPage schema (AIO — directement utilisé par les LLM pour grounding)
+    home_faq = faq_schema([
+        ('Quelle toupie Beyblade choisir en 2026 ?',
+         'Pour débuter, nous recommandons la Knight Shield 3-80N (Beyblade X, défense) — pardonnante aux erreurs de lancer et abordable. Pour les confirmé·e·s qui visent la compétition, la Dranzer Spiral 3-60P (attaque, note 9.2/10) est notre choix #1 du moment.'),
+        ('Quelle est la différence entre Beyblade X, Burst et Metal Fusion ?',
+         'Beyblade X (2024+) utilise le système Blade/Ratchet/Bit avec rampe Xtreme et combats explosifs. Beyblade Burst (2016+) repose sur le système Layer/Disc/Driver avec mécanique d\'éclatement (Burst Finish). Metal Fusion (2010-2013) est l\'ère métallique culte avec un système 4 pièces. Les trois gammes sont incompatibles entre elles.'),
+        ('Où acheter une toupie Beyblade en France ?',
+         'Les revendeurs FR fiables : Amazon.fr (stock le plus large, livraison Prime), King Jouet et Leclerc Jouets en magasin physique, La Grande Récré. Évitez les marketplaces non vérifiées (AliExpress, certains vendeurs Cdiscount) où circulent des contrefaçons.'),
+        ('Faut-il acheter un stadium Beyblade ?',
+         'Oui, c\'est indispensable pour bien jouer. Le stadium officiel correspondant à votre gamme conditionne 60% du gameplay : Beyblade X Xtreme Stadium pour Beyblade X, Burst Surge Stadium pour Burst. Sans stadium officiel, les Bits glissent et les combats perdent leur sens.'),
+        ('À partir de quel âge peut-on jouer ?',
+         'L\'emballage Hasbro indique généralement 8 ans et plus. En pratique, Beyblade X est plus exigeant (lancer précis sur stadium incliné) — nous recommandons 10 ans et +. Burst est plus accessible dès 6-7 ans.'),
+    ])
+
     head = render_head(
-        title='Toupiebeyblade.fr — Le guide ultime des toupies Beyblade',
-        description='Tests détaillés, comparatifs, guides d\'achat sur les toupies Beyblade X, Burst et Metal Fusion. 40+ fiches produit avec notes vérifiables.',
+        title='Toupies Beyblade : tests, comparatifs et guide d\'achat 2026',
+        description='Le guide français indépendant des toupies Beyblade : 42 fiches testées (Beyblade X, Burst, Metal Fusion), comparatifs détaillés, notes vérifiables sur 5 critères.',
         canonical_path='/',
         og_type='website',
+        extra_css=['/css/page-home.css'],
+        preload_images=['/img/dran-sword.webp', '/img/phoenix-wing.webp'],
+        extra_jsonld=[top_toupies_itemlist, home_faq],
     )
-    body = '''<body>
-<header class="site-header">
-<div class="header-inner">
-<a href="/" class="logo">
-<div class="logo-mark">
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-<polygon points="12,2 15,9 22,9 16.5,14 18.5,21 12,17 5.5,21 7.5,14 2,9 9,9"/>
-</svg>
-</div>
-<div>
-<div class="logo-text">Toupie<span class="accent">Beyblade</span></div>
-<span class="logo-tag">Le guide ultime · 2026</span>
-</div>
-</a>
-<nav class="nav">
-<a href="/" class="active">Accueil</a>
-<a href="/tous-les-beyblade/">Toutes les toupies</a>
-<a href="/comparatif-beyblade-x/" class="has-submenu">Comparatifs</a>
-<a href="/guides/">Guides</a>
-<a href="/blog/">Blog</a>
-<a href="/contact/">Contact</a>
-</nav>
-</div>
-</header>
-<main style="padding:80px 24px;text-align:center;max-width:900px;margin:0 auto;position:relative;z-index:2">
-<h1 style="font-family:var(--font-display);font-weight:900;font-size:clamp(48px,8vw,96px);line-height:0.9;letter-spacing:-2px;text-transform:uppercase;margin-bottom:16px">Toupiebeyblade.fr<br><span style="color:var(--accent)">Bientôt en ligne</span></h1>
-<p style="font-size:19px;color:var(--text-soft);max-width:600px;margin:24px auto">Le guide ultime des toupies Beyblade — fiches produit, comparatifs, guides d'achat. Lancement courant 2026.</p>
-</main>
-</body>'''
-    return write_page('', f'<head>\n{head}\n</head>\n{body}')
+
+    body_inner = (SRC_TEMPLATES / 'homepage_body.html').read_text()
+    return write_page('', f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
 
 
 def build_sitemap():

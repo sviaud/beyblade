@@ -37,6 +37,8 @@ def render_head(
     article_section=None,
     robots='index, follow',
     extra_jsonld=None,
+    extra_css=None,
+    preload_images=None,
 ):
     """Construit l'intégralité du <head> SEO d'une page.
 
@@ -88,9 +90,19 @@ def render_head(
         if article_section:
             parts.append(f'<meta property="article:section" content="{html_mod.escape(article_section)}">')
 
-    # CSS + Fonts
+    # Préconnexion fonts (gain perf LCP)
+    parts.append('<link rel="preconnect" href="https://fonts.googleapis.com">')
+    parts.append('<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>')
+
+    # Préload images critiques (above-the-fold) — gain LCP majeur
+    for img_url in (preload_images or []):
+        parts.append(f'<link rel="preload" as="image" href="{img_url}" fetchpriority="high">')
+
+    # CSS
     parts.append('<link rel="stylesheet" href="/css/shared.css">')
     parts.append('<link rel="stylesheet" href="/css/beyblade.css">')
+    for css_path in (extra_css or []):
+        parts.append(f'<link rel="stylesheet" href="{css_path}">')
 
     # Favicon (placeholder — à créer)
     parts.append('<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">')
