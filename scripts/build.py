@@ -188,6 +188,145 @@ def build_article_dran_sword():
     return write_page('dran-sword-3-60f', f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
 
 
+def build_metal_fusion_article(slug, product, template_filename):
+    """Build une fiche Metal Fusion à partir d'un product dict + template HTML.
+
+    Args:
+        slug: ex 'rock-leone-145wb'
+        product: dict avec name, reference, asin, type, year, review_score, faq, etc.
+        template_filename: ex 'article_rock_leone.html'
+    """
+    from seo_meta import (
+        render_head, product_schema, article_schema,
+        breadcrumb_schema, faq_schema, SITE_URL,
+    )
+
+    schemas = [
+        product_schema(product, review_score=product['review_score'], review_max=10),
+        article_schema(
+            headline=product['headline'],
+            description=product['description'],
+            url_path=f'/{slug}/',
+            image_url=product.get('image_url', f'{SITE_URL}/img/og-default.jpg'),
+            date_published='2026-04-19T10:00:00+02:00',
+            date_modified='2026-04-20T11:00:00+02:00',
+            section='Beyblade Metal Fusion',
+        ),
+        breadcrumb_schema([
+            ('Accueil', '/'),
+            ('Beyblade Metal Fusion', '/comparatif-beyblade-metal-fusion/'),
+            (product['name'], f'/{slug}/'),
+        ]),
+        faq_schema(product['faq']),
+    ]
+
+    head = render_head(
+        title=product['title'],
+        description=product['description'],
+        canonical_path=f'/{slug}/',
+        og_type='article',
+        og_image=product.get('image_url', '/img/og-default.jpg'),
+        article_published='2026-04-19T10:00:00+02:00',
+        article_modified='2026-04-20T11:00:00+02:00',
+        article_section='Beyblade Metal Fusion',
+        extra_css=['/css/page-article.css'],
+        extra_jsonld=schemas,
+    )
+
+    body_inner = (SRC_TEMPLATES / template_filename).read_text()
+    return write_page(slug, f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
+
+
+def build_article_rock_leone():
+    """Génère /rock-leone-145wb/ — fiche Metal Fusion + activation backlink legacy."""
+    product = {
+        'name': 'Rock Leone 145WB',
+        'reference': 'BB-30',
+        'gamme': 'beyblade-metal-fusion',
+        'type': 'defense',
+        'year': 2010,
+        'asin': 'B00NQFBOT2',
+        'review_score': 8.1,
+        'title': 'Rock Leone 145WB : test complet Metal Fusion (note 8.1/10)',
+        'headline': 'Rock Leone 145WB : test complet Metal Fusion',
+        'description': "Test complet de la Rock Leone 145WB (BB-30), la défenseuse iconique de Kyoya Tategami. Caractéristiques, performance, alternatives, FAQ — note 8.1/10.",
+        'image_url': '',  # SVG placeholder, pas de photo réelle
+        'faq': [
+            ('La Rock Leone est-elle compatible avec un stadium Beyblade X ?',
+             "Non. La Rock Leone est une toupie Metal Fusion qui utilise le système 5 pièces métalliques. Le stadium Xtreme de Beyblade X (rampe inclinée) n'est pas adapté à sa Performance Tip Wide Ball — utilisez un stadium Metal Fusion classique (Hasbro Hyperblade ou Takara Tomy BeyStadium)."),
+            ('Quelle est la différence entre la version Hasbro et la version Takara Tomy ?',
+             "La version Takara Tomy (japonaise originale) a une finition mat plus sobre et est devenue rare. La version Hasbro (européenne, vendue dès 2011) a une finition vert vif plus brillante et reste accessible sur Amazon FR. Mécaniquement, les deux sont identiques."),
+            ('Peut-on encore l\'utiliser en tournoi compétitif aujourd\'hui ?',
+             "Oui, mais uniquement dans des tournois Metal Fusion legacy (rares en 2026). Les tournois officiels actuels utilisent Beyblade X ou Burst. La Rock Leone reste valable pour les sessions casual entre fans de l'ère Metal Fight."),
+            ('Quel combo personnalisé recommandez-vous ?',
+             "Le combo stock Rock 145WB est déjà excellent en défense. Pour les confirmé·e·s, essayez Rock 230D (Spin Track 230 + Defense tip) qui pousse la stabilité encore plus loin, ou Earth 145WB qui combine endurance et défense."),
+            ('Où acheter la Rock Leone en France en 2026 ?',
+             "Amazon FR reste la source la plus fiable. Vous pouvez aussi chercher sur des sites spécialisés type BeyStation ou GoToupie. Évitez les marketplaces non vérifiées : nombreuses contrefaçons circulent (Fusion Wheel en plastique au lieu de métal)."),
+        ],
+    }
+    return build_metal_fusion_article('rock-leone-145wb', product, 'article_rock_leone.html')
+
+
+def build_article_meteo_l_drago():
+    """Génère /meteo-l-drago-lw105lrf/ — fiche Metal Fusion attaque gauche."""
+    product = {
+        'name': 'Meteo L-Drago LW105LRF',
+        'reference': 'BB-88',
+        'gamme': 'beyblade-metal-fusion',
+        'type': 'attaque',
+        'year': 2011,
+        'asin': 'B00N41NRLG',
+        'review_score': 7.5,
+        'title': 'Meteo L-Drago LW105LRF : test complet Metal Fusion (note 7.5/10)',
+        'headline': 'Meteo L-Drago LW105LRF : test complet Metal Fusion',
+        'description': "Test complet de la Meteo L-Drago LW105LRF (BB-88), l'attaquante à rotation gauche de Ryuga. Performance, Spin Steal, alternatives, FAQ — note 7.5/10.",
+        'image_url': '',
+        'faq': [
+            ('La Meteo L-Drago est-elle compatible avec un stadium Beyblade X ?',
+             "Non. C'est une toupie Metal Fusion. Le stadium Xtreme de Beyblade X n'est pas adapté à sa Performance Tip LRF en caoutchouc. Utilisez un stadium Metal Fusion classique."),
+            ('Pourquoi la rotation gauche fait-elle une telle différence ?',
+             "99% des toupies Beyblade tournent vers la droite. La Meteo L-Drago tourne vers la gauche, ce qui lui permet de voler l'énergie cinétique de l'adversaire (mécanique appelée Spin Steal). Une défenseuse droite normalement insortable peut être éjectée en 5-10 secondes."),
+            ('Le lanceur gauche est-il indispensable ?',
+             "Oui. Un lanceur droit standard ne fait pas tourner la Meteo L-Drago dans le bon sens. Le pack BB-88 inclut le lanceur L-Drago (gauche). Pour les remplacements : cherchez Beyblade Left Spin Launcher sur Amazon FR."),
+            ('Combien de lancers la pointe LRF supporte-t-elle ?',
+             "En usage normal sur stadium plastique : environ 50-80 lancers avant que la pointe rubber ne perde de sa souplesse. Sur stadium béton ou tournoi intensif : 30-40 lancers."),
+            ('Où acheter la Meteo L-Drago en France en 2026 ?',
+             "Amazon FR reste la source la plus fiable. Sites spécialisés type BeyStation ou GoToupie sinon. Évitez les marketplaces non vérifiées."),
+        ],
+    }
+    return build_metal_fusion_article('meteo-l-drago-lw105lrf', product, 'article_meteo_l_drago.html')
+
+
+def build_article_galaxy_pegasus():
+    """Génère /galaxy-pegasus-w105r2f/ — fiche Metal Fusion attaque iconique."""
+    product = {
+        'name': 'Galaxy Pegasus W105R²F',
+        'reference': 'BB-70',
+        'gamme': 'beyblade-metal-fusion',
+        'type': 'attaque',
+        'year': 2010,
+        'asin': 'B004PZCYXC',
+        'review_score': 7.7,
+        'title': 'Galaxy Pegasus W105R²F : test complet Metal Fusion (note 7.7/10)',
+        'headline': 'Galaxy Pegasus W105R²F : test complet Metal Fusion',
+        'description': "Test complet de la Galaxy Pegasus W105R²F (BB-70), l'attaquante iconique de Ginga Hagane. Évolution de la Storm Pegasus, performance, FAQ — note 7.7/10.",
+        'image_url': '',
+        'faq': [
+            ('La Galaxy Pegasus est-elle compatible avec un stadium Beyblade X ?',
+             "Non. C'est une toupie Metal Fusion. Le stadium Xtreme de Beyblade X n'est pas adapté à sa Performance Tip R²F. Utilisez un stadium Metal Fusion classique."),
+            ('Quelle est la différence avec la Storm Pegasus 105RF ?',
+             "La Storm Pegasus 105RF (BB-28, 2010) est la toupie originale, moins puissante mais culte. La Galaxy Pegasus W105R²F (BB-70, fin 2010) est son évolution avec Fusion Wheel plus puissante et Spin Track Wing 105 qui ajoute de la stabilité latérale."),
+            ('Quelle est la différence entre la version Hasbro et Takara Tomy ?',
+             "La version Takara Tomy a une finition métallique brillante et est devenue rare (35-50 €). La version Hasbro reste accessible sur Amazon FR (15-25 €). Mécaniquement identiques."),
+            ('Quel combo personnalisé recommandez-vous ?',
+             "Le combo stock Galaxy W105R²F est déjà excellent. Pour les confirmé·e·s : Galaxy 100RF (plus agressif) ou Galaxy 145D (Defense tip pour mode défense surprise)."),
+            ('Où acheter la Galaxy Pegasus en France en 2026 ?',
+             "Amazon FR (lien direct depuis cette page). Sites spécialisés type BeyStation ou GoToupie pour les éditions Takara Tomy. Évitez les marketplaces non vérifiées."),
+        ],
+    }
+    return build_metal_fusion_article('galaxy-pegasus-w105r2f', product, 'article_galaxy_pegasus.html')
+
+
 def build_sitemap():
     """Génère sitemap.xml à partir de toutes les pages dans /dist."""
     pages_data = []
@@ -259,6 +398,18 @@ def main():
 
     print('⚔️  Building article : Dran Sword 3-60F...')
     p = build_article_dran_sword()
+    print(f'   → {p.relative_to(DIST_DIR.parent)}')
+
+    print('🦁 Building article : Rock Leone 145WB...')
+    p = build_article_rock_leone()
+    print(f'   → {p.relative_to(DIST_DIR.parent)}')
+
+    print('🐉 Building article : Meteo L-Drago LW105LRF...')
+    p = build_article_meteo_l_drago()
+    print(f'   → {p.relative_to(DIST_DIR.parent)}')
+
+    print('🦄 Building article : Galaxy Pegasus W105R²F...')
+    p = build_article_galaxy_pegasus()
     print(f'   → {p.relative_to(DIST_DIR.parent)}')
 
     print('🚫 Building 404 page...')
