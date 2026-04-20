@@ -46,7 +46,8 @@
 /driver/*                  /beyblade-burst/                  301
 
 # Avis génériques (autres fiches non recréées) → catégorie Metal Fusion
-/avis/*                    /beyblade-metal-fusion/           301
+# DEBUG : wildcard /avis/* commenté temporairement pour vérifier que les rules spécifiques marchent
+# /avis/*                    /beyblade-metal-fusion/           301
 
 # Pages éditoriales legacy
 /tests                     /comparatifs/                     301
