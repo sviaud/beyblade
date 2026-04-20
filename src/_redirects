@@ -1,62 +1,41 @@
-# ==============================================================
 # Cloudflare Pages redirects — toupiebeyblade.fr
-# Format: <source> <destination> <status>
-# ==============================================================
-# 305 backlinks survivants depuis l'ancien site Beyblade Metal Fusion (2011-2013)
-# Source: REDIRECTIONS.md
-# ==============================================================
+# Format: <source> <destination> <code>
+# Single-space format to avoid parser quirks
 
-# Anciennes fiches /avis/{slug}/ — règles spécifiques (sans + avec slash)
-# Note CF Pages : la wildcard `*` ne capture pas l'URL exacte sans suffixe.
-# Donc on duplique : exact + wildcard pour les sous-chemins éventuels.
-/avis/ray-unicorno         /ray-unicorno-d125cs/             301
-/avis/ray-unicorno/        /ray-unicorno-d125cs/             301
-/avis/ray-unicorno/*       /ray-unicorno-d125cs/             301
-/avis/rock-leone           /rock-leone-145wb/                301
-/avis/rock-leone/          /rock-leone-145wb/                301
-/avis/rock-leone/*         /rock-leone-145wb/                301
-/avis/meteo-l-drago        /meteo-l-drago-lw105lrf/          301
-/avis/meteo-l-drago/       /meteo-l-drago-lw105lrf/          301
-/avis/meteo-l-drago/*      /meteo-l-drago-lw105lrf/          301
-/avis/galaxy-pegasus       /galaxy-pegasus-w105r2f/          301
-/avis/galaxy-pegasus/      /galaxy-pegasus-w105r2f/          301
-/avis/galaxy-pegasus/*     /galaxy-pegasus-w105r2f/          301
+# Anciennes fiches /avis/ — règles spécifiques
+/avis/ray-unicorno /ray-unicorno-d125cs/ 301
+/avis/ray-unicorno/ /ray-unicorno-d125cs/ 301
+/avis/rock-leone /rock-leone-145wb/ 301
+/avis/rock-leone/ /rock-leone-145wb/ 301
+/avis/meteo-l-drago /meteo-l-drago-lw105lrf/ 301
+/avis/meteo-l-drago/ /meteo-l-drago-lw105lrf/ 301
+/avis/galaxy-pegasus /galaxy-pegasus-w105r2f/ 301
+/avis/galaxy-pegasus/ /galaxy-pegasus-w105r2f/ 301
 
-# Catégories de saisons → gamme Metal Fusion
-/saison/metal-master/*     /beyblade-metal-fusion/           301
-/saison/metal-fusion/*     /beyblade-metal-fusion/           301
-/saison/metal-fight/*      /beyblade-metal-fusion/           301
+# Catégories
+/saison/metal-master/ /beyblade-metal-fusion/ 301
+/saison/metal-master /beyblade-metal-fusion/ 301
+/saison/metal-fusion/ /beyblade-metal-fusion/ 301
+/saison/metal-fight/ /beyblade-metal-fusion/ 301
+/categorie/attaque/ /comparatif-beyblade-burst/ 301
+/categorie/defense/ /comparatif-beyblade-burst/ 301
+/categorie/endurance/ /comparatif-beyblade-burst/ 301
+/categorie/equilibre/ /comparatif-beyblade-burst/ 301
 
-# Catégories par type → comparatif Burst
-/categorie/attaque/*       /comparatif-beyblade-burst/       301
-/categorie/defense/*       /comparatif-beyblade-burst/       301
-/categorie/endurance/*     /comparatif-beyblade-burst/       301
-/categorie/equilibre/*     /comparatif-beyblade-burst/       301
+# Pièces Metal Fusion → catégorie générale
+/roue-fusion/* /beyblade-metal-fusion/ 301
+/facebolt/* /beyblade-metal-fusion/ 301
+/axe-rotation/* /beyblade-metal-fusion/ 301
+/anneau-energie/* /beyblade-metal-fusion/ 301
+/pointe-performance/* /beyblade-metal-fusion/ 301
 
-# Pièces génériques (Metal Fusion 4-part system) → catégorie Metal Fusion
-/roue-fusion/*             /beyblade-metal-fusion/           301
-/facebolt/*                /beyblade-metal-fusion/           301
-/axe-rotation/*            /beyblade-metal-fusion/           301
-/anneau-energie/*          /beyblade-metal-fusion/           301
-/pointe-performance/*      /beyblade-metal-fusion/           301
+# Pages legacy
+/tests /comparatifs/ 301
+/tests/ /comparatifs/ 301
+/test /comparatifs/ 301
+/test/ /comparatifs/ 301
+/boutique /  301
+/boutique/ /  301
 
-# Pièces Burst Layer system
-/layer/*                   /beyblade-burst/                  301
-/disc/*                    /beyblade-burst/                  301
-/driver/*                  /beyblade-burst/                  301
-
-# Avis génériques (autres fiches non recréées) → catégorie Metal Fusion
-# DEBUG : wildcard /avis/* commenté temporairement pour vérifier que les rules spécifiques marchent
-# /avis/*                    /beyblade-metal-fusion/           301
-
-# Pages éditoriales legacy
-/tests                     /comparatifs/                     301
-/tests/                    /comparatifs/                     301
-/test/                     /comparatifs/                     301
-/test                      /comparatifs/                     301
-/boutique                  /                                 301
-/boutique/                 /                                 301
-/shop                      /                                 301
-/shop/                     /                                 301
-
-# Fallback : trailing slash normalisation gérée auto par Cloudflare Pages
+# Fallback /avis/ (autres fiches non recréées) — DERNIER en ordre
+/avis/* /beyblade-metal-fusion/ 301
