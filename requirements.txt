@@ -1,0 +1,2 @@
+# toupiebeyblade.fr — build dependencies
+# (stdlib only — fichier vide marqueur pour détection auto Cloudflare Pages)
