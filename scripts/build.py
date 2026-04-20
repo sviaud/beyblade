@@ -116,6 +116,78 @@ def build_homepage():
     return write_page('', f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
 
 
+def build_article_dran_sword():
+    """Génère /dran-sword-3-60f/ — première fiche pilote Beyblade X."""
+    from seo_meta import (
+        render_head, product_schema, article_schema,
+        breadcrumb_schema, faq_schema, SITE_URL,
+    )
+
+    product = {
+        'name': 'Dran Sword 3-60F',
+        'reference': 'BX-01',
+        'gamme': 'beyblade-x',
+        'type': 'attaque',
+        'year': 2023,
+        'asin': 'B0C52R16P1',
+        'image_url': f'{SITE_URL}/img/dran-sword.webp',
+        'description': "Test complet de la Dran Sword 3-60F (BX-01), la première Beyblade X de Takara Tomy. Note 9.2/10. Performance, combos et FAQ.",
+    }
+
+    schemas = [
+        product_schema(product, review_score=9.2, review_max=10),
+        article_schema(
+            headline='Dran Sword 3-60F : test complet Beyblade X',
+            description=product['description'],
+            url_path='/dran-sword-3-60f/',
+            image_url=product['image_url'],
+            date_published='2026-04-19T10:00:00+02:00',
+            date_modified='2026-04-20T11:00:00+02:00',
+            section='Beyblade X',
+        ),
+        breadcrumb_schema([
+            ('Accueil', '/'),
+            ('Beyblade X', '/comparatif-beyblade-x/'),
+            ('Dran Sword 3-60F', '/dran-sword-3-60f/'),
+        ]),
+        faq_schema([
+            ('Quel lanceur utiliser avec la Dran Sword ?',
+             "Le Xtreme Launcher fourni dans la boîte est suffisant pour les sessions casual. Pour la compétition, le Beyblade X Launcher Grip ajoute un manche stabilisateur et permet un shoot 15% plus rapide."),
+            ('La Dran Sword est-elle compatible avec un stadium Burst ?',
+             "Non, la Dran Sword est exclusivement Beyblade X. Le Bit Flat glisse sur les stadiums Burst plats et la lame Sword ne fonctionne qu'avec une rampe Xtreme."),
+            ('Où acheter la Dran Sword en France ?',
+             "Amazon FR (lien direct depuis cette page), King Jouet, Leclerc Jouets et la Grande Récré. Évitez les marketplaces non vérifiées : nombreuses contrefaçons circulent."),
+            ('Quelle est la rareté de la Dran Sword ?',
+             "Production large depuis 2023, donc rien d'extraordinaire en version standard. Les versions Special Edition (chrome, clear, glow-in-the-dark) sortent à chaque saison anime."),
+            ('La Dran Sword est-elle personnalisable ?',
+             "Oui — la lame Sword peut être combinée avec n'importe quel Ratchet/Bit Beyblade X. Notre combo préféré pour le tournoi : Sword 4-80F qui pousse l'agressivité à 9.5/10."),
+            ('Différence entre Dran Sword (BX-01) et Dran Buster (UX-01) ?',
+             "La Dran Buster (UX-01, 2024) est une évolution Unique-X plus puissante avec un Blade en alliage métallique. La Dran Sword (BX-01) reste plus accessible et plus polyvalente pour débuter."),
+            ('À partir de quel âge peut-on jouer ?',
+             "Hasbro indique 8 ans et plus. En pratique nous recommandons 10 ans et + pour profiter pleinement du système Xtreme. Pour les plus jeunes, privilégier la Knight Shield (BX-04) plus pardonnante."),
+            ('Faut-il acheter la garantie magasin ?',
+             "Non. La Dran Sword est garantie 2 ans par Hasbro contre les défauts de fabrication, et l'usure normale n'est jamais couverte par les garanties magasin."),
+        ]),
+    ]
+
+    head = render_head(
+        title='Dran Sword 3-60F : test complet Beyblade X (note 9.2/10)',
+        description="Notre test complet de la Dran Sword 3-60F (BX-01), la première Beyblade X. Performance en stadium Xtreme, combos avancés, alternatives, FAQ — note 9.2/10.",
+        canonical_path='/dran-sword-3-60f/',
+        og_type='article',
+        og_image='/img/dran-sword.webp',
+        article_published='2026-04-19T10:00:00+02:00',
+        article_modified='2026-04-20T11:00:00+02:00',
+        article_section='Beyblade X',
+        extra_css=['/css/page-article.css'],
+        preload_images=['/img/dran-sword.webp'],
+        extra_jsonld=schemas,
+    )
+
+    body_inner = (SRC_TEMPLATES / 'article_dran_sword.html').read_text()
+    return write_page('dran-sword-3-60f', f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
+
+
 def build_sitemap():
     """Génère sitemap.xml à partir de toutes les pages dans /dist."""
     pages_data = []
@@ -183,6 +255,10 @@ def main():
 
     print('🏠 Building homepage...')
     p = build_homepage()
+    print(f'   → {p.relative_to(DIST_DIR.parent)}')
+
+    print('⚔️  Building article : Dran Sword 3-60F...')
+    p = build_article_dran_sword()
     print(f'   → {p.relative_to(DIST_DIR.parent)}')
 
     print('🚫 Building 404 page...')
