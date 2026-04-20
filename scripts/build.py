@@ -131,11 +131,11 @@ def build_article_dran_sword():
         'year': 2023,
         'asin': 'B0C52R16P1',
         'image_url': f'{SITE_URL}/img/dran-sword.webp',
-        'description': "Test complet de la Dran Sword 3-60F (BX-01), la première Beyblade X de Takara Tomy. Note 9.2/10. Performance, combos et FAQ.",
+        'description': "Test complet de la Dran Sword 3-60F (BX-01), la première Beyblade X de Takara Tomy. Note 8.5/10. Performance, combos et FAQ.",
     }
 
     schemas = [
-        product_schema(product, review_score=9.2, review_max=10),
+        product_schema(product, review_score=8.5, review_max=10),
         article_schema(
             headline='Dran Sword 3-60F : test complet Beyblade X',
             description=product['description'],
@@ -171,8 +171,8 @@ def build_article_dran_sword():
     ]
 
     head = render_head(
-        title='Dran Sword 3-60F : test complet Beyblade X (note 9.2/10)',
-        description="Notre test complet de la Dran Sword 3-60F (BX-01), la première Beyblade X. Performance en stadium Xtreme, combos avancés, alternatives, FAQ — note 9.2/10.",
+        title='Dran Sword 3-60F : test complet Beyblade X (note 8.5/10)',
+        description="Notre test complet de la Dran Sword 3-60F (BX-01), la première Beyblade X. Performance en stadium Xtreme, combos avancés, alternatives, FAQ — note 8.5/10.",
         canonical_path='/dran-sword-3-60f/',
         og_type='article',
         og_image='/img/dran-sword.webp',
