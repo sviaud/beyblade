@@ -84,10 +84,10 @@
             </div>
           </div>
           <div class="carousel-thumbs">
-            <div class="carousel-thumb active">
+            <div class="carousel-thumb active" data-spin="true" title="Vue 3D rotative">
               <div class="beyblade-viz with-photo" style="width:95%">
                 <div class="center"></div>
-                <img src="/img/dran-sword.webp" alt="" class="bey-photo" width="350" height="350" loading="lazy" decoding="async">
+                <img src="/img/dran-sword.webp" alt="Dran Sword 3-60F vue de face transparente" class="bey-photo" width="350" height="350" loading="lazy" decoding="async">
               </div>
             </div>
             <div class="carousel-thumb">
@@ -505,16 +505,23 @@
 
 <script>
 // === Carousel : swap main image when thumbnail clicked ===
+// Convention : seules les vignettes avec data-spin="true" déclenchent la rotation
+// (utilisé pour les images "vue de face fond transparent" — les packshots blancs restent statiques)
 (function() {
   const thumbs = document.querySelectorAll('.carousel-thumb');
   const mainImg = document.querySelector('.carousel-main img');
-  if (!mainImg || !thumbs.length) return;
+  const mainViz = mainImg && mainImg.closest('.beyblade-viz');
+  if (!mainImg || !mainViz || !thumbs.length) return;
   thumbs.forEach(thumb => {
     thumb.addEventListener('click', () => {
       const newImg = thumb.querySelector('img');
       if (!newImg) return;
       mainImg.src = newImg.src;
       mainImg.alt = newImg.alt || mainImg.alt;
+      // Rotation seulement si la vignette a data-spin="true"
+      const shouldSpin = thumb.dataset.spin === 'true';
+      mainViz.classList.toggle('spinning', shouldSpin);
+      // Active state
       thumbs.forEach(t => t.classList.remove('active'));
       thumb.classList.add('active');
     });
