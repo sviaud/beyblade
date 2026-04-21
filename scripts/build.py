@@ -408,6 +408,86 @@ def build_comparatif_metal_fusion():
     return write_page('comparatif-beyblade-metal-fusion', f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
 
 
+def build_comparatif_beyblade_x():
+    """Génère /comparatif-beyblade-x/ — page hub gamme Beyblade X."""
+    from seo_meta import (
+        render_head, breadcrumb_schema, faq_schema, SITE_URL,
+    )
+
+    itemlist = {
+        '@context': 'https://schema.org',
+        '@type': 'ItemList',
+        'name': 'Comparatif Beyblade X 2026',
+        'itemListOrder': 'https://schema.org/ItemListOrderDescending',
+        'numberOfItems': 3,
+        'itemListElement': [
+            {
+                '@type': 'ListItem', 'position': 1,
+                'item': {
+                    '@type': 'Product',
+                    'name': 'Phoenix Wing 9-60GF',
+                    'category': 'Beyblade X',
+                    'aggregateRating': {'@type': 'AggregateRating', 'ratingValue': 8.8, 'bestRating': 10, 'reviewCount': 1, 'ratingCount': 1},
+                    'url': f'{SITE_URL}/phoenix-wing-9-60gf/',
+                },
+            },
+            {
+                '@type': 'ListItem', 'position': 2,
+                'item': {
+                    '@type': 'Product',
+                    'name': 'Dran Sword 3-60F',
+                    'category': 'Beyblade X',
+                    'aggregateRating': {'@type': 'AggregateRating', 'ratingValue': 8.5, 'bestRating': 10, 'reviewCount': 1, 'ratingCount': 1},
+                    'url': f'{SITE_URL}/dran-sword-3-60f/',
+                },
+            },
+            {
+                '@type': 'ListItem', 'position': 3,
+                'item': {
+                    '@type': 'Product',
+                    'name': 'Knight Shield 3-80N',
+                    'category': 'Beyblade X',
+                    'aggregateRating': {'@type': 'AggregateRating', 'ratingValue': 8.2, 'bestRating': 10, 'reviewCount': 1, 'ratingCount': 1},
+                    'url': f'{SITE_URL}/knight-shield-3-80n/',
+                },
+            },
+        ],
+    }
+
+    faq = faq_schema([
+        ('Quelle Beyblade X choisir pour débuter ?',
+         "Notre recommandation : Knight Shield 3-80N (BX-04). Défense entry-level, pardonnante aux erreurs de lancer, prix abordable (15-20 € sur Amazon FR). Si vous préférez attaquer dès le départ : la Dran Sword 3-60F (BX-01, 8.5/10), inaugurale de la gamme et bien équilibrée pour apprendre."),
+        ('Quelle est la différence entre BX et UX (Unique-X) ?',
+         "BX (Beyblade X standard) = blade plastique avec inserts métalliques légers, sortie 2023-2024. UX (Unique-X) = blade en alliage métallique premium, sortie 2024+, plus lourde et plus puissante. Les UX sont la sous-ligne compétition (ex: Dran Buster UX-01 vs Dran Sword BX-01). Pièces interchangeables avec BX."),
+        ('Les Beyblade X sont-elles compatibles avec Beyblade Burst ou Metal Fusion ?',
+         "Non. Chaque gamme a son système propre : Beyblade X = Blade/Ratchet/Bit + stadium Xtreme, Burst = Layer/Disc/Driver + stadium plat, Metal Fusion = 5 pièces métalliques + BeyStadium classique."),
+        ('Faut-il acheter le stadium Xtreme officiel ?',
+         "Indispensable. Le stadium Xtreme (BX-10, 39,99 € sur Amazon FR) avec sa rampe inclinée à 35° est le cœur du gameplay Beyblade X. Sur un stadium plat, les Bits glissent et les combats perdent leur intérêt. Pour 3 joueurs : Wide Xtreme Stadium (BX-32). Existe aussi en version motorisée Double Xtreme."),
+        ('Comment reconnaître une Beyblade X authentique d\'une contrefaçon ?',
+         "3 vérifications : (1) le Bit doit être correctement clipsable sur le Ratchet sans jeu. (2) Le Blade a un poids cohérent (~13-15g pour BX, ~18-22g pour UX). (3) La boîte officielle a un code-barres EAN Hasbro France ou Takara Tomy Japan."),
+        ('Y a-t-il des tournois Beyblade X en 2026 ?',
+         "Oui — la gamme X est l'active competitive scene. Hasbro organise les Beyblade X World Championship annuels. La communauté worldbeyblade.org liste les tournois locaux. En France, plusieurs magasins King Jouet et JouéClub organisent des sessions casual le samedi."),
+    ])
+
+    breadcrumb = breadcrumb_schema([
+        ('Accueil', '/'),
+        ('Comparatifs', '/comparatifs/'),
+        ('Beyblade X', '/comparatif-beyblade-x/'),
+    ])
+
+    head = render_head(
+        title='Comparatif Beyblade X 2026 : 18 toupies BX-XX et UX testées',
+        description="Comparatif complet des toupies Beyblade X (gamme 2024+) avec notes vérifiables. Découvrez quelle toupie X choisir : Dran Sword, Phoenix Wing, Knight Shield, Wizard Arrow et plus.",
+        canonical_path='/comparatif-beyblade-x/',
+        og_type='website',
+        extra_css=['/css/page-comparatif.css'],
+        extra_jsonld=[itemlist, faq, breadcrumb],
+    )
+
+    body_inner = (SRC_TEMPLATES / 'page_comparatif_beyblade_x.html').read_text()
+    return write_page('comparatif-beyblade-x', f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
+
+
 def build_sitemap():
     """Génère sitemap.xml à partir de toutes les pages dans /dist."""
     pages_data = []
@@ -495,6 +575,10 @@ def main():
 
     print('📊 Building comparatif : Beyblade Metal Fusion...')
     p = build_comparatif_metal_fusion()
+    print(f'   → {p.relative_to(DIST_DIR.parent)}')
+
+    print('📊 Building comparatif : Beyblade X...')
+    p = build_comparatif_beyblade_x()
     print(f'   → {p.relative_to(DIST_DIR.parent)}')
 
     print('🚫 Building 404 page...')
