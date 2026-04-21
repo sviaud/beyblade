@@ -327,6 +327,78 @@ def build_article_galaxy_pegasus():
     return build_metal_fusion_article('galaxy-pegasus-w105r2f', product, 'article_galaxy_pegasus.html')
 
 
+def build_article_phoenix_wing():
+    """Génère /phoenix-wing-9-60gf/ — fiche Beyblade X équilibre (Bit Gear Flat)."""
+    from seo_meta import (
+        render_head, product_schema, article_schema,
+        breadcrumb_schema, faq_schema, SITE_URL,
+    )
+
+    product = {
+        'name': 'Phoenix Wing 9-60GF',
+        'reference': 'BX-23',
+        'gamme': 'beyblade-x',
+        'type': 'equilibre',
+        'year': 2024,
+        'asin': 'B0CMZSRJ3Q',
+        'image_url': f'{SITE_URL}/img/phoenix-wing.webp',
+        'description': "Test complet de la Phoenix Wing 9-60GF (BX-23), l'équilibrée Beyblade X au Bit Gear Flat révolutionnaire. Note 8.8/10. Performance, combos et FAQ.",
+    }
+
+    schemas = [
+        product_schema(product, review_score=8.8, review_max=10),
+        article_schema(
+            headline='Phoenix Wing 9-60GF : test complet Beyblade X',
+            description=product['description'],
+            url_path='/phoenix-wing-9-60gf/',
+            image_url=product['image_url'],
+            date_published='2026-04-22T10:00:00+02:00',
+            date_modified='2026-04-22T10:00:00+02:00',
+            section='Beyblade X',
+        ),
+        breadcrumb_schema([
+            ('Accueil', '/'),
+            ('Beyblade X', '/comparatif-beyblade-x/'),
+            ('Phoenix Wing 9-60GF', '/phoenix-wing-9-60gf/'),
+        ]),
+        faq_schema([
+            ('Quel lanceur utiliser avec la Phoenix Wing ?',
+             "Le Xtreme Launcher fourni dans la boîte est suffisant pour les sessions casual. Pour la compétition, le Beyblade X Launcher Grip ajoute un manche stabilisateur."),
+            ('La Phoenix Wing est-elle compatible avec un stadium Burst ?',
+             "Non, exclusivement Beyblade X. Le Bit Gear Flat ne fonctionne qu'avec une rampe Xtreme — sur stadium plat l'engrenage interne ne s'engage pas."),
+            ('Où acheter la Phoenix Wing en France ?',
+             "Amazon FR (lien direct depuis cette page), King Jouet, Leclerc Jouets et la Grande Récré. Évitez les marketplaces non vérifiées."),
+            ('Quelle est la rareté de la Phoenix Wing ?',
+             "Production large depuis mars 2024, donc rien d'extraordinaire en version standard. La Special Color Phoenix Wing or sortie en édition limitée Japon (1500 ex.) est en revanche déjà collector."),
+            ('La Phoenix Wing est-elle personnalisable ?',
+             "Oui — le Blade Phoenix Wing peut être combiné avec n'importe quel Ratchet/Bit Beyblade X. Notre combo préféré : Phoenix Wing 4-80GF qui pousse la défense à 9.5/10."),
+            ('Quelle est la différence entre la Phoenix Wing et la Dran Sword ?',
+             "La Dran Sword (BX-01, 8.5/10) est une attaquante pure avec Bit Flat. La Phoenix Wing (BX-23, 8.8/10) est une équilibrée avec Bit Gear Flat — elle dure plus longtemps grâce à la régénération de spin. Choisis Dran Sword pour KO rapide, Phoenix Wing pour out-spin et résistance."),
+            ('À partir de quel âge peut-on jouer ?',
+             "Hasbro indique 8 ans et plus. En pratique nous recommandons 10 ans et + pour profiter pleinement du système Xtreme. La Phoenix Wing est plus pardonnante que les attaquantes pures, donc accessible aux 8-10 ans avec supervision."),
+            ('Faut-il acheter la garantie magasin ?',
+             "Non. La Phoenix Wing est garantie 2 ans par Hasbro contre les défauts de fabrication, et l'usure normale n'est jamais couverte par les garanties magasin."),
+        ]),
+    ]
+
+    head = render_head(
+        title='Phoenix Wing 9-60GF : test complet Beyblade X (note 8.8/10)',
+        description="Notre test complet de la Phoenix Wing 9-60GF (BX-23), l'équilibrée Beyblade X au Bit Gear Flat révolutionnaire. Performance en stadium Xtreme, combos avancés, alternatives, FAQ — note 8.8/10.",
+        canonical_path='/phoenix-wing-9-60gf/',
+        og_type='article',
+        og_image='/img/phoenix-wing.webp',
+        article_published='2026-04-22T10:00:00+02:00',
+        article_modified='2026-04-22T10:00:00+02:00',
+        article_section='Beyblade X',
+        extra_css=['/css/page-article.css'],
+        preload_images=['/img/phoenix-wing.webp'],
+        extra_jsonld=schemas,
+    )
+
+    body_inner = (SRC_TEMPLATES / 'article_phoenix_wing_9_60gf.html').read_text()
+    return write_page('phoenix-wing-9-60gf', f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
+
+
 def build_comparatif_metal_fusion():
     """Génère /comparatif-beyblade-metal-fusion/ — page hub gamme MF."""
     from seo_meta import (
@@ -571,6 +643,10 @@ def main():
 
     print('🦄 Building article : Galaxy Pegasus W105R²F...')
     p = build_article_galaxy_pegasus()
+    print(f'   → {p.relative_to(DIST_DIR.parent)}')
+
+    print('🦅 Building article : Phoenix Wing 9-60GF...')
+    p = build_article_phoenix_wing()
     print(f'   → {p.relative_to(DIST_DIR.parent)}')
 
     print('📊 Building comparatif : Beyblade Metal Fusion...')

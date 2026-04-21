@@ -18,27 +18,6 @@
 
 ```yaml
 type: fiche-produit-x
-slug: phoenix-wing-9-60gf
-name: Phoenix Wing 9-60GF
-ref: BX-23
-type_toupie: equilibre
-year: 2024
-asin: B0CMZSRJ3Q
-score: 8.8
-template: article_dran_sword.html
-image: /img/phoenix-wing.webp
-image_transparent: true
-lore_owner: "Tairyu"
-lore_anime: "Beyblade X (saison 1, 2023→)"
-lore_key: "Hybride attaque-stamina avec Driver Gear Flat révolutionnaire (régénération de spin via engrenage interne). Une des plus polyvalentes de la gamme X. Iconique du clan Tairyu dans l'anime."
-blade: "Phoenix Wing — 9 ailettes asymétriques en couronne"
-ratchet: "9-60 — 9 lobes hauteur 6.0mm (équilibre)"
-bit: "GF (Gear Flat) — pointe plate avec engrenage interne qui régénère le spin"
-priority_reason: "Fiche phare X (8.8/10) avec image transparente disponible — rotation active. Clé pour comparatif X."
-```
-
-```yaml
-type: fiche-produit-x
 slug: knight-shield-3-80n
 name: Knight Shield 3-80N
 ref: BX-04
@@ -387,4 +366,16 @@ gamme_slug: beyblade-x
 date_published: 2026-04-21
 template: page_comparatif_beyblade_x.html
 note: "Production manuelle (agent remote bloqué par auth git push). Repo passé en public pour fix futur."
+```
+
+```yaml
+slug: phoenix-wing-9-60gf
+name: Phoenix Wing 9-60GF
+type: fiche-produit-x
+gamme: beyblade-x
+ref: BX-23
+score: 8.8
+date_published: 2026-04-22
+template: article_phoenix_wing_9_60gf.html
+note: "Production manuelle. Image transparente déjà dispo donc rotation active. Internal links updated: homepage cards now linkable + comparatif X table marked Testée."
 ```
