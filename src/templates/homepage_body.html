@@ -447,7 +447,11 @@
     R = Math.min(rect.width, rect.height) / 2 - 4;  // marge anti-clipping
 
     beys.forEach((b, i) => {
-      b.r = b.el.offsetWidth / 2;
+      // Rayon de collision = rayon de la PHOTO réelle (88% du container, le reste = halo)
+      // → l'illusion de contact entre toupies au moment du choc, pas juste les halos
+      const halfBox = b.el.offsetWidth / 2;
+      b.r = halfBox * 0.88;       // pour collisions (photo)
+      b.halfBox = halfBox;         // pour positionnement DOM (box centré sur b.x)
       // Position initiale opposée au centre + vélocité aléatoire
       const initAngle = Math.PI * (i ? 1.25 : 0.25);
       const initDist = R * 0.55;
@@ -556,10 +560,10 @@
       else if (v < minV && v > 0) { b.vx *= minV / v; b.vy *= minV / v; }
     });
 
-    // Apply
+    // Apply : positionne le BOX (centré sur b.x), pas la photo seule
     beys.forEach(b => {
-      b.el.style.left = (b.x - b.r) + 'px';
-      b.el.style.top = (b.y - b.r) + 'px';
+      b.el.style.left = (b.x - b.halfBox) + 'px';
+      b.el.style.top = (b.y - b.halfBox) + 'px';
     });
 
     requestAnimationFrame(step);
