@@ -470,24 +470,24 @@
     el.classList.add('bey-hit');
   }
 
+  // Compteur de frames depuis la dernière collision (pour l'attraction conditionnelle)
+  let framesSinceCollision = 0;
+
   function step() {
     const a = beys[0], b = beys[1];
 
-    // ATTRACTION TRÈS subtile, et seulement à grande distance
-    // (pour éviter qu'elles s'évitent indéfiniment, sans forcer les chocs)
-    {
+    // ATTRACTION minimale : kick-in seulement après long isolement
+    // → choc rare mais pas inexistant
+    framesSinceCollision++;
+    if (framesSinceCollision > 600) {  // ~10s sans collision
       const dx = b.x - a.x, dy = b.y - a.y;
       const dist = Math.sqrt(dx * dx + dy * dy) || 1;
-      const minDist = a.r + b.r;
-      // Active seulement quand elles sont éloignées (> 1.8x leur taille combinée)
-      if (dist > minDist * 1.8) {
-        const nx = dx / dist, ny = dy / dist;
-        const attractStrength = 0.006;
-        a.vx += nx * attractStrength;
-        a.vy += ny * attractStrength;
-        b.vx -= nx * attractStrength;
-        b.vy -= ny * attractStrength;
-      }
+      const nx = dx / dist, ny = dy / dist;
+      const attractStrength = 0.003;
+      a.vx += nx * attractStrength;
+      a.vy += ny * attractStrength;
+      b.vx -= nx * attractStrength;
+      b.vy -= ny * attractStrength;
     }
 
     // Update positions
@@ -541,6 +541,8 @@
           // Pulse visuel (scale flash)
           pulse(a.el);
           pulse(b.el);
+          // Reset du compteur d'attraction
+          framesSinceCollision = 0;
         }
       }
     }

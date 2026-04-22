@@ -146,8 +146,8 @@
   .hero-bey {
     position: absolute;
     width: 36%;
-    /* z-index 5 → passe AU-DESSUS du VS badge (z:4) */
-    z-index: 5;
+    /* z-index 10 → passe largement AU-DESSUS du VS badge (z:4) */
+    z-index: 10;
     /* Position contrôlée par JS (left/top), valeurs initiales pour fallback no-JS */
     will-change: left, top;
   }
