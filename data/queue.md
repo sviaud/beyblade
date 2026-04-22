@@ -17,27 +17,6 @@
 ## TODO (par ordre de priorité SEO — l'agent prend toujours le 1er)
 
 ```yaml
-type: fiche-produit-x
-slug: knight-shield-3-80n
-name: Knight Shield 3-80N
-ref: BX-04
-type_toupie: defense
-year: 2023
-asin: B0C52S6SNN
-score: 8.2
-template: article_dran_sword.html
-image: /img/knight-shield.webp
-image_transparent: true
-lore_owner: "Multi (toupie débutant)"
-lore_anime: "Beyblade X (saison 1, 2023→)"
-lore_key: "La défense entry-level de la gamme X — recommandée pour débuter. Hasbro l'a renommée Helm Knight en EU. Pardonnante aux erreurs de lancer."
-blade: "Knight Shield — forme bouclier rond protecteur"
-ratchet: "3-80 — 3 lobes hauteur 8.0mm"
-bit: "N (Needle) — pointe acier fine (haute précision)"
-priority_reason: "Fiche débutant + image transparente dispo — rotation active. Souvent recherchée."
-```
-
-```yaml
 type: page-comparatif
 slug: comparatif-beyblade-burst
 title: "Comparatif Beyblade Burst 2026 : Quad Drive, Quad Strike et Pro Series"
@@ -59,27 +38,6 @@ toupies_a_venir:
   - {ref: F6809, name: "Stellar Hyperion H8", type: attaque}
   - {ref: F3966, name: "Vanish Fafnir F7", type: stamina}
   - {ref: F2334, name: "Lord Spryzen S5 (Pro Series)", type: equilibre}
-```
-
-```yaml
-type: fiche-produit-x
-slug: wizard-arrow-4-80b
-name: Wizard Arrow 4-80B
-ref: BX-03
-type_toupie: stamina
-year: 2023
-asin: B0C52TTRDX
-score: 8.4
-template: article_dran_sword.html
-image: /img/wizard-arrow.webp
-image_transparent: true
-lore_owner: "Multi"
-lore_anime: "Beyblade X (saison 1, 2023→)"
-lore_key: "La 3e du starter trio Beyblade X (avec Dran Sword + Hells Scythe). Stamina pure — la toupie qui tourne le plus longtemps de la gamme. Iconique du sorcier."
-blade: "Wizard Arrow — 4 ailettes incurvées en flèche"
-ratchet: "4-80 — 4 lobes hauteur 8.0mm"
-bit: "B (Ball) — bille stamina premium"
-priority_reason: "Fiche starter X + image transparente dispo. Cible 'wizard arrow beyblade x' search."
 ```
 
 ```yaml
@@ -378,4 +336,28 @@ score: 8.8
 date_published: 2026-04-22
 template: article_phoenix_wing_9_60gf.html
 note: "Production manuelle. Image transparente déjà dispo donc rotation active. Internal links updated: homepage cards now linkable + comparatif X table marked Testée."
+```
+
+```yaml
+slug: knight-shield-3-80n
+name: Knight Shield 3-80N
+type: fiche-produit-x
+gamme: beyblade-x
+ref: BX-04
+score: 8.2
+date_published: 2026-04-22
+template: article_knight_shield_3_80n.html
+note: "Production manuelle (batch x2 avec Wizard Arrow). Image transparente, rotation active. Comparatif X mis à jour (4 toupies testées)."
+```
+
+```yaml
+slug: wizard-arrow-4-80b
+name: Wizard Arrow 4-80B
+type: fiche-produit-x
+gamme: beyblade-x
+ref: BX-03
+score: 8.4
+date_published: 2026-04-22
+template: article_wizard_arrow_4_80b.html
+note: "Production manuelle (batch x2 avec Knight Shield). Image transparente, rotation active. Stamina pure du starter trio."
 ```

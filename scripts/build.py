@@ -399,6 +399,118 @@ def build_article_phoenix_wing():
     return write_page('phoenix-wing-9-60gf', f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
 
 
+def build_article_knight_shield():
+    """Génère /knight-shield-3-80n/ — fiche Beyblade X défense entry-level."""
+    from seo_meta import (
+        render_head, product_schema, article_schema,
+        breadcrumb_schema, faq_schema, SITE_URL,
+    )
+    product = {
+        'name': 'Knight Shield 3-80N',
+        'reference': 'BX-04',
+        'gamme': 'beyblade-x',
+        'type': 'defense',
+        'year': 2023,
+        'asin': 'B0C52S6SNN',
+        'image_url': f'{SITE_URL}/img/knight-shield.webp',
+        'description': "Test complet de la Knight Shield 3-80N (BX-04, Helm Knight chez Hasbro EU), la défenseuse entry-level Beyblade X. Note 8.2/10. Performance, alternatives, FAQ.",
+    }
+    schemas = [
+        product_schema(product, review_score=8.2, review_max=10),
+        article_schema(headline='Knight Shield 3-80N : test complet Beyblade X',
+                       description=product['description'],
+                       url_path='/knight-shield-3-80n/', image_url=product['image_url'],
+                       date_published='2026-04-22T11:00:00+02:00',
+                       date_modified='2026-04-22T11:00:00+02:00', section='Beyblade X'),
+        breadcrumb_schema([('Accueil', '/'), ('Beyblade X', '/comparatif-beyblade-x/'),
+                           ('Knight Shield 3-80N', '/knight-shield-3-80n/')]),
+        faq_schema([
+            ('Quel lanceur utiliser avec la Knight Shield ?',
+             "Le Xtreme Launcher fourni dans le starter set est suffisant. Pour la compétition, le Beyblade X Launcher Grip ajoute un manche stabilisateur."),
+            ('La Knight Shield est-elle compatible avec un stadium Burst ?',
+             "Non, exclusivement Beyblade X. Le Bit Needle ne fonctionne qu'avec une rampe Xtreme."),
+            ("Pourquoi Knight Shield s'appelle Helm Knight chez Hasbro ?",
+             "Hasbro renomme parfois certaines toupies pour le marché EU. La Knight Shield est ainsi devenue Helm Knight (heaume). Mécaniquement les deux sont identiques."),
+            ('Knight Shield ou Dran Sword pour débuter ?',
+             "Pour un vrai débutant, la Knight Shield (défense) est plus pardonnante. La Dran Sword (attaque) est plus excitante mais demande un meilleur lancer. Notre conseil : prendre le 4-Pack Starter Set qui contient les 2 (~40 €)."),
+            ('Quel combo personnalisé recommandez-vous ?',
+             "Le combo stock Knight Shield 3-80N est déjà excellent en défense passive. Pour pousser : Knight Shield 4-80B (Bit Ball stamina, hybride défense+endurance)."),
+            ('Où acheter la Knight Shield en France ?',
+             "Amazon FR (lien direct depuis cette page), King Jouet, Leclerc Jouets et la Grande Récré. Souvent dispo en Helm Knight chez Hasbro EU."),
+            ('À partir de quel âge peut-on jouer ?',
+             "Hasbro indique 8 ans et plus. La Knight Shield étant pardonnante, elle convient bien dès 8 ans."),
+            ('Faut-il acheter la garantie magasin ?',
+             "Non. Garantie 2 ans Hasbro contre les défauts de fabrication."),
+        ]),
+    ]
+    head = render_head(
+        title='Knight Shield 3-80N : test complet Beyblade X défense (note 8.2/10)',
+        description="Notre test complet de la Knight Shield 3-80N (BX-04), la défenseuse entry-level Beyblade X. Pardonnante, stable, parfaite pour débuter. Performance, combos, FAQ — note 8.2/10.",
+        canonical_path='/knight-shield-3-80n/', og_type='article', og_image='/img/knight-shield.webp',
+        article_published='2026-04-22T11:00:00+02:00',
+        article_modified='2026-04-22T11:00:00+02:00', article_section='Beyblade X',
+        extra_css=['/css/page-article.css'], preload_images=['/img/knight-shield.webp'],
+        extra_jsonld=schemas)
+    body_inner = (SRC_TEMPLATES / 'article_knight_shield_3_80n.html').read_text()
+    return write_page('knight-shield-3-80n', f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
+
+
+def build_article_wizard_arrow():
+    """Génère /wizard-arrow-4-80b/ — fiche Beyblade X stamina pure."""
+    from seo_meta import (
+        render_head, product_schema, article_schema,
+        breadcrumb_schema, faq_schema, SITE_URL,
+    )
+    product = {
+        'name': 'Wizard Arrow 4-80B',
+        'reference': 'BX-03',
+        'gamme': 'beyblade-x',
+        'type': 'stamina',
+        'year': 2023,
+        'asin': 'B0C52TTRDX',
+        'image_url': f'{SITE_URL}/img/wizard-arrow.webp',
+        'description': "Test complet de la Wizard Arrow 4-80B (BX-03), la stamina pure Beyblade X qui tient 90s en spin. Note 8.4/10. Performance, alternatives, FAQ.",
+    }
+    schemas = [
+        product_schema(product, review_score=8.4, review_max=10),
+        article_schema(headline='Wizard Arrow 4-80B : test complet Beyblade X',
+                       description=product['description'],
+                       url_path='/wizard-arrow-4-80b/', image_url=product['image_url'],
+                       date_published='2026-04-22T12:00:00+02:00',
+                       date_modified='2026-04-22T12:00:00+02:00', section='Beyblade X'),
+        breadcrumb_schema([('Accueil', '/'), ('Beyblade X', '/comparatif-beyblade-x/'),
+                           ('Wizard Arrow 4-80B', '/wizard-arrow-4-80b/')]),
+        faq_schema([
+            ('Quel lanceur utiliser avec la Wizard Arrow ?',
+             "Le Xtreme Launcher du starter set suffit. Pour la stamina maximale, optez pour le Beyblade X String Launcher (BX-28) qui donne plus de RPM au lancer initial."),
+            ('La Wizard Arrow est-elle compatible avec un stadium Burst ?',
+             "Non. Le Bit Ball nécessite la rampe Xtreme officielle pour glisser correctement."),
+            ('Combien de temps tient la Wizard Arrow en spin solo ?',
+             "Environ 80-90 secondes en lancer maximal sur stadium plat. C'est la plus longue de la gamme X. Une attaquante moyenne tourne 50-60 secondes."),
+            ('Wizard Arrow ou Dran Sword pour gagner contre mes amis ?',
+             "Si tes amis attaquent agressif : Wizard Arrow (out-spin). Si défensifs : Dran Sword (KO). Le 4-Pack Starter Set permet d'avoir les 2 et d'adapter."),
+            ('Quel combo personnalisé recommandez-vous ?',
+             "Le combo stock Wizard Arrow 4-80B est déjà excellent. Pour pousser la stamina au max : Wizard Arrow 9-80B (Ratchet 9 lobes pour stabilité maximale)."),
+            ('Où acheter la Wizard Arrow en France ?',
+             "Amazon FR, King Jouet, Leclerc Jouets et la Grande Récré. Souvent en bundle dans le 4-Pack Starter Set Hasbro à ~40 €."),
+            ('À partir de quel âge peut-on jouer ?',
+             "Hasbro indique 8 ans et plus. La Wizard Arrow étant stable, elle convient bien dès 8 ans."),
+            ('Faut-il acheter la garantie magasin ?',
+             "Non. Garantie 2 ans Hasbro contre les défauts de fabrication."),
+        ]),
+    ]
+    head = render_head(
+        title='Wizard Arrow 4-80B : test complet Beyblade X stamina (note 8.4/10)',
+        description="Notre test complet de la Wizard Arrow 4-80B (BX-03), la stamina pure Beyblade X qui tient 90s en spin. Performance, combos, FAQ — note 8.4/10.",
+        canonical_path='/wizard-arrow-4-80b/', og_type='article', og_image='/img/wizard-arrow.webp',
+        article_published='2026-04-22T12:00:00+02:00',
+        article_modified='2026-04-22T12:00:00+02:00', article_section='Beyblade X',
+        extra_css=['/css/page-article.css'], preload_images=['/img/wizard-arrow.webp'],
+        extra_jsonld=schemas)
+    body_inner = (SRC_TEMPLATES / 'article_wizard_arrow_4_80b.html').read_text()
+    return write_page('wizard-arrow-4-80b', f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
+
+
 def build_comparatif_metal_fusion():
     """Génère /comparatif-beyblade-metal-fusion/ — page hub gamme MF."""
     from seo_meta import (
@@ -647,6 +759,14 @@ def main():
 
     print('🦅 Building article : Phoenix Wing 9-60GF...')
     p = build_article_phoenix_wing()
+    print(f'   → {p.relative_to(DIST_DIR.parent)}')
+
+    print('🛡️  Building article : Knight Shield 3-80N...')
+    p = build_article_knight_shield()
+    print(f'   → {p.relative_to(DIST_DIR.parent)}')
+
+    print('🏹 Building article : Wizard Arrow 4-80B...')
+    p = build_article_wizard_arrow()
     print(f'   → {p.relative_to(DIST_DIR.parent)}')
 
     print('📊 Building comparatif : Beyblade Metal Fusion...')
