@@ -463,7 +463,34 @@
     });
   }
 
+  // Pulse visuel au moment d'un choc
+  function pulse(el) {
+    el.classList.remove('bey-hit');
+    void el.offsetWidth;  // force reflow pour réinitialiser l'animation
+    el.classList.add('bey-hit');
+  }
+
   function step() {
+    const a = beys[0], b = beys[1];
+
+    // ATTRACTION subtile entre les 2 toupies → force des collisions plus fréquentes
+    {
+      const dx = b.x - a.x, dy = b.y - a.y;
+      const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+      const minDist = a.r + b.r;
+      // Attraction proportionnelle à la distance (plus elles sont loin, plus elles s'attirent)
+      // Désactivée à courte distance pour éviter de coller
+      if (dist > minDist + 8) {
+        const nx = dx / dist, ny = dy / dist;
+        const attractStrength = 0.025;
+        a.vx += nx * attractStrength;
+        a.vy += ny * attractStrength;
+        b.vx -= nx * attractStrength;
+        b.vy -= ny * attractStrength;
+      }
+    }
+
+    // Update positions
     beys.forEach(b => { b.x += b.vx; b.y += b.vy; });
 
     // Collision avec bord circulaire (réflexion)
@@ -473,48 +500,58 @@
       const maxDist = R - b.r;
       if (dist > maxDist) {
         const nx = dx / dist, ny = dy / dist;
-        // Repositionne sur le bord
         b.x = cx + nx * maxDist;
         b.y = cy + ny * maxDist;
-        // Réflexion vélocité (v - 2(v·n)n)
         const dot = b.vx * nx + b.vy * ny;
         b.vx -= 2 * dot * nx;
         b.vy -= 2 * dot * ny;
       }
     });
 
-    // Collision entre toupies (impulsion élastique)
-    const a = beys[0], b = beys[1];
-    const dx = b.x - a.x, dy = b.y - a.y;
-    const dist = Math.sqrt(dx * dx + dy * dy);
-    const minDist = a.r + b.r;
-    if (dist < minDist && dist > 0) {
-      const nx = dx / dist, ny = dy / dist;
-      // Sépare les toupies pour éviter overlap permanent
-      const overlap = (minDist - dist) / 2 + 0.5;
-      a.x -= nx * overlap; a.y -= ny * overlap;
-      b.x += nx * overlap; b.y += ny * overlap;
-      // Vélocité relative
-      const dvx = b.vx - a.vx, dvy = b.vy - a.vy;
-      const dvn = dvx * nx + dvy * ny;
-      // Si elles s'approchent → choc élastique masses égales
-      if (dvn < 0) {
-        a.vx += dvn * nx; a.vy += dvn * ny;
-        b.vx -= dvn * nx; b.vy -= dvn * ny;
-        // Légère perturbation pour éviter trajectoires parallèles éternelles
-        const jitter = 0.15;
-        a.vx += (Math.random() - 0.5) * jitter;
-        a.vy += (Math.random() - 0.5) * jitter;
-        b.vx += (Math.random() - 0.5) * jitter;
-        b.vy += (Math.random() - 0.5) * jitter;
+    // Collision entre toupies (choc élastique + BOOST repoussoir)
+    {
+      const dx = b.x - a.x, dy = b.y - a.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      const minDist = a.r + b.r;
+      if (dist < minDist && dist > 0) {
+        const nx = dx / dist, ny = dy / dist;
+        // Sépare pour éviter overlap permanent
+        const overlap = (minDist - dist) / 2 + 1;
+        a.x -= nx * overlap; a.y -= ny * overlap;
+        b.x += nx * overlap; b.y += ny * overlap;
+        // Vélocité relative
+        const dvx = b.vx - a.vx, dvy = b.vy - a.vy;
+        const dvn = dvx * nx + dvy * ny;
+        if (dvn < 0) {  // approaching
+          // Échange élastique
+          a.vx += dvn * nx; a.vy += dvn * ny;
+          b.vx -= dvn * nx; b.vy -= dvn * ny;
+          // ★ BOOST repoussoir : accélération sur la composante normale (+60%)
+          const BOOST = 0.6;
+          a.vx -= nx * BOOST;
+          a.vy -= ny * BOOST;
+          b.vx += nx * BOOST;
+          b.vy += ny * BOOST;
+          // Perturbation aléatoire pour varier les trajectoires
+          const jitter = 0.3;
+          a.vx += (Math.random() - 0.5) * jitter;
+          a.vy += (Math.random() - 0.5) * jitter;
+          b.vx += (Math.random() - 0.5) * jitter;
+          b.vy += (Math.random() - 0.5) * jitter;
+          // Pulse visuel (scale flash)
+          pulse(a.el);
+          pulse(b.el);
+        }
       }
     }
 
-    // Cap vélocité (anti-explosion en cas de bug)
+    // Cap vélocité (anti-explosion + maintien d'un minimum d'énergie)
     beys.forEach(b => {
       const v = Math.sqrt(b.vx * b.vx + b.vy * b.vy);
-      const maxV = 2.8;
+      const maxV = 4.5;
+      const minV = 1.2;
       if (v > maxV) { b.vx *= maxV / v; b.vy *= maxV / v; }
+      else if (v < minV && v > 0) { b.vx *= minV / v; b.vy *= minV / v; }
     });
 
     // Apply
