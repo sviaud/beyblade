@@ -154,12 +154,12 @@
   .hero-bey.b2 { top: 52%; left: 52%; }
   /* L'animation .spinning sur .beyblade-viz est conservée (rotation visuelle interne) */
 
-  /* Pulse au moment d'un choc — flash de scale + glow */
-  .hero-bey.bey-hit { animation: bey-hit-pulse 0.35s cubic-bezier(0.2, 1, 0.4, 1); }
+  /* Pulse discret au moment d'un choc — micro flash de luminosité */
+  .hero-bey.bey-hit { animation: bey-hit-pulse 0.18s ease-out; }
   @keyframes bey-hit-pulse {
-    0%   { transform: scale(1);    filter: drop-shadow(0 0 0 transparent); }
-    35%  { transform: scale(1.18); filter: drop-shadow(0 0 24px var(--accent-glow)); }
-    100% { transform: scale(1);    filter: drop-shadow(0 0 0 transparent); }
+    0%   { filter: brightness(1); }
+    40%  { filter: brightness(1.25); }
+    100% { filter: brightness(1); }
   }
 
   .vs-badge {
