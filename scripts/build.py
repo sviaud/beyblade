@@ -650,10 +650,11 @@ def build_article_l_drago_destroy():
     head = render_head(
         title='L-Drago Destroy F:S : test complet Metal Fusion 4D (note 8.4/10)',
         description="Notre test complet de la L-Drago Destroy F:S (BB-108), l'évolution 4D ultime de Ryuga. Spin Steal, mode F:S, performance — note 8.4/10.",
-        canonical_path='/l-drago-destroy-fs/', og_type='article',
+        canonical_path='/l-drago-destroy-fs/', og_type='article', og_image='/img/l-drago-destroy.webp',
         article_published='2026-04-22T15:00:00+02:00',
         article_modified='2026-04-22T15:00:00+02:00', article_section='Beyblade Metal Fusion',
-        extra_css=['/css/page-article.css'], extra_jsonld=schemas)
+        extra_css=['/css/page-article.css'], preload_images=['/img/l-drago-destroy.webp'],
+        extra_jsonld=schemas)
     body_inner = (SRC_TEMPLATES / 'article_l_drago_destroy_fs.html').read_text()
     return write_page('l-drago-destroy-fs', f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
 
@@ -699,10 +700,11 @@ def build_article_hells_scythe():
     head = render_head(
         title='Hells Scythe 4-60T : test complet Beyblade X (note 8.3/10)',
         description="Notre test complet de la Hells Scythe 4-60T (BX-02), la stamina-defense du quatuor inaugural Beyblade X. Toupie de Multi — note 8.3/10.",
-        canonical_path='/hells-scythe-4-60t/', og_type='article',
+        canonical_path='/hells-scythe-4-60t/', og_type='article', og_image='/img/hells-scythe.webp',
         article_published='2026-04-22T16:00:00+02:00',
         article_modified='2026-04-22T16:00:00+02:00', article_section='Beyblade X',
-        extra_css=['/css/page-article.css'], extra_jsonld=schemas)
+        extra_css=['/css/page-article.css'], preload_images=['/img/hells-scythe.webp'],
+        extra_jsonld=schemas)
     body_inner = (SRC_TEMPLATES / 'article_hells_scythe_4_60t.html').read_text()
     return write_page('hells-scythe-4-60t', f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
 
@@ -748,10 +750,11 @@ def build_article_cobalt_dragoon():
     head = render_head(
         title='Cobalt Dragoon 2-60C : test complet Beyblade X left-spin (note 8.6/10)',
         description="Notre test complet de la Cobalt Dragoon 2-60C (BX-34), première left-spin Beyblade X avec Spin Steal. Performance, combos, FAQ — note 8.6/10.",
-        canonical_path='/cobalt-dragoon-2-60c/', og_type='article',
+        canonical_path='/cobalt-dragoon-2-60c/', og_type='article', og_image='/img/cobalt-dragoon.webp',
         article_published='2026-04-22T17:00:00+02:00',
         article_modified='2026-04-22T17:00:00+02:00', article_section='Beyblade X',
-        extra_css=['/css/page-article.css'], extra_jsonld=schemas)
+        extra_css=['/css/page-article.css'], preload_images=['/img/cobalt-dragoon.webp'],
+        extra_jsonld=schemas)
     body_inner = (SRC_TEMPLATES / 'article_cobalt_dragoon_2_60c.html').read_text()
     return write_page('cobalt-dragoon-2-60c', f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
 
