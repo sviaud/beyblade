@@ -609,6 +609,153 @@ def build_article_ray_unicorno():
     return write_page('ray-unicorno-d125cs', f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
 
 
+def build_article_l_drago_destroy():
+    """Génère /l-drago-destroy-fs/ — fiche Metal Fusion 4D ultime de Ryuga."""
+    from seo_meta import (
+        render_head, product_schema, article_schema,
+        breadcrumb_schema, faq_schema, SITE_URL,
+    )
+    product = {
+        'name': 'L-Drago Destroy F:S',
+        'reference': 'BB-108',
+        'gamme': 'beyblade-metal-fusion',
+        'type': 'attaque',
+        'year': 2011,
+        'asin': 'B005U8KMJM',
+        'image_url': f'{SITE_URL}/img/og-default.jpg',
+        'description': "Test complet de la L-Drago Destroy F:S (BB-108), évolution 4D ultime de la lignée L-Drago de Ryuga. Note 8.4/10.",
+    }
+    schemas = [
+        product_schema(product, review_score=8.4, review_max=10),
+        article_schema(headline='L-Drago Destroy F:S : test complet Metal Fusion 4D',
+                       description=product['description'],
+                       url_path='/l-drago-destroy-fs/', image_url=product['image_url'],
+                       date_published='2026-04-22T15:00:00+02:00',
+                       date_modified='2026-04-22T15:00:00+02:00', section='Beyblade Metal Fusion'),
+        breadcrumb_schema([('Accueil', '/'), ('Beyblade Metal Fusion', '/comparatif-beyblade-metal-fusion/'),
+                           ('L-Drago Destroy F:S', '/l-drago-destroy-fs/')]),
+        faq_schema([
+            ('Quelle est la différence entre L-Drago Destroy et Meteo L-Drago ?',
+             "Meteo L-Drago LW105LF (BB-88, 2010) est le modèle Hybrid Wheel mid-tier de Ryuga avec son Bit Absorb. La L-Drago Destroy F:S (BB-108, 2011) est l'évolution 4D ultime — Metal Frame remplaçable, Bit F:S Final Survive et puissance brute supérieure. C'est la version finale du dragon."),
+            ('Pourquoi la L-Drago tourne-t-elle vers la gauche ?',
+             "Toutes les L-Drago (Lightning, Meteo, Destroy) sont des toupies en rotation gauche. Cela leur permet d'utiliser le mécanisme Spin Steal — voler l'énergie de rotation des adversaires droitiers à chaque collision frontale. C'est la signature stratégique de Ryuga depuis la saison 1."),
+            ("Le Bit F:S (Final Survive) c'est quoi ?",
+             "Le F:S est un Bit 4D à double mode : pointe Flat agressive (mode attaque) ou pointe Sharp endurante (mode survie). On bascule entre les deux en tournant manuellement la pièce. C'est l'un des Bits les plus polyvalents jamais sortis sur Metal Fusion."),
+            ('Compatible avec un stadium Beyblade X ?',
+             "Non. La L-Drago Destroy utilise le système 4D Metal Fusion. Le stadium Xtreme de Beyblade X (rampe inclinée) n'est pas adapté. Utilisez un stadium Metal Fusion classique."),
+            ('Où acheter la L-Drago Destroy en France ?',
+             "Stock variable sur Amazon FR (versions Hasbro et Takara Tomy). Pour la version japonaise originale, BeyStation FR ou eBay sont vos meilleures options. Comptez 30-60 € selon la version et l'état du Metal Frame."),
+        ]),
+    ]
+    head = render_head(
+        title='L-Drago Destroy F:S : test complet Metal Fusion 4D (note 8.4/10)',
+        description="Notre test complet de la L-Drago Destroy F:S (BB-108), l'évolution 4D ultime de Ryuga. Spin Steal, mode F:S, performance — note 8.4/10.",
+        canonical_path='/l-drago-destroy-fs/', og_type='article',
+        article_published='2026-04-22T15:00:00+02:00',
+        article_modified='2026-04-22T15:00:00+02:00', article_section='Beyblade Metal Fusion',
+        extra_css=['/css/page-article.css'], extra_jsonld=schemas)
+    body_inner = (SRC_TEMPLATES / 'article_l_drago_destroy_fs.html').read_text()
+    return write_page('l-drago-destroy-fs', f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
+
+
+def build_article_hells_scythe():
+    """Génère /hells-scythe-4-60t/ — fiche Beyblade X stamina-defense de Multi."""
+    from seo_meta import (
+        render_head, product_schema, article_schema,
+        breadcrumb_schema, faq_schema, SITE_URL,
+    )
+    product = {
+        'name': 'Hells Scythe 4-60T',
+        'reference': 'BX-02',
+        'gamme': 'beyblade-x',
+        'type': 'stamina',
+        'year': 2023,
+        'asin': 'B0C52C4L3T',
+        'image_url': f'{SITE_URL}/img/og-default.jpg',
+        'description': "Test complet de la Hells Scythe 4-60T (BX-02), stamina-defense hybride du quatuor inaugural Beyblade X. Toupie de Multi. Note 8.3/10.",
+    }
+    schemas = [
+        product_schema(product, review_score=8.3, review_max=10),
+        article_schema(headline='Hells Scythe 4-60T : test complet Beyblade X',
+                       description=product['description'],
+                       url_path='/hells-scythe-4-60t/', image_url=product['image_url'],
+                       date_published='2026-04-22T16:00:00+02:00',
+                       date_modified='2026-04-22T16:00:00+02:00', section='Beyblade X'),
+        breadcrumb_schema([('Accueil', '/'), ('Beyblade X', '/comparatif-beyblade-x/'),
+                           ('Hells Scythe 4-60T', '/hells-scythe-4-60t/')]),
+        faq_schema([
+            ('Hells Scythe est-elle stamina ou défense ?',
+             "Officiellement classée stamina, mais c'est en réalité une toupie hybride stamina/défense. Le Bit Taper (T) lui donne une stabilité inhabituelle pour une stamina pure, ce qui lui permet d'absorber les chocs avant de gagner par spin-out. C'est sa principale originalité dans la gamme X."),
+            ('Quelle différence avec Wizard Arrow ?',
+             "Wizard Arrow (BX-04) est une stamina classique avec Bit Ball, optimisée pour le spin-out par fatigue. Hells Scythe (BX-02) ajoute une couche de défense grâce à son Bit Taper, qui résiste mieux aux impacts d'attaquantes comme Dran Sword. Pour un combat équilibré : préférez Hells Scythe. Pour un combat de stamina pur : Wizard Arrow."),
+            ('Que vaut le Starter Set 4-Pack BX-15 ?',
+             "C'est l'un des meilleurs achats d'entrée Beyblade X : il contient les 4 toupies inaugurales (Dran Sword, Hells Scythe, Knight Shield, Wizard Arrow) et un stadium Xtreme. Rapport qualité/prix imbattable pour démarrer la collection — comptez 60-80 € sur Amazon FR."),
+            ('Compatible avec un stadium Burst ou Metal Fusion ?',
+             "Non. Hells Scythe est exclusivement Beyblade X. Le Bit Taper a besoin de la rampe inclinée du stadium Xtreme pour exprimer son potentiel défensif. Sur stadium plat, la toupie perd 40% de son intérêt."),
+            ('Où acheter la Hells Scythe en France ?',
+             "Amazon FR la propose en version individuelle (15-20 €) ou dans le starter pack 4-Pack BX-15 (60-80 €). Disponible aussi en magasin physique chez King Jouet, La Grande Récré et Leclerc Jouets."),
+        ]),
+    ]
+    head = render_head(
+        title='Hells Scythe 4-60T : test complet Beyblade X (note 8.3/10)',
+        description="Notre test complet de la Hells Scythe 4-60T (BX-02), la stamina-defense du quatuor inaugural Beyblade X. Toupie de Multi — note 8.3/10.",
+        canonical_path='/hells-scythe-4-60t/', og_type='article',
+        article_published='2026-04-22T16:00:00+02:00',
+        article_modified='2026-04-22T16:00:00+02:00', article_section='Beyblade X',
+        extra_css=['/css/page-article.css'], extra_jsonld=schemas)
+    body_inner = (SRC_TEMPLATES / 'article_hells_scythe_4_60t.html').read_text()
+    return write_page('hells-scythe-4-60t', f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
+
+
+def build_article_cobalt_dragoon():
+    """Génère /cobalt-dragoon-2-60c/ — première left-spin Beyblade X (Spin Steal)."""
+    from seo_meta import (
+        render_head, product_schema, article_schema,
+        breadcrumb_schema, faq_schema, SITE_URL,
+    )
+    product = {
+        'name': 'Cobalt Dragoon 2-60C',
+        'reference': 'BX-34',
+        'gamme': 'beyblade-x',
+        'type': 'attaque',
+        'year': 2024,
+        'asin': 'B0D6MZB1VF',
+        'image_url': f'{SITE_URL}/img/og-default.jpg',
+        'description': "Test complet de la Cobalt Dragoon 2-60C (BX-34), première attaquante left-spin de Beyblade X avec Spin Steal. Note 8.6/10.",
+    }
+    schemas = [
+        product_schema(product, review_score=8.6, review_max=10),
+        article_schema(headline='Cobalt Dragoon 2-60C : test complet Beyblade X left-spin',
+                       description=product['description'],
+                       url_path='/cobalt-dragoon-2-60c/', image_url=product['image_url'],
+                       date_published='2026-04-22T17:00:00+02:00',
+                       date_modified='2026-04-22T17:00:00+02:00', section='Beyblade X'),
+        breadcrumb_schema([('Accueil', '/'), ('Beyblade X', '/comparatif-beyblade-x/'),
+                           ('Cobalt Dragoon 2-60C', '/cobalt-dragoon-2-60c/')]),
+        faq_schema([
+            ('Quelle différence entre Cobalt Dragoon et Cobalt Drake ?',
+             "Aucune mécanique : ce sont les deux noms commerciaux de la même toupie. Cobalt Dragoon est le naming Takara Tomy (Japon, juillet 2024) ; Cobalt Drake est le naming Hasbro pour le marché européen (octobre 2024). Pièces strictement compatibles, seul le marquage et la finition diffèrent."),
+            ('Quel lanceur est nécessaire ?',
+             "Impérativement un Left Spin Launcher (généralement noir avec marquage L). Il est inclus dans le starter set BX-34 mais pas dans tous les packs Hasbro EU. Le Xtreme Launcher classique (droitier) est strictement incompatible avec une toupie left-spin."),
+            ("Qu'est-ce que le Spin Steal ?",
+             "Le Spin Steal est un mécanisme par lequel une toupie left-spin vole de l'énergie de rotation à un adversaire qui tourne dans le sens inverse (droite). À chaque collision frontale, la Cobalt Dragoon ralentit l'adversaire et accélère son propre spin. C'est la principale raison de l'acheter."),
+            ('Est-elle efficace contre une autre left-spin ?',
+             "Non — c'est son principal point faible. En miroir contre une autre toupie left-spin (Knight Lance ou Cobalt Dragoon adverse), le Spin Steal est neutralisé. Le combat redevient classique attaque vs attaque, où le Bit Cyclone n'est pas le mieux armé."),
+            ('Où acheter la Cobalt Dragoon en France ?',
+             "Amazon FR (version Cobalt Drake Hasbro 20-25 €, version Takara Tomy 30-40 €), King Jouet, Leclerc Jouets. Vérifiez bien que le pack inclut le Left Spin Launcher, sinon achetez-le séparément (env. 15 €)."),
+        ]),
+    ]
+    head = render_head(
+        title='Cobalt Dragoon 2-60C : test complet Beyblade X left-spin (note 8.6/10)',
+        description="Notre test complet de la Cobalt Dragoon 2-60C (BX-34), première left-spin Beyblade X avec Spin Steal. Performance, combos, FAQ — note 8.6/10.",
+        canonical_path='/cobalt-dragoon-2-60c/', og_type='article',
+        article_published='2026-04-22T17:00:00+02:00',
+        article_modified='2026-04-22T17:00:00+02:00', article_section='Beyblade X',
+        extra_css=['/css/page-article.css'], extra_jsonld=schemas)
+    body_inner = (SRC_TEMPLATES / 'article_cobalt_dragoon_2_60c.html').read_text()
+    return write_page('cobalt-dragoon-2-60c', f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
+
+
 def build_comparatif_metal_fusion():
     """Génère /comparatif-beyblade-metal-fusion/ — page hub gamme MF."""
     from seo_meta import (
@@ -873,6 +1020,18 @@ def main():
 
     print('🦄 Building article : Ray Unicorno D125CS...')
     p = build_article_ray_unicorno()
+    print(f'   → {p.relative_to(DIST_DIR.parent)}')
+
+    print('🐲 Building article : L-Drago Destroy F:S...')
+    p = build_article_l_drago_destroy()
+    print(f'   → {p.relative_to(DIST_DIR.parent)}')
+
+    print('💀 Building article : Hells Scythe 4-60T...')
+    p = build_article_hells_scythe()
+    print(f'   → {p.relative_to(DIST_DIR.parent)}')
+
+    print('🐉 Building article : Cobalt Dragoon 2-60C...')
+    p = build_article_cobalt_dragoon()
     print(f'   → {p.relative_to(DIST_DIR.parent)}')
 
     print('📊 Building comparatif : Beyblade Metal Fusion...')

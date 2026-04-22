@@ -42,45 +42,6 @@ toupies_a_venir:
 
 ```yaml
 type: fiche-produit-mf
-slug: l-drago-destroy-fs
-name: L-Drago Destroy F:S
-ref: BB-108
-type_toupie: attaque
-year: 2011
-asin: B005U8KMJM
-score: 8.4
-template: article_meteo_l_drago.html
-lore_owner: "Ryuga"
-lore_anime: "Metal Fight Beyblade : 4D (saison 3, 2011-2012)"
-lore_key: "Évolution ultime de la lignée L-Drago. Mode Attack/Defense switchable via la pointe F:S (Final Survive). La toupie de Ryuga dans la finale du tournoi mondial."
-fusion_wheel: "L-Drago II (gauche, ~25g, design dragon agressif)"
-energy_ring: "L-Drago II (rouge/noir)"
-spin_track: "MF (Metal Frame — frame métallique additionnelle)"
-performance_tip: "F:S (Final Survive — pointe switch attaque/défense)"
-priority_reason: "Évolution de Meteo L-Drago déjà testée — maillage interne. Search élevé 'l-drago destroy avis'."
-```
-
-```yaml
-type: fiche-produit-x
-slug: hells-scythe-4-60t
-name: Hells Scythe 4-60T
-ref: BX-02
-type_toupie: stamina
-year: 2023
-asin: B0C52C4L3T
-score: 8.3
-template: article_dran_sword.html
-lore_owner: "Multi"
-lore_anime: "Beyblade X (saison 1, 2023→)"
-lore_key: "La 2e toupie du starter trio Beyblade X. Stamina-defense hybride avec Bit Taper unique. Hasbro l'a renommée Hells Size en EU."
-blade: "Hells Scythe — faux du diable, 4 lames courbées"
-ratchet: "4-60 — 4 lobes 6.0mm"
-bit: "T (Taper) — pointe conique progressive (entre stamina et défense)"
-priority_reason: "Fiche starter X — complète le trio (Dran Sword + Wizard Arrow + Hells Scythe)."
-```
-
-```yaml
-type: fiche-produit-mf
 slug: earth-eagle-145wd
 name: Earth Eagle 145WD
 ref: BB-47
@@ -97,25 +58,6 @@ energy_ring: "Eagle (vert/jaune, motif rapace)"
 spin_track: "145 (high 14.5mm pour défense)"
 performance_tip: "WD (Wide Defense) — semi-bille large"
 priority_reason: "2e défenseuse Metal Fusion (après Rock Leone) — étoffe la gamme."
-```
-
-```yaml
-type: fiche-produit-x
-slug: cobalt-dragoon-2-60c
-name: Cobalt Dragoon 2-60C
-ref: BX-34
-type_toupie: attaque
-year: 2024
-asin: B0D6MZB1VF
-score: 8.6
-template: article_dran_sword.html
-lore_owner: "Kuroda Hyo"
-lore_anime: "Beyblade X (saison 2, 2024)"
-lore_key: "Attaquante GAUCHE (Left-Spin) — rare dans la gamme X. Concept similaire à Meteo L-Drago. Évolution du dragon. Hasbro l'a renommée Cobalt Drake en EU."
-blade: "Cobalt Dragoon — gauche, 2 lobes massifs"
-ratchet: "2-60 — 2 lobes 6.0mm (équilibre extrême)"
-bit: "C (Cyclone) — pointe rotative"
-priority_reason: "Première attaquante gauche Beyblade X — niche search 'cobalt dragoon left spin'."
 ```
 
 ```yaml
@@ -344,4 +286,40 @@ score: 7.8
 date_published: 2026-04-22
 template: article_ray_unicorno_d125cs.html
 note: "Production manuelle. SVG placeholder (Amazon ASIN B005ASZ5LE = page introuvable). Active la 4e redirection backlink legacy /avis/ray-unicorno/. Image transparente à fournir."
+```
+
+```yaml
+slug: l-drago-destroy-fs
+name: L-Drago Destroy F:S
+type: fiche-produit-mf
+gamme: beyblade-metal-fusion
+ref: BB-108
+score: 8.4
+date_published: 2026-04-22
+template: article_l_drago_destroy_fs.html
+note: "Production manuelle (batch x3 avec Hells Scythe + Cobalt Dragoon). SVG placeholder (rouge). Évolution 4D ultime de Ryuga. Comparatif MF mis à jour (6 toupies testées)."
+```
+
+```yaml
+slug: hells-scythe-4-60t
+name: Hells Scythe 4-60T
+type: fiche-produit-x
+gamme: beyblade-x
+ref: BX-02
+score: 8.3
+date_published: 2026-04-22
+template: article_hells_scythe_4_60t.html
+note: "Production manuelle (batch x3 avec L-Drago Destroy + Cobalt Dragoon). SVG placeholder (vert). Stamina-defense hybride du quatuor inaugural Beyblade X."
+```
+
+```yaml
+slug: cobalt-dragoon-2-60c
+name: Cobalt Dragoon 2-60C
+type: fiche-produit-x
+gamme: beyblade-x
+ref: BX-34
+score: 8.6
+date_published: 2026-04-22
+template: article_cobalt_dragoon_2_60c.html
+note: "Production manuelle (batch x3 avec L-Drago Destroy + Hells Scythe). SVG placeholder (bleu). Première left-spin Beyblade X — Spin Steal. Comparatif X mis à jour (6 toupies testées)."
 ```
