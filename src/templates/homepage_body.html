@@ -212,33 +212,35 @@
     <a href="/galaxy-pegasus-w105r2f/" style="display:block; color:inherit; text-decoration:none"><article class="toupie-card" style="--card-color:#ffb800" itemscope itemtype="https://schema.org/Product">
       <div class="toupie-card-img">
         <span class="ranking">3</span>
-        <div class="beyblade-viz spinning gold" style="width:75%">
-          <div class="ring-outer"></div><div class="ring-mid"></div><div class="star"></div><div class="center"></div>
+        <div class="beyblade-viz with-photo spinning" style="width:80%">
+          <div class="center"></div>
+          <img src="/img/galaxy-pegasus.webp" alt="Galaxy Pegasus W105R²F" class="bey-photo" width="350" height="350" loading="lazy" decoding="async">
         </div>
       </div>
       <div class="toupie-card-body">
-        <div class="gamme-mini">Metal Fusion · Stamina</div>
-        <h4>Pegasus Galaxy</h4>
+        <div class="gamme-mini">Metal Fusion · Attaque</div>
+        <h4>Galaxy Pegasus</h4>
         <div class="toupie-card-foot">
-          <span class="type-badge type-stamina">Stamina</span>
-          <div class="toupie-rating"><span class="num">8.5</span><span class="max">/10</span></div>
+          <span class="type-badge type-attack">Attaque</span>
+          <div class="toupie-rating"><span class="num">7.7</span><span class="max">/10</span></div>
         </div>
       </div>
     </article></a>
 
-    <a href="https://www.amazon.fr/s?k=valtryek+volcanic+beyblade&tag=beyblade0a-21" target="_blank" rel="nofollow sponsored noopener" style="display:block; color:inherit; text-decoration:none"><article class="toupie-card" style="--card-color:#00d68f" itemscope itemtype="https://schema.org/Product">
+    <a href="/rock-leone-145wb/" style="display:block; color:inherit; text-decoration:none"><article class="toupie-card" style="--card-color:#00d68f" itemscope itemtype="https://schema.org/Product">
       <div class="toupie-card-img">
         <span class="ranking">4</span>
-        <div class="beyblade-viz spinning green" style="width:75%">
-          <div class="ring-outer"></div><div class="ring-mid"></div><div class="star"></div><div class="center"></div>
+        <div class="beyblade-viz with-photo spinning" style="width:80%">
+          <div class="center"></div>
+          <img src="/img/rock-leone.webp" alt="Rock Leone 145WB" class="bey-photo" width="350" height="350" loading="lazy" decoding="async">
         </div>
       </div>
       <div class="toupie-card-body">
-        <div class="gamme-mini">Beyblade Burst · Équilibre</div>
-        <h4>Valtryek Volcanic</h4>
+        <div class="gamme-mini">Metal Fusion · Défense</div>
+        <h4>Rock Leone</h4>
         <div class="toupie-card-foot">
-          <span class="type-badge type-balance">Équilibre</span>
-          <div class="toupie-rating"><span class="num">8.3</span><span class="max">/10</span></div>
+          <span class="type-badge type-defense">Défense</span>
+          <div class="toupie-rating"><span class="num">8.1</span><span class="max">/10</span></div>
         </div>
       </div>
     </article></a>
@@ -413,3 +415,124 @@
     <span>En tant que partenaire Amazon, nous gagnons une commission sur les achats éligibles</span>
   </div>
 </footer>
+
+<script>
+/**
+ * Hero stadium — physique de combat de toupies
+ *
+ * 2 toupies se déplacent avec vélocité aléatoire dans le stadium circulaire,
+ * rebondissent sur le bord et se repoussent en cas de collision (élastique).
+ *
+ * Performance : requestAnimationFrame, ~60fps. Stop si réduit-motion préféré.
+ */
+(function() {
+  // Respect des préférences accessibilité
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const stadium = document.querySelector('.hero-visual');
+  const els = [
+    document.querySelector('.hero-bey.b1'),
+    document.querySelector('.hero-bey.b2')
+  ];
+  if (!stadium || !els[0] || !els[1]) return;
+
+  // État physique
+  const beys = els.map(el => ({el, x: 0, y: 0, vx: 0, vy: 0, r: 0}));
+  let cx = 0, cy = 0, R = 0;  // centre + rayon stadium
+
+  function init() {
+    const rect = stadium.getBoundingClientRect();
+    cx = rect.width / 2;
+    cy = rect.height / 2;
+    R = Math.min(rect.width, rect.height) / 2 - 4;  // marge anti-clipping
+
+    beys.forEach((b, i) => {
+      b.r = b.el.offsetWidth / 2;
+      // Position initiale opposée au centre + vélocité aléatoire
+      const initAngle = Math.PI * (i ? 1.25 : 0.25);
+      const initDist = R * 0.55;
+      b.x = cx + Math.cos(initAngle) * initDist;
+      b.y = cy + Math.sin(initAngle) * initDist;
+      const speed = 1.4 + Math.random() * 0.6;  // 1.4-2.0 px/frame
+      const dir = Math.random() * Math.PI * 2;
+      b.vx = Math.cos(dir) * speed;
+      b.vy = Math.sin(dir) * speed;
+      // CSS position absolute (override les top/left CSS initiaux)
+      b.el.style.top = '0';
+      b.el.style.left = '0';
+    });
+  }
+
+  function step() {
+    beys.forEach(b => { b.x += b.vx; b.y += b.vy; });
+
+    // Collision avec bord circulaire (réflexion)
+    beys.forEach(b => {
+      const dx = b.x - cx, dy = b.y - cy;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      const maxDist = R - b.r;
+      if (dist > maxDist) {
+        const nx = dx / dist, ny = dy / dist;
+        // Repositionne sur le bord
+        b.x = cx + nx * maxDist;
+        b.y = cy + ny * maxDist;
+        // Réflexion vélocité (v - 2(v·n)n)
+        const dot = b.vx * nx + b.vy * ny;
+        b.vx -= 2 * dot * nx;
+        b.vy -= 2 * dot * ny;
+      }
+    });
+
+    // Collision entre toupies (impulsion élastique)
+    const a = beys[0], b = beys[1];
+    const dx = b.x - a.x, dy = b.y - a.y;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    const minDist = a.r + b.r;
+    if (dist < minDist && dist > 0) {
+      const nx = dx / dist, ny = dy / dist;
+      // Sépare les toupies pour éviter overlap permanent
+      const overlap = (minDist - dist) / 2 + 0.5;
+      a.x -= nx * overlap; a.y -= ny * overlap;
+      b.x += nx * overlap; b.y += ny * overlap;
+      // Vélocité relative
+      const dvx = b.vx - a.vx, dvy = b.vy - a.vy;
+      const dvn = dvx * nx + dvy * ny;
+      // Si elles s'approchent → choc élastique masses égales
+      if (dvn < 0) {
+        a.vx += dvn * nx; a.vy += dvn * ny;
+        b.vx -= dvn * nx; b.vy -= dvn * ny;
+        // Légère perturbation pour éviter trajectoires parallèles éternelles
+        const jitter = 0.15;
+        a.vx += (Math.random() - 0.5) * jitter;
+        a.vy += (Math.random() - 0.5) * jitter;
+        b.vx += (Math.random() - 0.5) * jitter;
+        b.vy += (Math.random() - 0.5) * jitter;
+      }
+    }
+
+    // Cap vélocité (anti-explosion en cas de bug)
+    beys.forEach(b => {
+      const v = Math.sqrt(b.vx * b.vx + b.vy * b.vy);
+      const maxV = 2.8;
+      if (v > maxV) { b.vx *= maxV / v; b.vy *= maxV / v; }
+    });
+
+    // Apply
+    beys.forEach(b => {
+      b.el.style.left = (b.x - b.r) + 'px';
+      b.el.style.top = (b.y - b.r) + 'px';
+    });
+
+    requestAnimationFrame(step);
+  }
+
+  // Init + observe resize
+  init();
+  let resizeTO;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTO);
+    resizeTO = setTimeout(init, 200);
+  });
+  requestAnimationFrame(step);
+})();
+</script>

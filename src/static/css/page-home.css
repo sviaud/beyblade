@@ -145,15 +145,14 @@
 
   .hero-bey {
     position: absolute;
-    width: 28%;
+    width: 36%;
     z-index: 3;
+    /* Position contrôlée par JS (left/top), valeurs initiales pour fallback no-JS */
+    will-change: left, top;
   }
-  .hero-bey.b1 { top: 8%; left: 10%; }
-  .hero-bey.b2 { bottom: 12%; right: 8%; width: 32%; }
-  .hero-bey.b1 .beyblade-viz { animation: orbit1 8s ease-in-out infinite; }
-  .hero-bey.b2 .beyblade-viz { animation: orbit2 8s ease-in-out infinite; }
-  @keyframes orbit1 { 50% { transform: translate(20px, 20px); } }
-  @keyframes orbit2 { 50% { transform: translate(-20px, -20px); } }
+  .hero-bey.b1 { top: 12%; left: 12%; }
+  .hero-bey.b2 { top: 52%; left: 52%; }
+  /* L'animation .spinning sur .beyblade-viz est conservée (rotation visuelle interne) */
 
   .vs-badge {
     position: absolute;
