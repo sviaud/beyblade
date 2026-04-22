@@ -26,14 +26,29 @@ def clean_dist():
         DIST_DIR.mkdir(parents=True)
 
 
+def _is_junk(path: Path) -> bool:
+    """Filtre les fichiers à ne jamais copier dans /dist (macOS, éditeurs, etc.)."""
+    name = path.name
+    if name == '.DS_Store' or name.startswith('._'):
+        return True
+    if name.endswith(('~', '.swp', '.swo', '.bak')):
+        return True
+    if name == 'Thumbs.db' or name == 'desktop.ini':
+        return True
+    return False
+
+
 def copy_static():
-    """Copie src/static/* → dist/ (CSS, images, JS, fonts)."""
+    """Copie src/static/* → dist/ (CSS, images, JS, fonts).
+
+    Ignore les fichiers junk (.DS_Store, ._*, Thumbs.db, *~, *.swp, etc.).
+    """
     static_src = SRC_DIR / 'static'
     if not static_src.exists():
         return 0
     count = 0
     for src in static_src.rglob('*'):
-        if src.is_file():
+        if src.is_file() and not _is_junk(src):
             rel = src.relative_to(static_src)
             dst = DIST_DIR / rel
             dst.parent.mkdir(parents=True, exist_ok=True)
