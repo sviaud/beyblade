@@ -146,7 +146,8 @@
   .hero-bey {
     position: absolute;
     width: 36%;
-    z-index: 3;
+    /* z-index 5 → passe AU-DESSUS du VS badge (z:4) */
+    z-index: 5;
     /* Position contrôlée par JS (left/top), valeurs initiales pour fallback no-JS */
     will-change: left, top;
   }
@@ -154,11 +155,11 @@
   .hero-bey.b2 { top: 52%; left: 52%; }
   /* L'animation .spinning sur .beyblade-viz est conservée (rotation visuelle interne) */
 
-  /* Pulse discret au moment d'un choc — micro flash de luminosité */
-  .hero-bey.bey-hit { animation: bey-hit-pulse 0.18s ease-out; }
+  /* Pulse ultra-discret au moment d'un choc — micro flash très court */
+  .hero-bey.bey-hit { animation: bey-hit-pulse 0.14s ease-out; }
   @keyframes bey-hit-pulse {
     0%   { filter: brightness(1); }
-    40%  { filter: brightness(1.25); }
+    40%  { filter: brightness(1.1); }
     100% { filter: brightness(1); }
   }
 
