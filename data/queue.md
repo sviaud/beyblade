@@ -42,46 +42,6 @@ toupies_a_venir:
 
 ```yaml
 type: fiche-produit-mf
-slug: ray-unicorno-d125cs
-name: Ray Unicorno D125CS
-ref: BB-71
-type_toupie: attaque
-year: 2010
-asin: B005ASZ5LE
-score: 7.8
-template: article_rock_leone.html
-lore_owner: "Masamune Kadoya"
-lore_anime: "Metal Fight Beyblade : Baku (saison 2, 2010-2011)"
-lore_key: "L'attaquante équilibrée par excellence — fan-favorite Hasbro EU. La D125 Defense Track la rend plus stable que la moyenne des attaquantes."
-fusion_wheel: "Ray (alliage métallique léger ~24g, 6 lobes pointus)"
-energy_ring: "Unicorno (bleu/blanc, motif licorne)"
-spin_track: "D125 (Defense Track 12.5mm)"
-performance_tip: "CS (Coat Sharp) — pointe acier recouverte plastique"
-priority_reason: "4e backlink critique Metal Fusion — active /avis/ray-unicorno/ → /ray-unicorno-d125cs/."
-```
-
-```yaml
-type: fiche-produit-mf
-slug: storm-pegasus-105rf
-name: Storm Pegasus 105RF
-ref: BB-28
-type_toupie: attaque
-year: 2010
-asin: B004AY8ICE
-score: 8.0
-template: article_galaxy_pegasus.html
-lore_owner: "Ginga Hagane"
-lore_anime: "Metal Fight Beyblade (saison 1, 2009-2010)"
-lore_key: "LA toupie originelle de Ginga, cultissime. Predécesseure directe de Galaxy Pegasus W105R²F. La 1ère toupie en main de tout fan de l'anime."
-fusion_wheel: "Storm (4 lobes asymétriques ~22g)"
-energy_ring: "Pegasus (blanc/bleu, motif ailé)"
-spin_track: "105 (low height 10.5mm)"
-performance_tip: "RF (Rubber Flat) — caoutchouc plat agressif"
-priority_reason: "Toupie cultissime, prédécesseure de Galaxy Pegasus déjà testée. Volume search élevé sur 'storm pegasus prix'."
-```
-
-```yaml
-type: fiche-produit-mf
 slug: l-drago-destroy-fs
 name: L-Drago Destroy F:S
 ref: BB-108
@@ -360,4 +320,28 @@ score: 8.4
 date_published: 2026-04-22
 template: article_wizard_arrow_4_80b.html
 note: "Production manuelle (batch x2 avec Knight Shield). Image transparente, rotation active. Stamina pure du starter trio."
+```
+
+```yaml
+slug: storm-pegasus-105rf
+name: Storm Pegasus 105RF
+type: fiche-produit-mf
+gamme: beyblade-metal-fusion
+ref: BB-28
+score: 8.0
+date_published: 2026-04-22
+template: article_storm_pegasus_105rf.html
+note: "Production manuelle. SVG placeholder (pas d'image transparente trouvée — Amazon n'a qu'un packshot boîte). Image transparente à fournir manuellement par l'utilisateur."
+```
+
+```yaml
+slug: ray-unicorno-d125cs
+name: Ray Unicorno D125CS
+type: fiche-produit-mf
+gamme: beyblade-metal-fusion
+ref: BB-71
+score: 7.8
+date_published: 2026-04-22
+template: article_ray_unicorno_d125cs.html
+note: "Production manuelle. SVG placeholder (Amazon ASIN B005ASZ5LE = page introuvable). Active la 4e redirection backlink legacy /avis/ray-unicorno/. Image transparente à fournir."
 ```

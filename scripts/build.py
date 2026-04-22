@@ -511,6 +511,104 @@ def build_article_wizard_arrow():
     return write_page('wizard-arrow-4-80b', f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
 
 
+def build_article_storm_pegasus():
+    """Génère /storm-pegasus-105rf/ — fiche Metal Fusion originelle de Ginga."""
+    from seo_meta import (
+        render_head, product_schema, article_schema,
+        breadcrumb_schema, faq_schema, SITE_URL,
+    )
+    product = {
+        'name': 'Storm Pegasus 105RF',
+        'reference': 'BB-28',
+        'gamme': 'beyblade-metal-fusion',
+        'type': 'attaque',
+        'year': 2009,
+        'asin': 'B004AY8ICE',
+        'image_url': f'{SITE_URL}/img/og-default.jpg',
+        'description': "Test complet de la Storm Pegasus 105RF (BB-28), la toupie qui a inauguré la gamme Metal Fusion. Toupie originelle de Ginga Hagane. Note 8.0/10.",
+    }
+    schemas = [
+        product_schema(product, review_score=8.0, review_max=10),
+        article_schema(headline='Storm Pegasus 105RF : test complet Metal Fusion',
+                       description=product['description'],
+                       url_path='/storm-pegasus-105rf/', image_url=product['image_url'],
+                       date_published='2026-04-22T13:00:00+02:00',
+                       date_modified='2026-04-22T13:00:00+02:00', section='Beyblade Metal Fusion'),
+        breadcrumb_schema([('Accueil', '/'), ('Beyblade Metal Fusion', '/comparatif-beyblade-metal-fusion/'),
+                           ('Storm Pegasus 105RF', '/storm-pegasus-105rf/')]),
+        faq_schema([
+            ('La Storm Pegasus est-elle compatible avec un stadium Beyblade X ?',
+             "Non. La Storm Pegasus utilise le système 5 pièces métalliques Metal Fusion. Le stadium Xtreme de Beyblade X (rampe inclinée) n'est pas adapté. Utilisez un stadium Metal Fusion classique (Hasbro Hyperblade ou Takara Tomy BeyStadium)."),
+            ('Quelle est la différence entre Storm Pegasus, Galaxy Pegasus et Cosmic Pegasus ?',
+             "Trois générations chez Ginga : Storm Pegasus 105RF (BB-28, saison 1) la plus accessible et culte ; Galaxy Pegasus W105R²F (BB-70, saison 2) plus puissante avec Wing Track ; Cosmic Pegasus F:D (BB-105, saison 3) la version 4D ultime."),
+            ('Pourquoi est-elle si culte ?',
+             "Storm Pegasus est LA toupie qui a relancé la franchise Beyblade en 2009. Toupie principale du héros Ginga Hagane dans la saison 1, c'est l'équivalent de la première Pokéball — celle avec laquelle des millions d'enfants ont commencé."),
+            ('Combien dure une Storm Pegasus ?',
+             "Le Bit RF (Rubber Flat) s'use en environ 50 lancers sur stadium plastique, 30 sur béton. Une fois usé, la toupie perd son agressivité. Vous pouvez remplacer juste le RF — cherchez Performance Tip RF en pièce détachée."),
+            ('Où acheter la Storm Pegasus en France ?',
+             "Amazon FR (lien direct depuis cette page) — version Hasbro encore en stock à 15-25 €. Pour les éditions Takara Tomy japonaises originales : eBay ou BeyStation FR (50-80 €)."),
+        ]),
+    ]
+    head = render_head(
+        title='Storm Pegasus 105RF : test complet Metal Fusion (note 8.0/10)',
+        description="Notre test complet de la Storm Pegasus 105RF (BB-28), la toupie originelle de Ginga Hagane. Performance, alternatives, FAQ — note 8.0/10.",
+        canonical_path='/storm-pegasus-105rf/', og_type='article',
+        article_published='2026-04-22T13:00:00+02:00',
+        article_modified='2026-04-22T13:00:00+02:00', article_section='Beyblade Metal Fusion',
+        extra_css=['/css/page-article.css'], extra_jsonld=schemas)
+    body_inner = (SRC_TEMPLATES / 'article_storm_pegasus_105rf.html').read_text()
+    return write_page('storm-pegasus-105rf', f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
+
+
+def build_article_ray_unicorno():
+    """Génère /ray-unicorno-d125cs/ — fiche Metal Fusion fan-favorite Hasbro EU."""
+    from seo_meta import (
+        render_head, product_schema, article_schema,
+        breadcrumb_schema, faq_schema, SITE_URL,
+    )
+    product = {
+        'name': 'Ray Unicorno D125CS',
+        'reference': 'BB-71',
+        'gamme': 'beyblade-metal-fusion',
+        'type': 'attaque',
+        'year': 2010,
+        'asin': 'B005ASZ5LE',
+        'image_url': f'{SITE_URL}/img/og-default.jpg',
+        'description': "Test complet de la Ray Unicorno D125CS (BB-71, Ray Striker chez Hasbro EU), attaquante équilibrée de Masamune Kadoya. Note 7.8/10.",
+    }
+    schemas = [
+        product_schema(product, review_score=7.8, review_max=10),
+        article_schema(headline='Ray Unicorno D125CS : test complet Metal Fusion',
+                       description=product['description'],
+                       url_path='/ray-unicorno-d125cs/', image_url=product['image_url'],
+                       date_published='2026-04-22T14:00:00+02:00',
+                       date_modified='2026-04-22T14:00:00+02:00', section='Beyblade Metal Fusion'),
+        breadcrumb_schema([('Accueil', '/'), ('Beyblade Metal Fusion', '/comparatif-beyblade-metal-fusion/'),
+                           ('Ray Unicorno D125CS', '/ray-unicorno-d125cs/')]),
+        faq_schema([
+            ('La Ray Unicorno est-elle compatible avec un stadium Beyblade X ?',
+             "Non. La Ray Unicorno utilise le système 5 pièces métalliques Metal Fusion. Stadium classique requis (Hasbro Hyperblade ou Takara Tomy BeyStadium)."),
+            ('Pourquoi Ray Unicorno s\'appelle Ray Striker chez Hasbro EU ?',
+             "Hasbro a renommé certaines toupies pour le marché européen. La Ray Unicorno (Takara Tomy JP) devient Ray Striker en EU. Mécaniquement les deux sont identiques."),
+            ('Quelle est la particularité du Spin Track D125 ?',
+             "D125 (Defense Track 12.5mm) inclut des ailettes stabilisatrices qui réduisent les oscillations. Cela rend la Ray Unicorno plus stable que la moyenne des attaquantes — un compromis attaque/défense rare."),
+            ('Quel combo personnalisé recommandez-vous ?',
+             "Le combo stock Ray D125CS est déjà excellent. Pour pousser l'agressivité : Ray 105RF (Spin Track plus bas + Bit RF Rubber Flat). Pour la stabilité : Ray 145CS (track haut + CS)."),
+            ('Où acheter la Ray Unicorno en France ?',
+             "Stock variable sur Amazon FR. Si rupture, regardez chez BeyStation FR, GoToupie ou eBay. Versions Takara Tomy japonaises (édition originale) à ~30-50 € sur le marché de l'occasion."),
+        ]),
+    ]
+    head = render_head(
+        title='Ray Unicorno D125CS : test complet Metal Fusion (note 7.8/10)',
+        description="Notre test complet de la Ray Unicorno D125CS (BB-71, Ray Striker EU), l'attaquante équilibrée de Masamune Kadoya. Performance, alternatives, FAQ — note 7.8/10.",
+        canonical_path='/ray-unicorno-d125cs/', og_type='article',
+        article_published='2026-04-22T14:00:00+02:00',
+        article_modified='2026-04-22T14:00:00+02:00', article_section='Beyblade Metal Fusion',
+        extra_css=['/css/page-article.css'], extra_jsonld=schemas)
+    body_inner = (SRC_TEMPLATES / 'article_ray_unicorno_d125cs.html').read_text()
+    return write_page('ray-unicorno-d125cs', f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
+
+
 def build_comparatif_metal_fusion():
     """Génère /comparatif-beyblade-metal-fusion/ — page hub gamme MF."""
     from seo_meta import (
@@ -767,6 +865,14 @@ def main():
 
     print('🏹 Building article : Wizard Arrow 4-80B...')
     p = build_article_wizard_arrow()
+    print(f'   → {p.relative_to(DIST_DIR.parent)}')
+
+    print('⚡ Building article : Storm Pegasus 105RF...')
+    p = build_article_storm_pegasus()
+    print(f'   → {p.relative_to(DIST_DIR.parent)}')
+
+    print('🦄 Building article : Ray Unicorno D125CS...')
+    p = build_article_ray_unicorno()
     print(f'   → {p.relative_to(DIST_DIR.parent)}')
 
     print('📊 Building comparatif : Beyblade Metal Fusion...')
