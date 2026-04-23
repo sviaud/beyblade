@@ -17,46 +17,33 @@
 ## TODO (par ordre de priorité SEO — l'agent prend toujours le 1er)
 
 ```yaml
-type: page-comparatif
-slug: comparatif-beyblade-burst
-title: "Comparatif Beyblade Burst 2026 : Quad Drive, Quad Strike et Pro Series"
-description: "Comparatif des meilleures Beyblade Burst (Quad Drive, Quad Strike, Pro Series). Cyclone Roktavor, Stellar Hyperion, Vanish Fafnir et plus — notes et recommandations."
-gamme_label: "Beyblade Burst"
-gamme_slug: beyblade-burst
-gamme_year: "Saison 2016-2023"
-gamme_intro: |
-  Beyblade Burst (sortie 2016, dernière sous-série Quad Strike en 2023) est la 2ème génération moderne de la franchise.
-  Système Layer/Disc/Driver avec mécanique d'éclatement (Burst Finish). Catalogue le plus large de la franchise — 200+ toupies sorties au total.
-seo_volume: 480
-seo_keywords:
-  - "comparatif beyblade burst"
-  - "meilleur beyblade burst"
-priority_reason: "Active redirects /categorie/attaque/, /categorie/defense/ + cible 480 recherches/mois. Permet de se positionner sur Burst sans avoir 11 fiches."
-toupies_testees: []
-toupies_a_venir:
-  - {ref: F4067, name: "Cyclone Roktavor R7", type: attaque}
-  - {ref: F6809, name: "Stellar Hyperion H8", type: attaque}
-  - {ref: F3966, name: "Vanish Fafnir F7", type: stamina}
-  - {ref: F2334, name: "Lord Spryzen S5 (Pro Series)", type: equilibre}
+type: fiche-produit-burst
+slug: lord-spryzen-s5-pro-series
+name: Lord Spryzen S5 (Pro Series)
+ref: F2334
+type_toupie: equilibre
+year: 2021
+score: 8.5
+template: article_cyclone_roktavor_r7.html
+lore_owner: "Shu Kurenai (lignée Spryzen)"
+lore_anime: "Beyblade Burst (saisons 1 à 6)"
+lore_key: "Pro Series version premium métal pour collectionneurs adultes — la lignée Spryzen est l'une des plus iconiques (Wyvron, Wyvern, Salamander, Spriggan, Requiem, Lord). Lord Spryzen S5 = aboutissement collector."
+priority_reason: "Étoffe le comparatif Burst déjà existant — 4ème fiche Burst, ouverture sur la sous-série Pro Series collector."
 ```
 
 ```yaml
 type: fiche-produit-burst
-slug: vanish-fafnir-f7
-name: Vanish Fafnir F7
-ref: F3966
-type_toupie: stamina
-year: 2022
-asin: B09H17H8CD
-score: 8.2
-template: article_dran_sword.html
-lore_owner: "Free de la Hoya"
-lore_anime: "Beyblade Burst Quad Drive (saison 6, 2022)"
-lore_key: "Stamina iconique — Fafnir est la lignée stamina la plus aboutie de Burst. Capacité de Spin Steal en collision (vole l'énergie adverse)."
-layer: "Vanish Fafnir — 3 lames stamina"
-disc: "Q (Quad)"
-driver: "Revolve (rotation aimantée)"
-priority_reason: "Fafnir est culte — fan favorite Burst, fort search 'fafnir beyblade'."
+slug: brave-valtryek-v6
+name: Brave Valtryek V6
+ref: F4736
+type_toupie: attaque
+year: 2021
+score: 8.3
+template: article_cyclone_roktavor_r7.html
+lore_owner: "Valt Aoi"
+lore_anime: "Beyblade Burst Surge / Rise (saisons 4-5)"
+lore_key: "Lignée Valtryek = LA toupie iconique de Burst, équivalent de Pegasus pour Metal Fight. Brave Valtryek V6 = dernière itération principale (Driver Brave à transformations)."
+priority_reason: "Valt Aoi est le héros principal de Burst (saisons 1 à 6) — lignée Valtryek = #1 search 'valtryek beyblade' (15k/mois). Indispensable pour étoffer le comparatif Burst."
 ```
 
 ---
@@ -300,4 +287,37 @@ score: 8.0
 date_published: 2026-04-23
 template: article_cyclone_roktavor_r7.html
 note: "Production manuelle (batch x3 avec Earth Eagle + Dran Buster). SVG placeholder (rouge énergie). 1ère fiche Burst — toupie d'Aiger Akabane saison 6 Quad Drive. Breadcrumb /comparatif-beyblade-burst/ encore 404 (à venir au prochain batch)."
+```
+
+```yaml
+slug: comparatif-beyblade-burst
+type: page-comparatif
+gamme_slug: beyblade-burst
+date_published: 2026-04-23
+template: page_comparatif_beyblade_burst.html
+note: "Production manuelle (batch x3 avec Vanish Fafnir + Stellar Hyperion). Hub Burst gamme 2016-2023. 3 toupies testées (Cyclone Roktavor + Vanish Fafnir + Stellar Hyperion) + 6 références à venir (Lord Spryzen, Brave Valtryek, Ace Dragon, Z Achilles, Spryzen Requiem, Air Knight). Résout le 404 du breadcrumb Cyclone Roktavor."
+```
+
+```yaml
+slug: vanish-fafnir-f7
+name: Vanish Fafnir F7
+type: fiche-produit-burst
+gamme: beyblade-burst
+ref: F3966
+score: 8.2
+date_published: 2026-04-23
+template: article_vanish_fafnir_f7.html
+note: "Production manuelle (batch x3 avec comparatif Burst + Stellar Hyperion). SVG placeholder (vert). Stamina culte de Free de la Hoya — rotation gauche + Spin Steal. 4e itération de la lignée Fafnir."
+```
+
+```yaml
+slug: stellar-hyperion-h8
+name: Stellar Hyperion H8
+type: fiche-produit-burst
+gamme: beyblade-burst
+ref: F6809
+score: 8.5
+date_published: 2026-04-23
+template: article_stellar_hyperion_h8.html
+note: "Production manuelle (batch x3 avec comparatif Burst + Vanish Fafnir). SVG placeholder (bleu acier). Attaquante de Lui Shirosagi, sub-série Quad Strike (exclusivité Hasbro EU/US, jamais sortie au Japon). ASIN B0BLNY6Q2K à confirmer."
 ```

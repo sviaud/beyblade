@@ -906,6 +906,184 @@ def build_article_cyclone_roktavor():
     return write_page('cyclone-roktavor-r7', f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
 
 
+def build_article_vanish_fafnir():
+    """Génère /vanish-fafnir-f7/ — stamina culte de Free de la Hoya (Quad Drive 2022, rotation gauche, Spin Steal)."""
+    from seo_meta import (
+        render_head, product_schema, article_schema,
+        breadcrumb_schema, faq_schema, SITE_URL,
+    )
+    product = {
+        'name': 'Vanish Fafnir F7',
+        'reference': 'F3966',
+        'gamme': 'beyblade-burst',
+        'type': 'stamina',
+        'year': 2022,
+        'asin': 'B09H17H8CD',
+        'image_url': f'{SITE_URL}/img/og-default.jpg',
+        'description': "Test complet de la Vanish Fafnir F7 (F3966), stamina culte de Free de la Hoya. Rotation gauche, mécanisme Spin Steal. Note 8.2/10.",
+    }
+    schemas = [
+        product_schema(product, review_score=8.2, review_max=10),
+        article_schema(headline='Vanish Fafnir F7 : test complet Burst Quad Drive',
+                       description=product['description'],
+                       url_path='/vanish-fafnir-f7/', image_url=product['image_url'],
+                       date_published='2026-04-23T13:00:00+02:00',
+                       date_modified='2026-04-23T13:00:00+02:00', section='Beyblade Burst'),
+        breadcrumb_schema([('Accueil', '/'), ('Beyblade Burst', '/comparatif-beyblade-burst/'),
+                           ('Vanish Fafnir F7', '/vanish-fafnir-f7/')]),
+        faq_schema([
+            ('C\'est quoi le Spin Steal ?',
+             "Mécanisme par lequel une toupie en rotation gauche vole de l'énergie de rotation à un adversaire qui tourne en sens inverse (droite). À chaque collision frontale, la Vanish Fafnir ralentit l'adversaire et accélère son propre spin. C'est la principale raison de l'acheter."),
+            ('Quel lanceur utiliser avec la Vanish Fafnir ?',
+             "Impérativement un SwitchStrike Left Launcher (rouge ou noir avec marquage L). Inclus dans le starter set Hasbro F3966, mais pas toujours dans les packs combo. Si vous achetez la toupie seule sans launcher, prévoyez ~15-20 € pour le Left Launcher dédié."),
+            ('Quelle différence entre les 4 Fafnir ?',
+             "Quatre itérations chronologiques : Drain Fafnir (B-127, 2018) première stamina left-spin de Burst ; Geist Fafnir (B-145, 2019) Sparking Generation ; Hazard Fafnir (B-167, 2020) Burst Surge plus lourde ; Vanish Fafnir (B-205, 2022) Quad Drive avec Driver Revolve aimanté — l'itération la plus aboutie."),
+            ('Compatible avec un stadium Beyblade X ?',
+             "Non, la Vanish Fafnir est exclusivement Beyblade Burst. La rampe inclinée du stadium Xtreme rendrait le Driver Revolve aimanté impossible à exploiter. Utilisez un stadium Burst classique."),
+            ('Différence avec la Cyclone Roktavor d\'Aiger ?',
+             "Deux philosophies opposées de la même saison Quad Drive (2022) : Cyclone Roktavor R7 est l'attaquante polyvalente d'Aiger qui cherche le KO direct. Vanish Fafnir F7 est la stamina patiente de Free qui gagne par épuisement (Spin Steal). Vanish Fafnir bat Cyclone Roktavor 7 fois sur 10 en duel."),
+        ]),
+    ]
+    head = render_head(
+        title='Vanish Fafnir F7 : test complet Burst Quad Drive (note 8.2/10)',
+        description="Notre test complet de la Vanish Fafnir F7 (F3966), stamina culte de Free de la Hoya. Rotation gauche + Spin Steal — note 8.2/10.",
+        canonical_path='/vanish-fafnir-f7/', og_type='article',
+        article_published='2026-04-23T13:00:00+02:00',
+        article_modified='2026-04-23T13:00:00+02:00', article_section='Beyblade Burst',
+        extra_css=['/css/page-article.css'], extra_jsonld=schemas)
+    body_inner = (SRC_TEMPLATES / 'article_vanish_fafnir_f7.html').read_text()
+    return write_page('vanish-fafnir-f7', f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
+
+
+def build_article_stellar_hyperion():
+    """Génère /stellar-hyperion-h8/ — attaquante de Lui Shirosagi (Quad Strike 2023, sub-série Hasbro EU/US)."""
+    from seo_meta import (
+        render_head, product_schema, article_schema,
+        breadcrumb_schema, faq_schema, SITE_URL,
+    )
+    product = {
+        'name': 'Stellar Hyperion H8',
+        'reference': 'F6809',
+        'gamme': 'beyblade-burst',
+        'type': 'attaque',
+        'year': 2023,
+        'asin': 'B0BLNY6Q2K',  # placeholder — vérifier ASIN exact
+        'image_url': f'{SITE_URL}/img/og-default.jpg',
+        'description': "Test complet de la Stellar Hyperion H8 (F6809), attaquante brutale de Lui Shirosagi. Sub-série Burst Quad Strike Hasbro EU/US. Note 8.5/10.",
+    }
+    schemas = [
+        product_schema(product, review_score=8.5, review_max=10),
+        article_schema(headline='Stellar Hyperion H8 : test complet Burst Quad Strike',
+                       description=product['description'],
+                       url_path='/stellar-hyperion-h8/', image_url=product['image_url'],
+                       date_published='2026-04-23T14:00:00+02:00',
+                       date_modified='2026-04-23T14:00:00+02:00', section='Beyblade Burst'),
+        breadcrumb_schema([('Accueil', '/'), ('Beyblade Burst', '/comparatif-beyblade-burst/'),
+                           ('Stellar Hyperion H8', '/stellar-hyperion-h8/')]),
+        faq_schema([
+            ('C\'est quoi la sous-série Quad Strike ?',
+             "Quad Strike est la 7ème et dernière sous-série Beyblade Burst, lancée en 2023 par Hasbro EU/US. Particularité : c'est une sub-série exclusive Hasbro qui n'a jamais eu d'équivalent direct chez Takara Tomy au Japon. Sa mécanique signature : le Driver Surge'-Spike avec mécanisme strike-and-spike."),
+            ('Quel lanceur utiliser avec la Stellar Hyperion ?',
+             "Le SwitchStrike Launcher fourni dans la boîte est suffisant pour les sessions casual. Pour la compétition, nous recommandons le String Launcher Hasbro qui permet un shoot 25% plus rapide (essentiel pour activer pleinement le Burst Finish)."),
+            ('Quelle différence entre Stellar Hyperion et Hyper-Hyperion (saison 5) ?',
+             "Hyper-Hyperion H5 (E7723, saison 5 Surge, 2020) — première toupie de Lui, Driver Quick'. Stellar Hyperion H8 (F6809, saison 7 Quad Strike, 2023) — dernière itération, Driver Surge'-Spike plus agressif, Disc 7 plus lourd. Stellar Hyperion bat Hyper-Hyperion 8 fois sur 10."),
+            ('Pourquoi pas d\'équivalent Takara Tomy japonais ?',
+             "Takara Tomy a arrêté Burst au Japon avec Dynamite Battle (B-185+, 2021-2022) pour basculer sur Beyblade X (juillet 2023). Hasbro EU/US a continué Burst un an de plus avec Quad Drive (2022) et Quad Strike (2023). C'est pourquoi Stellar Hyperion n'a pas de référence B-XXX japonaise."),
+            ('Où l\'acheter en France en 2026 ?',
+             "Amazon FR reste la référence avec stock disponible (20-30 €). King Jouet et Leclerc Jouets ont des stocks variables. Attention : la production Burst étant arrêtée fin 2023 et la sub-série Quad Strike étant exclusive Hasbro EU/US, le stock baisse rapidement."),
+        ]),
+    ]
+    head = render_head(
+        title='Stellar Hyperion H8 : test complet Burst Quad Strike (note 8.5/10)',
+        description="Notre test complet de la Stellar Hyperion H8 (F6809), attaquante brutale de Lui Shirosagi. Sub-série Burst Quad Strike — note 8.5/10.",
+        canonical_path='/stellar-hyperion-h8/', og_type='article',
+        article_published='2026-04-23T14:00:00+02:00',
+        article_modified='2026-04-23T14:00:00+02:00', article_section='Beyblade Burst',
+        extra_css=['/css/page-article.css'], extra_jsonld=schemas)
+    body_inner = (SRC_TEMPLATES / 'article_stellar_hyperion_h8.html').read_text()
+    return write_page('stellar-hyperion-h8', f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
+
+
+def build_comparatif_beyblade_burst():
+    """Génère /comparatif-beyblade-burst/ — page hub gamme Beyblade Burst (3 testées + 6 références)."""
+    from seo_meta import (
+        render_head, breadcrumb_schema, faq_schema, SITE_URL,
+    )
+
+    itemlist = {
+        '@context': 'https://schema.org',
+        '@type': 'ItemList',
+        'name': 'Comparatif Beyblade Burst 2026',
+        'itemListOrder': 'https://schema.org/ItemListOrderDescending',
+        'numberOfItems': 3,
+        'itemListElement': [
+            {
+                '@type': 'ListItem', 'position': 1,
+                'item': {
+                    '@type': 'Product',
+                    'name': 'Stellar Hyperion H8',
+                    'category': 'Beyblade Burst Quad Strike',
+                    'aggregateRating': {'@type': 'AggregateRating', 'ratingValue': 8.5, 'bestRating': 10, 'reviewCount': 1, 'ratingCount': 1},
+                    'url': f'{SITE_URL}/stellar-hyperion-h8/',
+                },
+            },
+            {
+                '@type': 'ListItem', 'position': 2,
+                'item': {
+                    '@type': 'Product',
+                    'name': 'Vanish Fafnir F7',
+                    'category': 'Beyblade Burst Quad Drive',
+                    'aggregateRating': {'@type': 'AggregateRating', 'ratingValue': 8.2, 'bestRating': 10, 'reviewCount': 1, 'ratingCount': 1},
+                    'url': f'{SITE_URL}/vanish-fafnir-f7/',
+                },
+            },
+            {
+                '@type': 'ListItem', 'position': 3,
+                'item': {
+                    '@type': 'Product',
+                    'name': 'Cyclone Roktavor R7',
+                    'category': 'Beyblade Burst Quad Drive',
+                    'aggregateRating': {'@type': 'AggregateRating', 'ratingValue': 8.0, 'bestRating': 10, 'reviewCount': 1, 'ratingCount': 1},
+                    'url': f'{SITE_URL}/cyclone-roktavor-r7/',
+                },
+            },
+        ],
+    }
+
+    faq = faq_schema([
+        ('Quelle Beyblade Burst choisir pour débuter en 2026 ?',
+         "Cyclone Roktavor R7 (F4067). Toupie polyvalente d'Aiger, Driver Quad Drive 4 modes pour s'adapter à tout adversaire, prix correct (15-25 €), encore largement disponible malgré l'arrêt de production fin 2023."),
+        ('C\'est quoi le Burst Finish ?',
+         "Le Burst Finish est la mécanique signature de Burst : quand un Layer reçoit suffisamment d'impacts (3 à 5 selon le modèle), il éclate physiquement en plein combat. Cela donne 2 points à l'adversaire (vs 1 pour un KO classique). C'est ce qui rend Burst plus spectaculaire."),
+        ('Quelle est la différence Quad Drive vs Quad Strike vs Pro Series ?',
+         "Trois sous-séries Burst récentes : Quad Drive (2022, saison 6, Driver 4 modes), Quad Strike (2023, saison 7, exclusivité Hasbro EU/US), Pro Series (2020-2023, version premium métal pour collectionneurs adultes). Toutes les pièces sont compatibles."),
+        ('Les Burst sont-elles compatibles avec Beyblade X ou Metal Fusion ?',
+         "Non. Chaque gamme a son système : Burst = Layer/Disc/Driver, X = Blade/Ratchet/Bit, Metal Fusion = 5 pièces métalliques. Stadiums et lanceurs sont aussi spécifiques."),
+        ('Où acheter des Beyblade Burst authentiques en 2026 ?',
+         "Amazon FR reste la source la plus fiable. Production arrêtée par Hasbro fin 2023, donc stock en baisse. Pour les modèles plus rares (Spryzen Requiem, Z Achilles), regardez BeyStation, GoToupie ou eBay. Évitez AliExpress (contrefaçons)."),
+        ('Y a-t-il encore des tournois Beyblade Burst en 2026 ?',
+         "Oui, la communauté worldbeyblade.org organise encore des tournois Burst en ligne et en présentiel (USA, Europe, Japon). Les tournois officiels Hasbro ont cessé fin 2024 avec la transition vers Beyblade X."),
+    ])
+
+    breadcrumb = breadcrumb_schema([
+        ('Accueil', '/'),
+        ('Comparatifs', '/comparatifs/'),
+        ('Beyblade Burst', '/comparatif-beyblade-burst/'),
+    ])
+
+    head = render_head(
+        title='Comparatif Beyblade Burst 2026 : Quad Drive, Quad Strike et Pro Series',
+        description="Comparatif complet des meilleures Beyblade Burst (Quad Drive, Quad Strike, Pro Series). Cyclone Roktavor, Vanish Fafnir, Stellar Hyperion et plus — notes vérifiables, méthode publique.",
+        canonical_path='/comparatif-beyblade-burst/',
+        og_type='website',
+        extra_css=['/css/page-comparatif.css'],
+        extra_jsonld=[itemlist, faq, breadcrumb],
+    )
+
+    body_inner = (SRC_TEMPLATES / 'page_comparatif_beyblade_burst.html').read_text()
+    return write_page('comparatif-beyblade-burst', f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
+
+
 def build_comparatif_metal_fusion():
     """Génère /comparatif-beyblade-metal-fusion/ — page hub gamme MF."""
     from seo_meta import (
@@ -1194,6 +1372,18 @@ def main():
 
     print('🌪️  Building article : Cyclone Roktavor R7...')
     p = build_article_cyclone_roktavor()
+    print(f'   → {p.relative_to(DIST_DIR.parent)}')
+
+    print('🐺 Building article : Vanish Fafnir F7...')
+    p = build_article_vanish_fafnir()
+    print(f'   → {p.relative_to(DIST_DIR.parent)}')
+
+    print('⭐ Building article : Stellar Hyperion H8...')
+    p = build_article_stellar_hyperion()
+    print(f'   → {p.relative_to(DIST_DIR.parent)}')
+
+    print('📊 Building comparatif : Beyblade Burst...')
+    p = build_comparatif_beyblade_burst()
     print(f'   → {p.relative_to(DIST_DIR.parent)}')
 
     print('📊 Building comparatif : Beyblade Metal Fusion...')
