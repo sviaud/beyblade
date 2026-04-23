@@ -41,64 +41,6 @@ toupies_a_venir:
 ```
 
 ```yaml
-type: fiche-produit-mf
-slug: earth-eagle-145wd
-name: Earth Eagle 145WD
-ref: BB-47
-type_toupie: defense
-year: 2010
-asin: B0050OMBU8
-score: 7.6
-template: article_rock_leone.html
-lore_owner: "Tsubasa Otori"
-lore_anime: "Metal Fight Beyblade (saison 1, 2009-2010)"
-lore_key: "Defense ailée — Hasbro l'a renommée Earth Aquila en EU. La rivale historique de Rock Leone en gamme défense."
-fusion_wheel: "Earth (alliage lourd ~28g, motif aigle)"
-energy_ring: "Eagle (vert/jaune, motif rapace)"
-spin_track: "145 (high 14.5mm pour défense)"
-performance_tip: "WD (Wide Defense) — semi-bille large"
-priority_reason: "2e défenseuse Metal Fusion (après Rock Leone) — étoffe la gamme."
-```
-
-```yaml
-type: fiche-produit-x
-slug: dran-buster-1-60a
-name: Dran Buster 1-60A
-ref: UX-01
-type_toupie: attaque
-year: 2024
-asin: B0CV7HF3W6
-score: 9.0
-template: article_dran_sword.html
-lore_owner: "Bird Maru"
-lore_anime: "Beyblade X (saison 2, 2024)"
-lore_key: "Évolution Unique-X (UX) de Dran Sword. Blade en alliage métallique (vs plastique pour Dran Sword). La toupie la plus puissante de Bird en saison 2."
-blade: "Dran Buster — 1 lobe massif métal"
-ratchet: "1-60 — 1 lobe 6.0mm (extrême attaque)"
-bit: "A (Accel) — pointe accélérante"
-priority_reason: "Évolution de Dran Sword (notre 1ère fiche) — maillage interne fort. Note 9.0/10."
-```
-
-```yaml
-type: fiche-produit-burst
-slug: cyclone-roktavor-r7
-name: Cyclone Roktavor R7
-ref: F4067
-type_toupie: attaque
-year: 2022
-asin: B09TGD75BP
-score: 8.0
-template: article_dran_sword.html
-lore_owner: "Aiger Akabane"
-lore_anime: "Beyblade Burst Quad Drive (saison 6, 2022)"
-lore_key: "Quad Drive — système Driver à 4 modes interchangeables. Roktavor est le bey signature d'Aiger en saison 6."
-layer: "Cyclone Roktavor — 3 lames Burst"
-disc: "M (Metal disc 7 lobes)"
-driver: "R (Revolve — Quad Drive 4 modes)"
-priority_reason: "Première fiche Burst — étoffe le comparatif Burst déjà créé."
-```
-
-```yaml
 type: fiche-produit-burst
 slug: vanish-fafnir-f7
 name: Vanish Fafnir F7
@@ -322,4 +264,40 @@ score: 8.6
 date_published: 2026-04-22
 template: article_cobalt_dragoon_2_60c.html
 note: "Production manuelle (batch x3 avec L-Drago Destroy + Hells Scythe). SVG placeholder (bleu). Première left-spin Beyblade X — Spin Steal. Comparatif X mis à jour (6 toupies testées)."
+```
+
+```yaml
+slug: earth-eagle-145wd
+name: Earth Eagle 145WD
+type: fiche-produit-mf
+gamme: beyblade-metal-fusion
+ref: BB-47
+score: 7.6
+date_published: 2026-04-23
+template: article_earth_eagle_145wd.html
+note: "Production manuelle (batch x3 avec Dran Buster + Cyclone Roktavor). SVG placeholder (vert). 2e défenseuse MF de Tsubasa Otori (Earth Aquila chez Hasbro EU). Comparatif MF mis à jour (7 toupies testées)."
+```
+
+```yaml
+slug: dran-buster-1-60a
+name: Dran Buster 1-60A
+type: fiche-produit-x
+gamme: beyblade-x
+ref: UX-01
+score: 9.0
+date_published: 2026-04-23
+template: article_dran_buster_1_60a.html
+note: "Production manuelle (batch x3 avec Earth Eagle + Cyclone Roktavor). SVG placeholder (bleu). Première Unique-X (UX) Beyblade X — Blade métal + 1-lobe Ratchet + Bit Accel. Comparatif X mis à jour (7 toupies testées)."
+```
+
+```yaml
+slug: cyclone-roktavor-r7
+name: Cyclone Roktavor R7
+type: fiche-produit-burst
+gamme: beyblade-burst
+ref: F4067
+score: 8.0
+date_published: 2026-04-23
+template: article_cyclone_roktavor_r7.html
+note: "Production manuelle (batch x3 avec Earth Eagle + Dran Buster). SVG placeholder (rouge énergie). 1ère fiche Burst — toupie d'Aiger Akabane saison 6 Quad Drive. Breadcrumb /comparatif-beyblade-burst/ encore 404 (à venir au prochain batch)."
 ```

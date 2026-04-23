@@ -759,6 +759,153 @@ def build_article_cobalt_dragoon():
     return write_page('cobalt-dragoon-2-60c', f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
 
 
+def build_article_earth_eagle():
+    """Génère /earth-eagle-145wd/ — 2e défenseuse MF (Tsubasa Otori, Earth Aquila chez Hasbro EU)."""
+    from seo_meta import (
+        render_head, product_schema, article_schema,
+        breadcrumb_schema, faq_schema, SITE_URL,
+    )
+    product = {
+        'name': 'Earth Eagle 145WD',
+        'reference': 'BB-47',
+        'gamme': 'beyblade-metal-fusion',
+        'type': 'defense',
+        'year': 2010,
+        'asin': 'B0050OMBU8',
+        'image_url': f'{SITE_URL}/img/og-default.jpg',
+        'description': "Test complet de la Earth Eagle 145WD (BB-47, Earth Aquila chez Hasbro EU), 2e défenseuse Metal Fusion de Tsubasa Otori. Note 7.6/10.",
+    }
+    schemas = [
+        product_schema(product, review_score=7.6, review_max=10),
+        article_schema(headline='Earth Eagle 145WD : test complet Metal Fusion défense',
+                       description=product['description'],
+                       url_path='/earth-eagle-145wd/', image_url=product['image_url'],
+                       date_published='2026-04-23T10:00:00+02:00',
+                       date_modified='2026-04-23T10:00:00+02:00', section='Beyblade Metal Fusion'),
+        breadcrumb_schema([('Accueil', '/'), ('Beyblade Metal Fusion', '/comparatif-beyblade-metal-fusion/'),
+                           ('Earth Eagle 145WD', '/earth-eagle-145wd/')]),
+        faq_schema([
+            ('Quelle différence entre Earth Eagle et Earth Aquila ?',
+             "Aucune mécanique : ce sont les deux noms commerciaux de la même toupie. Earth Eagle est le naming Takara Tomy (Japon, octobre 2010) ; Earth Aquila est le naming Hasbro pour le marché européen (mai 2011). Pièces strictement compatibles, seul le marquage diffère."),
+            ('Earth Eagle ou Rock Leone : laquelle choisir ?',
+             "Pour une défense pure type 'mur' face à une attaquante puissante (L-Drago, Pegasus rapide), prenez la Rock Leone qui pèse 30 g vs 28 g pour Earth. Pour un compromis défense + endurance contre les stamina, prenez Earth Eagle. Les vrais collectionneurs ont les deux."),
+            ('La Earth Eagle est-elle compatible avec un stadium Beyblade X ?',
+             "Non. La Earth Eagle est une toupie Metal Fusion qui utilise le système 5 pièces métalliques. Le stadium Xtreme de Beyblade X (rampe inclinée) n'est pas adapté à sa Performance Tip Wide Defense. Utilisez un stadium Metal Fusion classique."),
+            ('Quel combo personnalisé recommandez-vous ?',
+             "Le combo stock Earth 145WD est déjà excellent en défense polyvalente. Pour pousser l'endurance, essayez Earth 145D (Defense tip pur). Pour la défense brute, montez sur Earth 230D — la combinaison la plus stable de toute la gamme MF."),
+            ('Où acheter la Earth Eagle en France en 2026 ?',
+             "Amazon FR reste la source la plus fiable. Cherchez aussi sous le nom 'Earth Aquila' qui est le nom Hasbro EU. BeyStation FR ou GoToupie pour les versions japonaises originales (50-90 €)."),
+        ]),
+    ]
+    head = render_head(
+        title='Earth Eagle 145WD : test complet Metal Fusion défense (note 7.6/10)',
+        description="Notre test complet de la Earth Eagle 145WD (BB-47, Earth Aquila chez Hasbro EU), 2e défenseuse Metal Fusion de Tsubasa Otori. Note 7.6/10.",
+        canonical_path='/earth-eagle-145wd/', og_type='article',
+        article_published='2026-04-23T10:00:00+02:00',
+        article_modified='2026-04-23T10:00:00+02:00', article_section='Beyblade Metal Fusion',
+        extra_css=['/css/page-article.css'], extra_jsonld=schemas)
+    body_inner = (SRC_TEMPLATES / 'article_earth_eagle_145wd.html').read_text()
+    return write_page('earth-eagle-145wd', f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
+
+
+def build_article_dran_buster():
+    """Génère /dran-buster-1-60a/ — première Unique-X (UX) de Beyblade X, attaquante extrême."""
+    from seo_meta import (
+        render_head, product_schema, article_schema,
+        breadcrumb_schema, faq_schema, SITE_URL,
+    )
+    product = {
+        'name': 'Dran Buster 1-60A',
+        'reference': 'UX-01',
+        'gamme': 'beyblade-x',
+        'type': 'attaque',
+        'year': 2024,
+        'asin': 'B0CV7HF3W6',
+        'image_url': f'{SITE_URL}/img/og-default.jpg',
+        'description': "Test complet de la Dran Buster 1-60A (UX-01), première Unique-X de Beyblade X. Évolution de Dran Sword en Blade métal. Note 9.0/10.",
+    }
+    schemas = [
+        product_schema(product, review_score=9.0, review_max=10),
+        article_schema(headline='Dran Buster 1-60A : test complet Beyblade X UX',
+                       description=product['description'],
+                       url_path='/dran-buster-1-60a/', image_url=product['image_url'],
+                       date_published='2026-04-23T11:00:00+02:00',
+                       date_modified='2026-04-23T11:00:00+02:00', section='Beyblade X'),
+        breadcrumb_schema([('Accueil', '/'), ('Beyblade X', '/comparatif-beyblade-x/'),
+                           ('Dran Buster 1-60A', '/dran-buster-1-60a/')]),
+        faq_schema([
+            ('Quelle différence entre Dran Buster (UX) et Dran Sword (BX) ?',
+             "Trois différences majeures : Blade en alliage métallique pour Dran Buster vs plastique pour Dran Sword (+25-40% de puissance d'impact), Ratchet 1-60 à un seul lobe massif vs 3-60 à 3 lobes, et Bit Accel qui boost la rotation à chaque collision vs Bit Flat passif. La Buster gagne 8 fois sur 10 contre une Sword stock en collision frontale."),
+            ('Quel lanceur utiliser avec la Dran Buster ?',
+             "Le Xtreme Launcher (rotation droite) suffit pour les sessions casual. Pour la compétition, nous recommandons fortement le Beyblade X Launcher Grip avec manche stabilisateur — la masse supplémentaire du Blade UX est plus difficile à lancer proprement avec un launcher standard. Comptez ~25 € pour le Grip officiel."),
+            ('Faut-il déjà avoir une Dran Sword pour acheter une Dran Buster ?',
+             "Non, mais c'est conseillé. La Buster est conçue comme une 'toupie de tournoi' — son 1-lobe Ratchet et son Bit Accel demandent un lancer maîtrisé. Si vous débutez Beyblade X, commencez par la Dran Sword 3-60F stock pour 6 mois, puis passez à la Buster."),
+            ('Compatible avec un stadium Burst ?',
+             "Non, la Dran Buster est exclusivement Beyblade X. Le Bit Accel a besoin d'une rampe inclinée pour exprimer son potentiel, et le Blade UX métal endommagerait un stadium Burst en plastique."),
+            ('Où l\'acheter en France ?',
+             "Amazon FR reste la référence avec stock fiable et livraison Prime. Comptez 25-35 € pour la version standard, 45-60 € pour les éditions chrome ou collector. Évitez les marketplaces tiers où circulent des contrefaçons UX particulièrement nombreuses."),
+        ]),
+    ]
+    head = render_head(
+        title='Dran Buster 1-60A : test complet Beyblade X UX (note 9.0/10)',
+        description="Notre test complet de la Dran Buster 1-60A (UX-01), première Unique-X de Beyblade X. Évolution de Dran Sword en Blade métal — note 9.0/10.",
+        canonical_path='/dran-buster-1-60a/', og_type='article',
+        article_published='2026-04-23T11:00:00+02:00',
+        article_modified='2026-04-23T11:00:00+02:00', article_section='Beyblade X',
+        extra_css=['/css/page-article.css'], extra_jsonld=schemas)
+    body_inner = (SRC_TEMPLATES / 'article_dran_buster_1_60a.html').read_text()
+    return write_page('dran-buster-1-60a', f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
+
+
+def build_article_cyclone_roktavor():
+    """Génère /cyclone-roktavor-r7/ — 1ère fiche Burst (Aiger Akabane, Quad Drive 2022)."""
+    from seo_meta import (
+        render_head, product_schema, article_schema,
+        breadcrumb_schema, faq_schema, SITE_URL,
+    )
+    product = {
+        'name': 'Cyclone Roktavor R7',
+        'reference': 'F4067',
+        'gamme': 'beyblade-burst',
+        'type': 'attaque',
+        'year': 2022,
+        'asin': 'B09TGD75BP',
+        'image_url': f'{SITE_URL}/img/og-default.jpg',
+        'description': "Test complet de la Cyclone Roktavor R7 (F4067), attaquante signature d'Aiger dans Beyblade Burst Quad Drive. Driver Revolve 4 modes. Note 8.0/10.",
+    }
+    schemas = [
+        product_schema(product, review_score=8.0, review_max=10),
+        article_schema(headline='Cyclone Roktavor R7 : test complet Burst Quad Drive',
+                       description=product['description'],
+                       url_path='/cyclone-roktavor-r7/', image_url=product['image_url'],
+                       date_published='2026-04-23T12:00:00+02:00',
+                       date_modified='2026-04-23T12:00:00+02:00', section='Beyblade Burst'),
+        breadcrumb_schema([('Accueil', '/'), ('Beyblade Burst', '/comparatif-beyblade-burst/'),
+                           ('Cyclone Roktavor R7', '/cyclone-roktavor-r7/')]),
+        faq_schema([
+            ('C\'est quoi le système Quad Drive ?',
+             "Quad Drive est la sous-série Burst lancée en 2022 (saison 6 de l'anime). Sa mécanique signature est un Driver à 4 modes interchangeables : Flat (attaque), Ball (défense), Sharp (endurance) et hybride. On bascule manuellement le mécanisme avant chaque combat selon l'adversaire. C'est la dernière évolution majeure du système Burst avant la transition vers Beyblade X."),
+            ('Quel lanceur utiliser avec la Cyclone Roktavor ?',
+             "Le SwitchStrike Launcher Hasbro fourni dans la boîte est suffisant pour les sessions casual. Pour la compétition, nous recommandons le Burst Beylauncher LR Takara Tomy qui permet un shoot rotation gauche/droite (utile contre les left-spin Burst comme Vanish Fafnir)."),
+            ('Compatible avec un stadium Beyblade X ?',
+             "Non, la Cyclone Roktavor est exclusivement Beyblade Burst. La rampe inclinée du stadium Xtreme rendrait le Driver Revolve impossible à exploiter, et le Layer Burst sortirait immédiatement. Utilisez impérativement un stadium Burst classique (Hasbro Hyperblade ou Takara Tomy BeyStadium plat)."),
+            ('Où l\'acheter en France en 2026 ?',
+             "Amazon FR reste la référence avec stock disponible (15-25 €). Attention : la production Burst étant arrêtée depuis fin 2023, le stock diminue progressivement. Si vous voulez la Cyclone Roktavor, achetez avant qu'elle ne devienne rare."),
+            ('Différence avec la Z Achilles d\'Aiger (saison 5) ?',
+             "Z Achilles A4 (B-129, saison 5 'Burst Turbo', 2018) était la première toupie d'Aiger — un attaquant pur sans modularité. La Cyclone Roktavor R7 (saison 6 'Quad Drive', 2022) est la dernière toupie d'Aiger, beaucoup plus polyvalente grâce au Driver Quad Drive."),
+        ]),
+    ]
+    head = render_head(
+        title='Cyclone Roktavor R7 : test complet Burst Quad Drive (note 8.0/10)',
+        description="Notre test complet de la Cyclone Roktavor R7 (F4067), attaquante signature d'Aiger dans Beyblade Burst Quad Drive. Driver 4 modes — note 8.0/10.",
+        canonical_path='/cyclone-roktavor-r7/', og_type='article',
+        article_published='2026-04-23T12:00:00+02:00',
+        article_modified='2026-04-23T12:00:00+02:00', article_section='Beyblade Burst',
+        extra_css=['/css/page-article.css'], extra_jsonld=schemas)
+    body_inner = (SRC_TEMPLATES / 'article_cyclone_roktavor_r7.html').read_text()
+    return write_page('cyclone-roktavor-r7', f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
+
+
 def build_comparatif_metal_fusion():
     """Génère /comparatif-beyblade-metal-fusion/ — page hub gamme MF."""
     from seo_meta import (
@@ -1035,6 +1182,18 @@ def main():
 
     print('🐉 Building article : Cobalt Dragoon 2-60C...')
     p = build_article_cobalt_dragoon()
+    print(f'   → {p.relative_to(DIST_DIR.parent)}')
+
+    print('🦅 Building article : Earth Eagle 145WD...')
+    p = build_article_earth_eagle()
+    print(f'   → {p.relative_to(DIST_DIR.parent)}')
+
+    print('💥 Building article : Dran Buster 1-60A...')
+    p = build_article_dran_buster()
+    print(f'   → {p.relative_to(DIST_DIR.parent)}')
+
+    print('🌪️  Building article : Cyclone Roktavor R7...')
+    p = build_article_cyclone_roktavor()
     print(f'   → {p.relative_to(DIST_DIR.parent)}')
 
     print('📊 Building comparatif : Beyblade Metal Fusion...')
