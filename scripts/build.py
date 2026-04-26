@@ -846,10 +846,11 @@ def build_article_earth_eagle():
     head = render_head(
         title='Earth Eagle 145WD : test complet Metal Fusion défense (note 7.6/10)',
         description="Notre test complet de la Earth Eagle 145WD (BB-47, Earth Aquila chez Hasbro EU), 2e défenseuse Metal Fusion de Tsubasa Otori. Note 7.6/10.",
-        canonical_path='/earth-eagle-145wd/', og_type='article',
+        canonical_path='/earth-eagle-145wd/', og_type='article', og_image='/img/earth-eagle.webp',
         article_published='2026-04-23T10:00:00+02:00',
         article_modified='2026-04-23T10:00:00+02:00', article_section='Beyblade Metal Fusion',
-        extra_css=['/css/page-article.css'], extra_jsonld=schemas)
+        extra_css=['/css/page-article.css'], preload_images=['/img/earth-eagle.webp'],
+        extra_jsonld=schemas)
     body_inner = (SRC_TEMPLATES / 'article_earth_eagle_145wd.html').read_text()
     return write_page('earth-eagle-145wd', assemble_html(head, body_inner))
 
@@ -895,10 +896,11 @@ def build_article_dran_buster():
     head = render_head(
         title='Dran Buster 1-60A : test complet Beyblade X UX (note 9.0/10)',
         description="Notre test complet de la Dran Buster 1-60A (UX-01), première Unique-X de Beyblade X. Évolution de Dran Sword en Blade métal — note 9.0/10.",
-        canonical_path='/dran-buster-1-60a/', og_type='article',
+        canonical_path='/dran-buster-1-60a/', og_type='article', og_image='/img/dran-buster.webp',
         article_published='2026-04-23T11:00:00+02:00',
         article_modified='2026-04-23T11:00:00+02:00', article_section='Beyblade X',
-        extra_css=['/css/page-article.css'], extra_jsonld=schemas)
+        extra_css=['/css/page-article.css'], preload_images=['/img/dran-buster.webp'],
+        extra_jsonld=schemas)
     body_inner = (SRC_TEMPLATES / 'article_dran_buster_1_60a.html').read_text()
     return write_page('dran-buster-1-60a', assemble_html(head, body_inner))
 
@@ -944,10 +946,11 @@ def build_article_cyclone_roktavor():
     head = render_head(
         title='Cyclone Roktavor R7 : test complet Burst Quad Drive (note 8.0/10)',
         description="Notre test complet de la Cyclone Roktavor R7 (F4067), attaquante signature d'Aiger dans Beyblade Burst Quad Drive. Driver 4 modes — note 8.0/10.",
-        canonical_path='/cyclone-roktavor-r7/', og_type='article',
+        canonical_path='/cyclone-roktavor-r7/', og_type='article', og_image='/img/cyclone-roktavor.webp',
         article_published='2026-04-23T12:00:00+02:00',
         article_modified='2026-04-23T12:00:00+02:00', article_section='Beyblade Burst',
-        extra_css=['/css/page-article.css'], extra_jsonld=schemas)
+        extra_css=['/css/page-article.css'], preload_images=['/img/cyclone-roktavor.webp'],
+        extra_jsonld=schemas)
     body_inner = (SRC_TEMPLATES / 'article_cyclone_roktavor_r7.html').read_text()
     return write_page('cyclone-roktavor-r7', assemble_html(head, body_inner))
 
@@ -993,10 +996,11 @@ def build_article_vanish_fafnir():
     head = render_head(
         title='Vanish Fafnir F7 : test complet Burst Quad Drive (note 8.2/10)',
         description="Notre test complet de la Vanish Fafnir F7 (F3966), stamina culte de Free de la Hoya. Rotation gauche + Spin Steal — note 8.2/10.",
-        canonical_path='/vanish-fafnir-f7/', og_type='article',
+        canonical_path='/vanish-fafnir-f7/', og_type='article', og_image='/img/vanish-fafnir.webp',
         article_published='2026-04-23T13:00:00+02:00',
         article_modified='2026-04-23T13:00:00+02:00', article_section='Beyblade Burst',
-        extra_css=['/css/page-article.css'], extra_jsonld=schemas)
+        extra_css=['/css/page-article.css'], preload_images=['/img/vanish-fafnir.webp'],
+        extra_jsonld=schemas)
     body_inner = (SRC_TEMPLATES / 'article_vanish_fafnir_f7.html').read_text()
     return write_page('vanish-fafnir-f7', assemble_html(head, body_inner))
 
@@ -1042,10 +1046,11 @@ def build_article_stellar_hyperion():
     head = render_head(
         title='Stellar Hyperion H8 : test complet Burst Quad Strike (note 8.5/10)',
         description="Notre test complet de la Stellar Hyperion H8 (F6809), attaquante brutale de Lui Shirosagi. Sub-série Burst Quad Strike — note 8.5/10.",
-        canonical_path='/stellar-hyperion-h8/', og_type='article',
+        canonical_path='/stellar-hyperion-h8/', og_type='article', og_image='/img/stellar-hyperion.webp',
         article_published='2026-04-23T14:00:00+02:00',
         article_modified='2026-04-23T14:00:00+02:00', article_section='Beyblade Burst',
-        extra_css=['/css/page-article.css'], extra_jsonld=schemas)
+        extra_css=['/css/page-article.css'], preload_images=['/img/stellar-hyperion.webp'],
+        extra_jsonld=schemas)
     body_inner = (SRC_TEMPLATES / 'article_stellar_hyperion_h8.html').read_text()
     return write_page('stellar-hyperion-h8', assemble_html(head, body_inner))
 
