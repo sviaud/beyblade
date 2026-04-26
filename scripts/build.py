@@ -68,8 +68,68 @@ def remove_dead_nav_links(body_html: str) -> str:
     return DEAD_NAV_LINKS_PATTERN.sub('', body_html)
 
 
+def inject_carousel_thumbs(body_html: str) -> str:
+    """Auto-inject carousel-thumbs si la fiche correspond à une entrée du catalogue
+    avec une liste `images` de plusieurs photos. Détection par le src de l'image
+    dans .carousel-main → lookup dans CATALOGUE par champ `image`.
+    """
+    if 'carousel-thumbs' in body_html:
+        return body_html  # déjà présent (ex: Dran Sword qui a son carrousel manuel)
+
+    # Trouver l'image principale dans le carrousel
+    m = re.search(
+        r'<div class="carousel">\s*<div class="carousel-main">[\s\S]*?<img src="/img/([^"]+)"',
+        body_html,
+    )
+    if not m:
+        return body_html
+
+    img_filename = m.group(1)
+
+    # Lookup catalogue
+    try:
+        from catalogue import CATALOGUE
+    except ImportError:
+        return body_html
+    entry = next((e for e in CATALOGUE if e.get('image') == img_filename), None)
+    if not entry:
+        return body_html
+    images = entry.get('images') or []
+    if len(images) <= 1:
+        return body_html  # juste 1 photo : pas la peine de faire un carrousel
+
+    # Construire le HTML des thumbs
+    name = entry['name']
+    parts = ['<div class="carousel-thumbs">']
+    for i, img in enumerate(images):
+        is_main = (i == 0)
+        attrs = ' active" data-spin="true" title="Vue 3D rotative' if is_main else ''
+        alt = f'{name} vue {"de face transparente" if is_main else f"alternative {i+1}"}'
+        parts.append(
+            f'<div class="carousel-thumb{attrs}">'
+            f'<div class="beyblade-viz with-photo" style="width:95%">'
+            f'<div class="center"></div>'
+            f'<img src="/img/{img}" alt="{alt}" class="bey-photo" '
+            f'width="350" height="350" loading="lazy" decoding="async"></div></div>'
+        )
+    parts.append('</div>')
+    thumbs_html = '\n          '.join(parts)
+
+    # Injecter avant le `</div>` de fermeture du `.carousel` :
+    # On match `</div></div>` (fin carousel-main + fin carousel-main parent)
+    # puis on capture le `</div>` final qui ferme `.carousel` lui-même.
+    pattern = re.compile(
+        r'(<div class="carousel-main">[\s\S]*?</div>\s*</div>)(\s*)(</div>)'
+    )
+    return pattern.sub(
+        lambda mm: mm.group(1) + mm.group(2) + thumbs_html + mm.group(2) + mm.group(3),
+        body_html, count=1
+    )
+
+
 def assemble_html(head: str, body_inner: str) -> str:
-    """Wrap head + body into full HTML, applying nav submenu + dead-link cleanup."""
+    """Wrap head + body into full HTML, applying nav submenu + dead-link cleanup + carrousel."""
+    body_inner = inject_carousel_thumbs(body_inner)
     body_inner = inject_nav_submenu(body_inner)
     body_inner = remove_dead_nav_links(body_inner)
     return f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>'
