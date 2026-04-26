@@ -13,12 +13,14 @@ Pipeline :
 Usage : python3 scripts/build.py [--clean] [--only homepage|articles|...]
 """
 import argparse
+import re
 import sys
 from datetime import datetime
 from pathlib import Path
 
 # Permettre l'import des modules locaux
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / 'data'))
 
 from file_writer import (
     clean_dist, copy_static, copy_root_files, write_page,
@@ -27,6 +29,50 @@ from file_writer import (
 from sitemap import render_sitemap, render_robots
 
 SRC_TEMPLATES = Path(__file__).resolve().parent.parent / 'src' / 'templates'
+
+
+# ============ HTML POST-PROCESSORS ============
+# Appliqués au body de toutes les pages avant écriture, pour éviter d'éditer
+# le <header class="site-header"> dupliqué dans 22 templates.
+
+NAV_SUBMENU_HTML = (
+    '<div class="nav-submenu" role="menu">'
+    '<a href="/comparatif-beyblade-x/" role="menuitem">Beyblade X</a>'
+    '<a href="/comparatif-beyblade-burst/" role="menuitem">Beyblade Burst</a>'
+    '<a href="/comparatif-beyblade-metal-fusion/" role="menuitem">Metal Fusion</a>'
+    '<a href="/tous-les-beyblade/" role="menuitem">Toutes les toupies</a>'
+    '</div>'
+)
+
+# Match the Comparatifs nav link (varies per page : URL + active class)
+NAV_LINK_PATTERN = re.compile(
+    r'(<a href="/comparatif-[^"]+/" class="has-submenu[^"]*"[^>]*>Comparatifs</a>)'
+)
+
+# Dead nav links to remove (option A from product decision: clean nav, no 404 propagation)
+DEAD_NAV_LINKS_PATTERN = re.compile(
+    r'\s*<a href="/(?:guides|blog|contact)/">[^<]+</a>'
+)
+
+
+def inject_nav_submenu(body_html: str) -> str:
+    """Wrap the 'Comparatifs' nav link with a hover dropdown panel."""
+    return NAV_LINK_PATTERN.sub(
+        lambda m: f'<div class="nav-dropdown">{m.group(1)}{NAV_SUBMENU_HTML}</div>',
+        body_html, count=1,
+    )
+
+
+def remove_dead_nav_links(body_html: str) -> str:
+    """Strip Guides/Blog/Contact links from .nav (they 404 — option A SEO cleanup)."""
+    return DEAD_NAV_LINKS_PATTERN.sub('', body_html)
+
+
+def assemble_html(head: str, body_inner: str) -> str:
+    """Wrap head + body into full HTML, applying nav submenu + dead-link cleanup."""
+    body_inner = inject_nav_submenu(body_inner)
+    body_inner = remove_dead_nav_links(body_inner)
+    return f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>'
 
 
 def build_homepage():
@@ -113,7 +159,7 @@ def build_homepage():
     )
 
     body_inner = (SRC_TEMPLATES / 'homepage_body.html').read_text()
-    return write_page('', f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
+    return write_page('', assemble_html(head, body_inner))
 
 
 def build_article_dran_sword():
@@ -185,7 +231,7 @@ def build_article_dran_sword():
     )
 
     body_inner = (SRC_TEMPLATES / 'article_dran_sword.html').read_text()
-    return write_page('dran-sword-3-60f', f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
+    return write_page('dran-sword-3-60f', assemble_html(head, body_inner))
 
 
 def build_metal_fusion_article(slug, product, template_filename):
@@ -234,7 +280,7 @@ def build_metal_fusion_article(slug, product, template_filename):
     )
 
     body_inner = (SRC_TEMPLATES / template_filename).read_text()
-    return write_page(slug, f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
+    return write_page(slug, assemble_html(head, body_inner))
 
 
 def build_article_rock_leone():
@@ -396,7 +442,7 @@ def build_article_phoenix_wing():
     )
 
     body_inner = (SRC_TEMPLATES / 'article_phoenix_wing_9_60gf.html').read_text()
-    return write_page('phoenix-wing-9-60gf', f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
+    return write_page('phoenix-wing-9-60gf', assemble_html(head, body_inner))
 
 
 def build_article_knight_shield():
@@ -452,7 +498,7 @@ def build_article_knight_shield():
         extra_css=['/css/page-article.css'], preload_images=['/img/knight-shield.webp'],
         extra_jsonld=schemas)
     body_inner = (SRC_TEMPLATES / 'article_knight_shield_3_80n.html').read_text()
-    return write_page('knight-shield-3-80n', f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
+    return write_page('knight-shield-3-80n', assemble_html(head, body_inner))
 
 
 def build_article_wizard_arrow():
@@ -508,7 +554,7 @@ def build_article_wizard_arrow():
         extra_css=['/css/page-article.css'], preload_images=['/img/wizard-arrow.webp'],
         extra_jsonld=schemas)
     body_inner = (SRC_TEMPLATES / 'article_wizard_arrow_4_80b.html').read_text()
-    return write_page('wizard-arrow-4-80b', f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
+    return write_page('wizard-arrow-4-80b', assemble_html(head, body_inner))
 
 
 def build_article_storm_pegasus():
@@ -557,7 +603,7 @@ def build_article_storm_pegasus():
         article_modified='2026-04-22T13:00:00+02:00', article_section='Beyblade Metal Fusion',
         extra_css=['/css/page-article.css'], extra_jsonld=schemas)
     body_inner = (SRC_TEMPLATES / 'article_storm_pegasus_105rf.html').read_text()
-    return write_page('storm-pegasus-105rf', f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
+    return write_page('storm-pegasus-105rf', assemble_html(head, body_inner))
 
 
 def build_article_ray_unicorno():
@@ -606,7 +652,7 @@ def build_article_ray_unicorno():
         article_modified='2026-04-22T14:00:00+02:00', article_section='Beyblade Metal Fusion',
         extra_css=['/css/page-article.css'], extra_jsonld=schemas)
     body_inner = (SRC_TEMPLATES / 'article_ray_unicorno_d125cs.html').read_text()
-    return write_page('ray-unicorno-d125cs', f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
+    return write_page('ray-unicorno-d125cs', assemble_html(head, body_inner))
 
 
 def build_article_l_drago_destroy():
@@ -656,7 +702,7 @@ def build_article_l_drago_destroy():
         extra_css=['/css/page-article.css'], preload_images=['/img/l-drago-destroy.webp'],
         extra_jsonld=schemas)
     body_inner = (SRC_TEMPLATES / 'article_l_drago_destroy_fs.html').read_text()
-    return write_page('l-drago-destroy-fs', f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
+    return write_page('l-drago-destroy-fs', assemble_html(head, body_inner))
 
 
 def build_article_hells_scythe():
@@ -706,7 +752,7 @@ def build_article_hells_scythe():
         extra_css=['/css/page-article.css'], preload_images=['/img/hells-scythe.webp'],
         extra_jsonld=schemas)
     body_inner = (SRC_TEMPLATES / 'article_hells_scythe_4_60t.html').read_text()
-    return write_page('hells-scythe-4-60t', f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
+    return write_page('hells-scythe-4-60t', assemble_html(head, body_inner))
 
 
 def build_article_cobalt_dragoon():
@@ -756,7 +802,7 @@ def build_article_cobalt_dragoon():
         extra_css=['/css/page-article.css'], preload_images=['/img/cobalt-dragoon.webp'],
         extra_jsonld=schemas)
     body_inner = (SRC_TEMPLATES / 'article_cobalt_dragoon_2_60c.html').read_text()
-    return write_page('cobalt-dragoon-2-60c', f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
+    return write_page('cobalt-dragoon-2-60c', assemble_html(head, body_inner))
 
 
 def build_article_earth_eagle():
@@ -805,7 +851,7 @@ def build_article_earth_eagle():
         article_modified='2026-04-23T10:00:00+02:00', article_section='Beyblade Metal Fusion',
         extra_css=['/css/page-article.css'], extra_jsonld=schemas)
     body_inner = (SRC_TEMPLATES / 'article_earth_eagle_145wd.html').read_text()
-    return write_page('earth-eagle-145wd', f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
+    return write_page('earth-eagle-145wd', assemble_html(head, body_inner))
 
 
 def build_article_dran_buster():
@@ -854,7 +900,7 @@ def build_article_dran_buster():
         article_modified='2026-04-23T11:00:00+02:00', article_section='Beyblade X',
         extra_css=['/css/page-article.css'], extra_jsonld=schemas)
     body_inner = (SRC_TEMPLATES / 'article_dran_buster_1_60a.html').read_text()
-    return write_page('dran-buster-1-60a', f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
+    return write_page('dran-buster-1-60a', assemble_html(head, body_inner))
 
 
 def build_article_cyclone_roktavor():
@@ -903,7 +949,7 @@ def build_article_cyclone_roktavor():
         article_modified='2026-04-23T12:00:00+02:00', article_section='Beyblade Burst',
         extra_css=['/css/page-article.css'], extra_jsonld=schemas)
     body_inner = (SRC_TEMPLATES / 'article_cyclone_roktavor_r7.html').read_text()
-    return write_page('cyclone-roktavor-r7', f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
+    return write_page('cyclone-roktavor-r7', assemble_html(head, body_inner))
 
 
 def build_article_vanish_fafnir():
@@ -952,7 +998,7 @@ def build_article_vanish_fafnir():
         article_modified='2026-04-23T13:00:00+02:00', article_section='Beyblade Burst',
         extra_css=['/css/page-article.css'], extra_jsonld=schemas)
     body_inner = (SRC_TEMPLATES / 'article_vanish_fafnir_f7.html').read_text()
-    return write_page('vanish-fafnir-f7', f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
+    return write_page('vanish-fafnir-f7', assemble_html(head, body_inner))
 
 
 def build_article_stellar_hyperion():
@@ -1001,7 +1047,7 @@ def build_article_stellar_hyperion():
         article_modified='2026-04-23T14:00:00+02:00', article_section='Beyblade Burst',
         extra_css=['/css/page-article.css'], extra_jsonld=schemas)
     body_inner = (SRC_TEMPLATES / 'article_stellar_hyperion_h8.html').read_text()
-    return write_page('stellar-hyperion-h8', f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
+    return write_page('stellar-hyperion-h8', assemble_html(head, body_inner))
 
 
 def build_comparatif_beyblade_burst():
@@ -1081,7 +1127,7 @@ def build_comparatif_beyblade_burst():
     )
 
     body_inner = (SRC_TEMPLATES / 'page_comparatif_beyblade_burst.html').read_text()
-    return write_page('comparatif-beyblade-burst', f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
+    return write_page('comparatif-beyblade-burst', assemble_html(head, body_inner))
 
 
 def build_comparatif_metal_fusion():
@@ -1162,7 +1208,7 @@ def build_comparatif_metal_fusion():
     )
 
     body_inner = (SRC_TEMPLATES / 'page_comparatif_metal_fusion.html').read_text()
-    return write_page('comparatif-beyblade-metal-fusion', f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
+    return write_page('comparatif-beyblade-metal-fusion', assemble_html(head, body_inner))
 
 
 def build_comparatif_beyblade_x():
@@ -1242,7 +1288,7 @@ def build_comparatif_beyblade_x():
     )
 
     body_inner = (SRC_TEMPLATES / 'page_comparatif_beyblade_x.html').read_text()
-    return write_page('comparatif-beyblade-x', f'<head>\n{head}\n</head>\n<body>\n{body_inner}\n</body>')
+    return write_page('comparatif-beyblade-x', assemble_html(head, body_inner))
 
 
 def build_sitemap():
@@ -1270,6 +1316,149 @@ def build_sitemap():
 
 def build_robots():
     return write_text('robots.txt', render_robots())
+
+
+def build_catalogue_page():
+    """Génère /tous-les-beyblade/ — catalogue complet (testées + à venir) sortable + filterable.
+
+    Source de vérité : data/catalogue.py (CATALOGUE list).
+    Le tableau est rendu côté serveur (pas de JS pour l'affichage initial → SEO-friendly).
+    Le JS embarqué gère uniquement filtrage/tri côté client après page load.
+    """
+    from seo_meta import (
+        render_head, breadcrumb_schema, faq_schema, SITE_URL,
+    )
+    from catalogue import CATALOGUE, GAMMES, TYPES, amazon_url, stats
+
+    s = stats()
+
+    def normalize_search(*texts) -> str:
+        """Lowercase + concat for the data-searchable attribute (matched by JS)."""
+        return ' '.join(t for t in texts if t).lower()
+
+    # Trier d'emblée par note décroissante (les non-testées en queue)
+    sorted_entries = sorted(
+        CATALOGUE,
+        key=lambda e: (e.get('score') if e.get('score') is not None else -1),
+        reverse=True,
+    )
+
+    rows = []
+    for e in sorted_entries:
+        gamme_meta = GAMMES[e['gamme']]
+        type_meta = TYPES[e['type']]
+        is_tested = bool(e.get('slug'))
+
+        # Image cell : photo réelle si dispo, sinon initiales sur fond gradient
+        if e.get('image'):
+            thumb = (
+                f'<div class="catalogue-thumb">'
+                f'<img src="/img/{e["image"]}" alt="" loading="lazy" decoding="async" width="44" height="44">'
+                f'</div>'
+            )
+        else:
+            initials = ''.join(w[0] for w in e['name'].split()[:2]).upper()
+            thumb = f'<div class="catalogue-thumb placeholder">{initials}</div>'
+
+        # Score cell
+        if is_tested:
+            score_cell = f'<span class="catalogue-score">{e["score"]:.1f}<small>/10</small></span>'
+        else:
+            score_cell = '<span class="catalogue-score-pending">À tester</span>'
+
+        # Action cell : fiche interne ou Amazon
+        if is_tested:
+            action_cell = f'<a href="/{e["slug"]}/" class="catalogue-cta">Voir →</a>'
+        else:
+            action_cell = (
+                f'<a href="{amazon_url(e)}" class="catalogue-cta catalogue-cta--outline" '
+                f'target="_blank" rel="nofollow sponsored noopener">Amazon</a>'
+            )
+
+        # Type filter key (regroupe attaque-gauche → attaque, stamina-gauche → stamina)
+        type_filter = type_meta['filter_key']
+
+        # Texte cherchable : nom + ref + owner + tagline
+        searchable = normalize_search(e['name'], e['ref'], e.get('owner'), e.get('tagline'))
+
+        # Pour le tri par nom, on lowercase + strip prefixes pour stabilité
+        sort_name = e['name'].lower()
+
+        # Score numérique pour tri (-1 pour les non-testées, qui finissent en queue)
+        sort_score = e.get('score') if e.get('score') is not None else -1
+
+        row = (
+            f'<tr '
+            f'data-name="{sort_name}" '
+            f'data-gamme="{e["gamme"]}" '
+            f'data-type="{type_filter}" '
+            f'data-year="{e["year"]}" '
+            f'data-score="{sort_score}" '
+            f'data-tested="{1 if is_tested else 0}" '
+            f'data-searchable="{searchable}">'
+            f'<td><div class="catalogue-cell-product">{thumb}'
+            f'<div class="catalogue-info"><div class="name">{e["name"]}</div>'
+            f'<div class="meta">{e["ref"]} · {e.get("owner", "")}</div></div></div></td>'
+            f'<td><span class="gamme-badge">{gamme_meta["short"]}</span></td>'
+            f'<td><span class="type-badge {type_meta["badge_class"]}">{type_meta["label"]}</span></td>'
+            f'<td>{e["year"]}</td>'
+            f'<td>{score_cell}</td>'
+            f'<td>{action_cell}</td>'
+            f'</tr>'
+        )
+        rows.append(row)
+
+    rows_html = '\n      '.join(rows)
+
+    body_inner = (SRC_TEMPLATES / 'page_tous_les_beyblade.html').read_text()
+    body_inner = (body_inner
+                  .replace('{{CATALOGUE_ROWS}}', rows_html)
+                  .replace('{{TOTAL_COUNT}}', str(s['total']))
+                  .replace('{{TESTED_COUNT}}', str(s['tested'])))
+
+    # Schema : ItemList (top 10 par note pour rich snippet) + breadcrumb
+    top_10 = [e for e in sorted_entries if e.get('slug')][:10]
+    itemlist = {
+        '@context': 'https://schema.org',
+        '@type': 'ItemList',
+        'name': f'Catalogue toupies Beyblade — {s["total"]} références',
+        'itemListOrder': 'https://schema.org/ItemListOrderDescending',
+        'numberOfItems': len(top_10),
+        'itemListElement': [
+            {
+                '@type': 'ListItem',
+                'position': i + 1,
+                'item': {
+                    '@type': 'Product',
+                    'name': e['name'],
+                    'category': GAMMES[e['gamme']]['label'],
+                    'aggregateRating': {
+                        '@type': 'AggregateRating',
+                        'ratingValue': e['score'],
+                        'bestRating': 10,
+                        'reviewCount': 1, 'ratingCount': 1,
+                    },
+                    'url': f'{SITE_URL}/{e["slug"]}/',
+                },
+            }
+            for i, e in enumerate(top_10)
+        ],
+    }
+    breadcrumb = breadcrumb_schema([
+        ('Accueil', '/'),
+        ('Toutes les toupies', '/tous-les-beyblade/'),
+    ])
+
+    head = render_head(
+        title=f'Toutes les toupies Beyblade : catalogue complet ({s["total"]} références)',
+        description=f"Catalogue interactif de {s['total']} toupies Beyblade ({s['tested']} testées) — Beyblade X, Burst, Metal Fusion. Filtrable par gamme et par type, triable par note.",
+        canonical_path='/tous-les-beyblade/',
+        og_type='website',
+        extra_css=['/css/page-tous-les-beyblade.css', '/css/page-comparatif.css'],
+        extra_jsonld=[itemlist, breadcrumb],
+    )
+
+    return write_page('tous-les-beyblade', assemble_html(head, body_inner))
 
 
 def build_404():
@@ -1392,6 +1581,10 @@ def main():
 
     print('📊 Building comparatif : Beyblade X...')
     p = build_comparatif_beyblade_x()
+    print(f'   → {p.relative_to(DIST_DIR.parent)}')
+
+    print('📚 Building catalogue : Toutes les toupies...')
+    p = build_catalogue_page()
     print(f'   → {p.relative_to(DIST_DIR.parent)}')
 
     print('🚫 Building 404 page...')

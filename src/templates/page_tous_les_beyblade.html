@@ -1,0 +1,237 @@
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/" class="logo">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="12,2 15,9 22,9 16.5,14 18.5,21 12,17 5.5,21 7.5,14 2,9 9,9" />
+        </svg>
+      </div>
+      <div>
+        <div class="logo-text">Toupie<span class="accent">Beyblade</span></div>
+        <span class="logo-tag">Le guide ultime · 2026</span>
+      </div>
+    </a>
+    <nav class="nav">
+      <a href="/">Accueil</a>
+      <a href="/tous-les-beyblade/" class="active" aria-current="page">Toutes les toupies</a>
+      <a href="/comparatif-beyblade-x/" class="has-submenu">Comparatifs</a>
+      <a href="/guides/">Guides</a>
+      <a href="/blog/">Blog</a>
+      <a href="/contact/">Contact</a>
+    </nav>
+    <button class="search-btn" aria-label="Rechercher">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="7"/><path d="m20 20-4.3-4.3"/>
+      </svg>
+    </button>
+    <button class="menu-toggle" aria-label="Menu">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<nav class="breadcrumb">
+  <a href="/">Accueil</a>
+  <span class="sep">›</span>
+  <span>Toutes les toupies</span>
+</nav>
+
+<section class="catalogue-hero">
+  <div class="catalogue-eyebrow">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 3h18v18H3z"/><path d="M9 3v18M15 3v18M3 9h18M3 15h18"/></svg>
+    Catalogue interactif · {{TOTAL_COUNT}} toupies référencées
+  </div>
+  <h1>Toutes les toupies <span class="accent">Beyblade</span><br>par gamme et par type</h1>
+  <p class="lead">Catalogue complet des toupies des 3 gammes modernes : <strong>Beyblade X</strong> (2023→), <strong>Beyblade Burst</strong> (2016-2023), <strong>Beyblade Metal Fusion</strong> (2010-2013). Filtrable par gamme et par type, triable par note, nom ou année. Les toupies <strong>testées en profondeur</strong> ouvrent leur fiche dédiée ; les autres pointent vers Amazon en attendant notre passage en stadium.</p>
+
+  <div class="catalogue-meta">
+    <div class="catalogue-meta-item"><strong>{{TOTAL_COUNT}}</strong>Toupies au catalogue</div>
+    <div class="catalogue-meta-item"><strong>{{TESTED_COUNT}}</strong>Testées en profondeur</div>
+    <div class="catalogue-meta-item"><strong>3</strong>Gammes couvertes</div>
+    <div class="catalogue-meta-item"><strong>4</strong>Types stratégiques</div>
+  </div>
+</section>
+
+<!-- ============ FILTERS ============ -->
+<section class="catalogue-filters" aria-label="Filtres du catalogue">
+  <div class="catalogue-search">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4.3-4.3"/></svg>
+    <input type="search" id="catalogue-search" placeholder="Rechercher par nom, référence ou personnage…" autocomplete="off">
+  </div>
+
+  <div class="catalogue-pills" role="group" aria-label="Filtre par gamme">
+    <span class="catalogue-pills-label">Gamme :</span>
+    <button class="filter-pill" data-filter="gamme" data-value="all" data-active>Toutes</button>
+    <button class="filter-pill" data-filter="gamme" data-value="beyblade-x">Beyblade X</button>
+    <button class="filter-pill" data-filter="gamme" data-value="beyblade-burst">Burst</button>
+    <button class="filter-pill" data-filter="gamme" data-value="beyblade-metal-fusion">Metal Fusion</button>
+  </div>
+
+  <div class="catalogue-pills" role="group" aria-label="Filtre par type">
+    <span class="catalogue-pills-label">Type :</span>
+    <button class="filter-pill" data-filter="type" data-value="all" data-active>Tous</button>
+    <button class="filter-pill" data-filter="type" data-value="attaque">Attaque</button>
+    <button class="filter-pill" data-filter="type" data-value="defense">Défense</button>
+    <button class="filter-pill" data-filter="type" data-value="stamina">Stamina</button>
+    <button class="filter-pill" data-filter="type" data-value="equilibre">Équilibre</button>
+  </div>
+
+  <div class="catalogue-pills" role="group" aria-label="Filtre par statut">
+    <span class="catalogue-pills-label">Statut :</span>
+    <button class="filter-pill" data-filter="status" data-value="all" data-active>Toutes</button>
+    <button class="filter-pill" data-filter="status" data-value="tested">Testées uniquement</button>
+  </div>
+</section>
+
+<!-- ============ TABLE ============ -->
+<section class="catalogue-table-wrap">
+  <table class="catalogue-table">
+    <thead>
+      <tr>
+        <th data-sort="name" scope="col">Toupie<span class="sort-arrow">↕</span></th>
+        <th data-sort="gamme" scope="col">Gamme<span class="sort-arrow">↕</span></th>
+        <th data-sort="type" scope="col">Type<span class="sort-arrow">↕</span></th>
+        <th data-sort="year" scope="col">Année<span class="sort-arrow">↕</span></th>
+        <th data-sort="score" class="sort-active" scope="col">Note<span class="sort-arrow">↓</span></th>
+        <th scope="col"><span class="visually-hidden">Action</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      {{CATALOGUE_ROWS}}
+    </tbody>
+  </table>
+
+  <p class="catalogue-empty" hidden role="status" aria-live="polite">
+    <strong>Aucune toupie ne correspond à ces filtres.</strong><br>
+    Essayez d'élargir votre recherche ou de réinitialiser les filtres.
+  </p>
+
+  <p class="catalogue-counter" aria-live="polite"><span id="visible-count">{{TOTAL_COUNT}}</span> toupies affichées sur {{TOTAL_COUNT}}</p>
+</section>
+
+<!-- ============ ABOUT / FAQ ============ -->
+<section class="about-intro" aria-labelledby="about-title">
+  <div class="about-inner">
+    <div class="about-eyebrow">/ Comment lire ce catalogue</div>
+    <h2 id="about-title">Notre méthode de référencement</h2>
+    <p class="about-lead">Nous référençons <strong>toutes les toupies emblématiques des 3 gammes modernes</strong> : Beyblade X, Burst et Metal Fusion. Une toupie marquée <strong>"Testée"</strong> a fait l'objet d'au moins 30 lancers en stadium officiel par 2 testeurs indépendants — vous pouvez cliquer sur sa fiche pour le détail des notes et le verdict. Une toupie marquée <strong>"À tester"</strong> est référencée pour le contexte (lignée, anime, sortie), avec un lien Amazon affilié pour vous permettre de l'acheter en attendant notre passage en stadium. Le catalogue grandit chaque semaine — revenez régulièrement.</p>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <a href="/" class="logo">
+        <div class="logo-mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="12,2 15,9 22,9 16.5,14 18.5,21 12,17 5.5,21 7.5,14 2,9 9,9" />
+          </svg>
+        </div>
+        <div>
+          <div class="logo-text">Toupie<span class="accent">Beyblade</span></div>
+          <span class="logo-tag">Le guide ultime · 2026</span>
+        </div>
+      </a>
+      <p style="max-width:340px; margin-top:16px">Le blog français de référence sur les toupies Beyblade. Tests indépendants, comparatifs détaillés, guides d'achat.</p>
+    </div>
+    <div><h4>Gammes</h4><ul><li><a href="/comparatif-beyblade-x/">Beyblade X</a></li><li><a href="/comparatif-beyblade-burst/">Beyblade Burst</a></li><li><a href="/comparatif-beyblade-metal-fusion/">Metal Fusion</a></li></ul></div>
+    <div><h4>Catalogue</h4><ul><li><a href="/tous-les-beyblade/">Toutes les toupies</a></li></ul></div>
+    <div><h4>À propos</h4><ul><li><a href="/methode/">Notre méthode</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 toupiebeyblade.fr</span>
+    <span>En tant que partenaire Amazon, nous gagnons une commission sur les achats éligibles</span>
+  </div>
+</footer>
+
+<!-- ============ FILTER + SORT JS ============ -->
+<script>
+(function() {
+  const tbody = document.querySelector('.catalogue-table tbody');
+  if (!tbody) return;
+  const rows = Array.from(tbody.querySelectorAll('tr'));
+  const search = document.getElementById('catalogue-search');
+  const pills = document.querySelectorAll('.filter-pill');
+  const empty = document.querySelector('.catalogue-empty');
+  const counter = document.getElementById('visible-count');
+  const headers = document.querySelectorAll('.catalogue-table th[data-sort]');
+  const TOTAL = rows.length;
+
+  let activeFilters = { gamme: 'all', type: 'all', status: 'all' };
+  let activeSearch = '';
+  let currentSort = { col: 'score', dir: 'desc' };
+
+  function applyFilters() {
+    let visible = 0;
+    rows.forEach(row => {
+      const matchG = activeFilters.gamme === 'all' || row.dataset.gamme === activeFilters.gamme;
+      const matchT = activeFilters.type === 'all' || row.dataset.type === activeFilters.type;
+      const matchS = activeFilters.status === 'all' || (activeFilters.status === 'tested' && row.dataset.tested === '1');
+      const matchQ = !activeSearch || row.dataset.searchable.includes(activeSearch);
+      const ok = matchG && matchT && matchS && matchQ;
+      row.style.display = ok ? '' : 'none';
+      if (ok) visible++;
+    });
+    if (empty) empty.hidden = visible > 0;
+    if (counter) counter.textContent = visible;
+  }
+
+  pills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      const filter = pill.dataset.filter;
+      const value = pill.dataset.value;
+      document.querySelectorAll('.filter-pill[data-filter="' + filter + '"]').forEach(p => p.removeAttribute('data-active'));
+      pill.setAttribute('data-active', '');
+      activeFilters[filter] = value;
+      applyFilters();
+    });
+  });
+
+  if (search) {
+    search.addEventListener('input', e => {
+      activeSearch = e.target.value.toLowerCase().trim();
+      applyFilters();
+    });
+  }
+
+  function sortRows(col, dir) {
+    const sorted = rows.slice().sort((a, b) => {
+      let va = a.dataset[col];
+      let vb = b.dataset[col];
+      if (col === 'year' || col === 'score') {
+        va = parseFloat(va);
+        vb = parseFloat(vb);
+        if (isNaN(va)) va = -Infinity;
+        if (isNaN(vb)) vb = -Infinity;
+      } else {
+        va = (va || '').toString();
+        vb = (vb || '').toString();
+      }
+      if (va < vb) return dir === 'asc' ? -1 : 1;
+      if (va > vb) return dir === 'asc' ? 1 : -1;
+      return 0;
+    });
+    sorted.forEach(r => tbody.appendChild(r));
+  }
+
+  headers.forEach(h => {
+    h.addEventListener('click', () => {
+      const col = h.dataset.sort;
+      const dir = (currentSort.col === col && currentSort.dir === 'desc') ? 'asc' : 'desc';
+      currentSort = { col, dir };
+      sortRows(col, dir);
+      headers.forEach(hh => {
+        hh.classList.remove('sort-active');
+        const arr = hh.querySelector('.sort-arrow');
+        if (arr) arr.textContent = '↕';
+      });
+      h.classList.add('sort-active');
+      const arr = h.querySelector('.sort-arrow');
+      if (arr) arr.textContent = dir === 'desc' ? '↓' : '↑';
+    });
+  });
+})();
+</script>

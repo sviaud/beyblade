@@ -321,3 +321,21 @@ date_published: 2026-04-23
 template: article_stellar_hyperion_h8.html
 note: "Production manuelle (batch x3 avec comparatif Burst + Vanish Fafnir). SVG placeholder (bleu acier). Attaquante de Lui Shirosagi, sub-série Quad Strike (exclusivité Hasbro EU/US, jamais sortie au Japon). ASIN B0BLNY6Q2K à confirmer."
 ```
+
+```yaml
+slug: tous-les-beyblade
+type: page-catalogue
+date_published: 2026-04-23
+template: page_tous_les_beyblade.html
+source_of_truth: data/catalogue.py
+note: |
+  Catalogue interactif (32 toupies, 17 testées, 3 gammes). Tableau sortable + filterable
+  côté client (vanilla JS). Source unique data/catalogue.py — quand on teste une toupie
+  référencée 'à venir', mettre à jour son entrée (slug, score, image) et rebuild.
+
+  Side-effects positifs de ce batch :
+  - Sous-menu hover sur "Comparatifs" injecté par regex post-process dans build.py
+    (NAV_LINK_PATTERN dans build.py + .nav-submenu CSS dans shared.css)
+  - Liens morts /guides/, /blog/, /contact/ supprimés du nav (option A SEO cleanup)
+    via DEAD_NAV_LINKS_PATTERN dans build.py
+```
