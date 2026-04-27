@@ -140,6 +140,8 @@ def build_homepage():
     from seo_meta import render_head, faq_schema, breadcrumb_schema, SITE_URL
 
     # ItemList schema pour les Top 4 toupies (rich snippet potentiel)
+    # ⚠ Schémas Product nested doivent avoir : name + image + (aggregateRating | review | offers)
+    # pour passer le check Google Product Snippet.
     top_toupies_itemlist = {
         '@context': 'https://schema.org',
         '@type': 'ItemList',
@@ -152,10 +154,11 @@ def build_homepage():
                 'position': 1,
                 'item': {
                     '@type': 'Product',
-                    'name': 'Dranzer Spiral 3-60P',
+                    'name': 'Dran Buster 1-60A',
                     'category': 'Beyblade X',
-                    'aggregateRating': {'@type': 'AggregateRating', 'ratingValue': 9.2, 'bestRating': 10, 'reviewCount': 1, 'ratingCount': 1},
-                    'url': f'{SITE_URL}/dran-sword-3-60f/',
+                    'image': f'{SITE_URL}/img/dran-buster.webp',
+                    'aggregateRating': {'@type': 'AggregateRating', 'ratingValue': 9.0, 'bestRating': 10, 'reviewCount': 1, 'ratingCount': 1},
+                    'url': f'{SITE_URL}/dran-buster-1-60a/',
                 },
             },
             {
@@ -165,6 +168,7 @@ def build_homepage():
                     '@type': 'Product',
                     'name': 'Phoenix Wing 9-60GF',
                     'category': 'Beyblade X',
+                    'image': f'{SITE_URL}/img/phoenix-wing.webp',
                     'aggregateRating': {'@type': 'AggregateRating', 'ratingValue': 8.8, 'bestRating': 10, 'reviewCount': 1, 'ratingCount': 1},
                     'url': f'{SITE_URL}/phoenix-wing-9-60gf/',
                 },
@@ -174,10 +178,11 @@ def build_homepage():
                 'position': 3,
                 'item': {
                     '@type': 'Product',
-                    'name': 'Galaxy Pegasus W105R²F',
-                    'category': 'Beyblade Metal Fusion',
-                    'aggregateRating': {'@type': 'AggregateRating', 'ratingValue': 7.7, 'bestRating': 10, 'reviewCount': 1, 'ratingCount': 1},
-                    'url': f'{SITE_URL}/galaxy-pegasus-w105r2f/',
+                    'name': 'Cobalt Dragoon 2-60C',
+                    'category': 'Beyblade X',
+                    'image': f'{SITE_URL}/img/cobalt-dragoon.webp',
+                    'aggregateRating': {'@type': 'AggregateRating', 'ratingValue': 8.6, 'bestRating': 10, 'reviewCount': 1, 'ratingCount': 1},
+                    'url': f'{SITE_URL}/cobalt-dragoon-2-60c/',
                 },
             },
             {
@@ -185,10 +190,11 @@ def build_homepage():
                 'position': 4,
                 'item': {
                     '@type': 'Product',
-                    'name': 'Rock Leone 145WB',
-                    'category': 'Beyblade Metal Fusion',
-                    'aggregateRating': {'@type': 'AggregateRating', 'ratingValue': 8.1, 'bestRating': 10, 'reviewCount': 1, 'ratingCount': 1},
-                    'url': f'{SITE_URL}/rock-leone-145wb/',
+                    'name': 'Stellar Hyperion H8',
+                    'category': 'Beyblade Burst',
+                    'image': f'{SITE_URL}/img/stellar-hyperion.webp',
+                    'aggregateRating': {'@type': 'AggregateRating', 'ratingValue': 8.5, 'bestRating': 10, 'reviewCount': 1, 'ratingCount': 1},
+                    'url': f'{SITE_URL}/stellar-hyperion-h8/',
                 },
             },
         ],

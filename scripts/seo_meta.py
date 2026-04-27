@@ -206,14 +206,11 @@ def product_schema(product, review_score=None, review_max=10):
     }
     if product.get('image_url'):
         schema['image'] = product['image_url']
-    if product.get('asin'):
-        schema['offers'] = {
-            '@type': 'Offer',
-            'url': f"https://www.amazon.fr/dp/{product['asin']}",
-            'availability': 'https://schema.org/InStock',
-            'priceCurrency': 'EUR',
-            # Pas de price (politique : pas de prix figé)
-        }
+    # Note (2026-04) : on n'émet PAS d'`offers` car notre politique éditoriale
+    # ne fige pas de prix, et un `Offer` sans `price` est invalide pour Google
+    # Product Snippet → cause un warning critique en GSC.
+    # La conformité Google nécessite : name + (offers OR review OR aggregateRating).
+    # On a déjà aggregateRating + review ci-dessous, donc on est conforme sans offers.
     if review_score is not None:
         schema['aggregateRating'] = {
             '@type': 'AggregateRating',
@@ -247,10 +244,9 @@ def article_schema(*, headline, description, url_path, image_url=None,
         'headline': headline,
         'description': description,
         'url': SITE_URL + url_path,
-        'mainEntityOfPage': {
-            '@type': 'WebPage',
-            '@id': SITE_URL + url_path,
-        },
+        # mainEntityOfPage : forme URL string (plus simple, évite le warning Google
+        # "Champ name manquant" sur le WebPage nested qui n'a que @id).
+        'mainEntityOfPage': SITE_URL + url_path,
         'inLanguage': 'fr-FR',
         'publisher': {
             '@id': f'{SITE_URL}/#organization',
